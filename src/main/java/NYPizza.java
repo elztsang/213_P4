@@ -1,21 +1,21 @@
 public class NYPizza implements PizzaFactory {
     @Override
     public Pizza createDeluxe() {
-        return null;
+        return new Deluxe(Crust.BROOKLYN);
     }
 
     @Override
     public Pizza createMeatzza() {
-        return null;
+        return new Meatzza(Crust.HANDTOSSED);
     }
 
     @Override
     public Pizza createBBQChicken() {
-        return null;
+        return new BBQChicken(Crust.THIN);
     }
 
     @Override
     public Pizza createBuildYourOwn() {
-        return null;
+        return new BuildYourOwn(Crust.HANDTOSSED);
     }
 }

@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Order {
@@ -34,8 +37,23 @@ public class Order {
         pizzas.remove(pizza);
     }
 
+    public void removeAllPizzas() {
+        pizzas.clear();
+    }
+
+    //todo: move to controller and use PrintWriter - reference slides
     public void exportOrder() {
-        //export order details into text file
+        try {
+            File output = new File("exported_orders.txt");
+            if (output.createNewFile()) {
+                //write
+            } else {
+                //overwrite file?
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     public double getTotal() {
@@ -48,11 +66,20 @@ public class Order {
         return total;
     }
 
+    public double getSalesTax() {
+        return getTotal() * 0.06625;
+    }
+
     public double getOrderTotal() {
         return getTotal() *  1.06625;
     }
 
     public int getNumberPizzas(){
         return pizzas.size();
+    }
+
+    @Override
+    public String toString() {
+        return ""; //todo: add toString
     }
 }
