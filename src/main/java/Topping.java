@@ -8,7 +8,12 @@ public enum Topping {
     PROVOLONE,
     CHEDDAR,
     BEEF,
-    HAM
+    HAM,
+    // additional toppings
+    PINEAPPLE,
+    OLIVE,
+    ANCHOVY
+
 }
 
 //todo: add remaining toppings
