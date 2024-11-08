@@ -43,7 +43,17 @@ public class ManageOrdersController {
     }
 
     @FXML
-    protected void setSize() {
-
+    protected void exportOrders() {
+        try {
+            File output = new File("exported_orders.txt");
+            if (output.createNewFile()) {
+                //write
+            } else {
+                //overwrite file?
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }

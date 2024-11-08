@@ -44,17 +44,6 @@ public class Order {
 
     //todo: move to controller and use PrintWriter - reference slides
     public void exportOrder() {
-        try {
-            File output = new File("exported_orders.txt");
-            if (output.createNewFile()) {
-                //write
-            } else {
-                //overwrite file?
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
     }
 
     public double getTotal() {
