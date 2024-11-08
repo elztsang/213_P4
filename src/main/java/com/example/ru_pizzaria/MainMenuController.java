@@ -1,19 +1,30 @@
 package com.example.ru_pizzaria;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 
 public class MainMenuController {
     @FXML
-    private Label welcomeText;
+    private Button b_manageOrders;
+    private Button b_makeOrder;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    public void initialize(){
+
     }
 
     @FXML
-    protected void setSize() {
+    protected void onManageOrdersButtonClick() {
 
     }
+
+    @FXML
+    protected void onMakeOrderButtonClick(){
+
+    }
+
+//    @FXML
+//    protected void setSize() {
+//
+//    }
 }

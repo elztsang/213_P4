@@ -1,3 +1,5 @@
+package pizzaria;
+
 public enum Topping {
     SAUSAGE,
     PEPPERONI,
@@ -15,5 +17,3 @@ public enum Topping {
     ANCHOVY
 
 }
-
-//todo: add remaining toppings

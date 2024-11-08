@@ -1,5 +1,6 @@
+package pizzaria;
+
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -8,7 +9,7 @@ public class Order {
     private ArrayList<Pizza> pizzas; //can use List<E> instead of ArrayList<E>
 
     /**
-     * Order default constructor.
+     * pizzaria.Order default constructor.
      */
     public Order () {
 
@@ -78,8 +79,12 @@ public class Order {
         return pizzas.size();
     }
 
+    public ArrayList<Pizza> getPizzas() {
+        return pizzas;
+    }
+
     @Override
     public String toString() {
-        return ""; //todo: add toString
+        return String.format("[#%s] [%s] [%s]", number, getOrderTotal(), pizzas);
     }
 }
