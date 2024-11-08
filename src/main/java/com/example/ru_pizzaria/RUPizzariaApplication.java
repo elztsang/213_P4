@@ -7,11 +7,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class RUPizzariaApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         //TODO: figure out how to load multiple scenes with diff fxmls/controllers
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("mainmenu-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(RUPizzariaApplication.class.getResource("mainmenu-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);
