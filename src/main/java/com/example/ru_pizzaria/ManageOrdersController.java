@@ -6,6 +6,9 @@ import javafx.scene.control.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -46,14 +49,32 @@ public class ManageOrdersController {
     protected void exportOrders() {
         try {
             File output = new File("exported_orders.txt");
-            if (output.createNewFile()) {
-                //write
-            } else {
-                //overwrite file?
+            //taken from example code
+            if (output.exists()) {
+                //System.out.println("file already exists"); // unnecessary
+                System.exit(1);
             }
+            PrintWriter pw = new PrintWriter(output);
+            for (Order order : pizzaOrders) {
+                pw.println(order);
+            }
+            pw.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    protected void cancelOrder(Order order) {
+        if (pizzaOrders.contains(order)) {
+            pizzaOrders.remove(order);
+        } else {
+            //print error message that order doesn't exist
+        }
+    }
+
+    public static void addOrder(Order order) {
+
     }
 }

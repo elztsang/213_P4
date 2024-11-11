@@ -23,6 +23,8 @@ public class Order {
     }
 
     //todo: figure out how we want to generate this
+    //we probably want this to be generated when we create an order object(?) - ron
+    //ie Order order = new Order() - auto creates a unique order num.
     public static int generateOrderNumber() {
         return 0;
     }

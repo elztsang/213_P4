@@ -25,4 +25,8 @@ public class PremadePizzaController {
         rb_ny.setToggleGroup(pizzaStyle);
     }
 
+    @FXML
+    protected void onAddPizzaClick() {
+
+    }
 }

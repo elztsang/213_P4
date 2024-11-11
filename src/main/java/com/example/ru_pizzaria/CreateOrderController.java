@@ -12,7 +12,7 @@ import pizzaria.*;
 import java.util.ArrayList;
 
 public class CreateOrderController {
-    private ArrayList<Pizza> pizzas;
+    private static ArrayList<Pizza> pizzas; //dunno if making this static messes with anything
 
     @FXML
     private Button b_premadePizza;
@@ -57,7 +57,19 @@ public class CreateOrderController {
         stage.show();
     }
 
-    public static void addPizza(Pizza pizza) {
+    @FXML
+    protected void onAddOrderClick() throws IOException {
+        Order newOrder = new Order(); // note to self (ron) - this is what i specifically was talking abt in order class
 
+        //we added the finalized list of pizzas
+        for (Pizza pizza : pizzas) {
+            newOrder.addPizza(pizza);
+        }
+
+        ManageOrdersController.addOrder(newOrder);
+    }
+
+    public static void addPizza(Pizza pizza) {
+        pizzas.add(pizza);
     }
 }

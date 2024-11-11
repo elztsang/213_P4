@@ -24,18 +24,26 @@ public class BYOPizzaController {
 
     @FXML
     protected void onAddPizzaClick() {
-        //get pizza that we created
-        //add pizza
+        //get toppings selection
+
         if (rb_chicago.isSelected()) {
             //create chicago pizza with specified toppings + size
             //need to consider case where some field aren't field and print a message
+            PizzaFactory chicagoStyle = new ChicagoPizza();
+            Pizza pizza = chicagoStyle.createBuildYourOwn();
+            //pizza.setSize(); //get selection
+            //for each topping in toppingsSelected - pizza.addTopping();
+            CreateOrderController.addPizza(pizza);
         }
 
         if (rb_ny.isSelected()) {
             //create ny pizza with specified toppings + size
+            PizzaFactory nyStyle = new NYPizza();
+            Pizza pizza = nyStyle.createBuildYourOwn();
+            //pizza.setSize(); //get selection
+            //for each topping in toppingsSelected - pizza.addTopping();
+            CreateOrderController.addPizza(pizza);
         }
-
-        //CreateOrderController.addPizza(pizza);
     }
 
     //return selection of which pizza style - how to do this?
