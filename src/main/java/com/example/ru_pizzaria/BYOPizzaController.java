@@ -45,9 +45,4 @@ public class BYOPizzaController {
             CreateOrderController.addPizza(pizza);
         }
     }
-
-    //return selection of which pizza style - how to do this?
-    private void getPizzaType() {
-
-    }
 }
