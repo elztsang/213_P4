@@ -17,13 +17,19 @@
         </rowConstraints>
          <children>
             <Button fx:id="b_addpizza" mnemonicParsing="false" onAction="#onAddPizzaClick" text="Add pizza" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <VBox fx:id="rb_largePizza" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
                   <RadioButton fx:id="rb_smallPizza" contentDisplay="CENTER" mnemonicParsing="false" text="Small" />
                   <RadioButton fx:id="rb_mediumPizza" mnemonicParsing="false" text="Medium" />
-                  <RadioButton mnemonicParsing="false" text="Large" />
+                  <RadioButton fx:id="rb_largePizza" mnemonicParsing="false" text="Large" />
                </children>
             </VBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <RadioButton fx:id="rb_chicago" mnemonicParsing="false" text="Chicago" />
+                  <RadioButton fx:id="rb_ny" mnemonicParsing="false" text="New York" />
+               </children>
+            </HBox>
          </children>
       </GridPane>
    </children>
