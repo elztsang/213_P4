@@ -13,7 +13,7 @@ public class RUPizzariaApplication extends Application {
         //TODO: figure out how to load multiple scenes with diff fxmls/controllers
         FXMLLoader fxmlLoader = new FXMLLoader(RUPizzariaApplication.class.getResource("mainmenu-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        stage.setTitle("RU Pizzaria Main Menu");
         stage.setScene(scene);
         stage.show();
     }

@@ -18,11 +18,23 @@ public class PremadePizzaController {
     private RadioButton rb_ny;
     @FXML
     private Button b_addpizza;
+    @FXML
+    private ToggleGroup pizzaSize;
+    @FXML
+    private RadioButton rb_smallPizza;
+    @FXML
+    private RadioButton rb_mediumPizza;
+    @FXML
+    private RadioButton rb_largePizza;
+
 
     @FXML
     public void initialize(){
         rb_chicago.setToggleGroup(pizzaStyle);
         rb_ny.setToggleGroup(pizzaStyle);
+        rb_smallPizza.setToggleGroup(pizzaSize);
+        rb_mediumPizza.setToggleGroup(pizzaSize);
+        rb_largePizza.setToggleGroup(pizzaSize);
     }
 
     @FXML

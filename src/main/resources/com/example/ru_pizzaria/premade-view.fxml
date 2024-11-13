@@ -16,11 +16,11 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" text="Add pizza" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+            <Button fx:id="b_addpizza" mnemonicParsing="false" onAction="#onAddPizzaClick" text="Add pizza" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <VBox fx:id="rb_largePizza" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <RadioButton contentDisplay="CENTER" mnemonicParsing="false" text="Small" />
-                  <RadioButton mnemonicParsing="false" text="Medium" />
+                  <RadioButton fx:id="rb_smallPizza" contentDisplay="CENTER" mnemonicParsing="false" text="Small" />
+                  <RadioButton fx:id="rb_mediumPizza" mnemonicParsing="false" text="Medium" />
                   <RadioButton mnemonicParsing="false" text="Large" />
                </children>
             </VBox>

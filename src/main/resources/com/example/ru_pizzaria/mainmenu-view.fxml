@@ -5,15 +5,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="396.0" prefWidth="628.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal" fx:controller="com.example.ru_pizzaria.MainMenuController">
+<VBox alignment="CENTER" prefHeight="396.0" prefWidth="628.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ru_pizzaria.MainMenuController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
-    <Label fx:id="welcomeText" text="Welcome to RU PIzzaria!">
+    <Label fx:id="welcomeText" text="Welcome to RU Pizzaria!">
       <font>
          <Font size="24.0" />
       </font></Label>
-    <Button onAction="#onHelloButtonClick" text="Manage Orders" />
-   <Button mnemonicParsing="false" text="Make an order" />
+    <Button onAction="#onManageOrdersButtonClick" text="Manage Orders" />
+   <Button mnemonicParsing="false" onAction="#onMakeOrderButtonClick" text="Make an order" />
 </VBox>

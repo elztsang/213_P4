@@ -20,20 +20,11 @@ public class CreateOrderController {
     private Button b_byoPizza;
     @FXML
     private Button b_addOrder;
-    @FXML
-    private ToggleGroup pizzaSize;
-    @FXML
-    private RadioButton rb_smallPizza;
-    @FXML
-    private RadioButton rb_mediumPizza;
-    @FXML
-    private RadioButton rb_largePizza;
+
 
     @FXML
     public void initialize(){
-        rb_smallPizza.setToggleGroup(pizzaSize);
-        rb_mediumPizza.setToggleGroup(pizzaSize);
-        rb_largePizza.setToggleGroup(pizzaSize);
+
     }
 
     //i think this works? - scene navigation

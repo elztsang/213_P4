@@ -15,8 +15,8 @@
             </TableView>
             <HBox prefHeight="63.0" prefWidth="511.0">
                <children>
-                  <Button mnemonicParsing="false" text="Create premade" />
-                  <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Build your own pizza" />
+                  <Button fx:id="b_premadePizza" mnemonicParsing="false" onAction="#onPremadePizzaClick" text="Create premade" />
+                  <Button fx:id="b_byoPizza" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onBYOPizzaClick" text="Build your own pizza" />
                </children>
             </HBox>
          </children>
