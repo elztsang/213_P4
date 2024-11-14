@@ -42,19 +42,11 @@ public class PremadePizzaController {
     @FXML
     public void initialize(){
         //style
-        pizzaStyle = new ToggleGroup();
-        rb_chicago.setToggleGroup(pizzaStyle);
-        rb_ny.setToggleGroup(pizzaStyle);
+        initPizzaStyleTG();
         //size
-        pizzaSize = new ToggleGroup();
-        rb_smallPizza.setToggleGroup(pizzaSize);
-        rb_mediumPizza.setToggleGroup(pizzaSize);
-        rb_largePizza.setToggleGroup(pizzaSize);
+        initPizzaSizeTG();
         //pizzatype
-        pizzaType = new ToggleGroup();
-        rb_bbqchicken.setToggleGroup(pizzaType);
-        rb_deluxe.setToggleGroup(pizzaType);
-        rb_meatzza.setToggleGroup(pizzaType);
+        initPizzaTypeTG();
     }
 
     private void initPizzaStyleTG() {
@@ -95,7 +87,6 @@ public class PremadePizzaController {
 
             if (pizza != null) {
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
-                System.out.println(size.toUpperCase());
                 pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
                 CreateOrderController.addPizza(pizza);
             } else {
@@ -118,9 +109,14 @@ public class PremadePizzaController {
                 pizza = null;
             }
 
-            String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
-            pizza.setSize(Size.valueOf(size.toUpperCase()));
-            CreateOrderController.addPizza(pizza);
+            if (pizza != null) {
+                String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
+                pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
+                CreateOrderController.addPizza(pizza);
+            } else {
+                System.out.println("Please select pizza type");
+                //print error message to somewhere visible for customer/employee
+            }
         }
     }
 }
