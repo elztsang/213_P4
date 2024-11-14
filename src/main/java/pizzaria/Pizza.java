@@ -12,6 +12,10 @@ public abstract class Pizza {
         this.size = size;
     }
 
+    public Size getSize() {
+        return this.size;
+    }
+
     public void setToppings(ArrayList<Topping> toppingsList) {
         toppings.addAll(toppingsList);
     }

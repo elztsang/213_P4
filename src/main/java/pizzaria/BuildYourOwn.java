@@ -3,6 +3,11 @@ package pizzaria;
 import java.util.ArrayList;
 
 public class BuildYourOwn extends Pizza{
+    private final static double SMALL = 8.99;
+    private final static double MEDIUM = 10.99;
+    private final static double LARGE = 12.99;
+    private final static double TOPPINGPRICE = 1.69;
+
     private Crust crust;
     private ArrayList<Topping> toppings;
 
@@ -17,10 +22,20 @@ public class BuildYourOwn extends Pizza{
 
     @Override
     public double price() {
-        return 0;
-    }
+        double toppingPrice = 0.;
 
-    public void addTopping(Topping topping){  //TODO: figure out format of multi-select group (is it an array?)
-        toppings.add(topping);
+        for (int i = 0; i < toppings.size(); i++) {
+            toppingPrice += TOPPINGPRICE;
+        }
+
+        if (this.getSize().equals(Size.SMALL))  {
+            return SMALL + toppingPrice;
+        } else if (this.getSize().equals(Size.MEDIUM)) {
+            return MEDIUM + toppingPrice;
+        } else if (this.getSize().equals(Size.LARGE)) {
+            return LARGE + toppingPrice;
+        } else {
+            return -1; // no price
+        }
     }
 }
