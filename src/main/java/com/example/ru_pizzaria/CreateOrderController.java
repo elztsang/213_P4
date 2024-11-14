@@ -24,7 +24,9 @@ public class CreateOrderController {
 
     @FXML
     public void initialize(){
-
+        if (pizzas == null) {
+            pizzas = new ArrayList<>();
+        }
     }
 
     //i think this works? - scene navigation
@@ -62,5 +64,7 @@ public class CreateOrderController {
 
     public static void addPizza(Pizza pizza) {
         pizzas.add(pizza);
+        System.out.println("List of pizzas currently");
+        System.out.println(pizzas);
     }
 }

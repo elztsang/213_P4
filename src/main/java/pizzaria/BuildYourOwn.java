@@ -20,7 +20,7 @@ public class BuildYourOwn extends Pizza{
         return 0;
     }
 
-    public void addToppings(){  //TODO: figure out format of multi-select group (is it an array?)
-
+    public void addTopping(Topping topping){  //TODO: figure out format of multi-select group (is it an array?)
+        toppings.add(topping);
     }
 }

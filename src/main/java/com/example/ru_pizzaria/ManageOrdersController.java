@@ -34,8 +34,13 @@ public class ManageOrdersController {
 
     @FXML
     public void initialize(){
-        tv_allOrders.setFixedCellSize(0); // 0 for dynamically sized rows\
+        initTableView();
         createOrderTableView();
+    }
+
+    private void initTableView() {
+        tv_allOrders = new TableView<>(); //temp
+        tv_allOrders.setFixedCellSize(0); // 0 for dynamically sized rows\
     }
 
     @FXML

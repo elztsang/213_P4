@@ -12,7 +12,7 @@ public abstract class Pizza {
         this.size = size;
     }
 
-    public void addTopping(Topping topping) {
-        toppings.add(topping);
+    public void setToppings(ArrayList<Topping> toppingsList) {
+        toppings.addAll(toppingsList);
     }
 }
