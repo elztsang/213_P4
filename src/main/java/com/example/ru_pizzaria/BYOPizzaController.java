@@ -1,5 +1,6 @@
 package com.example.ru_pizzaria;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -27,14 +28,25 @@ public class BYOPizzaController {
     @FXML
     private Button b_addpizza;
     @FXML
-    private ListView<Topping> lv_toppingslist;
+    private ListView<Topping> lv_byoToppings;
 
     @FXML
     public void initialize() {
         initPizzaStyleTG();
         initPizzaSizeTG();
-        lv_toppingslist = new ListView<>();
-        lv_toppingslist.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); //javadoc says to do this if we want multiple selections - ron
+        initToppingsLV();
+    }
+
+    private void initToppingsLV() {
+        if (lv_byoToppings == null) {
+            lv_byoToppings = new ListView<>();
+        }
+
+        ObservableList<Topping> toppingOptions = FXCollections.observableArrayList(Topping.values());
+
+        lv_byoToppings.setItems(toppingOptions);
+        //weird caveat with this - i need to press cmd in order to select multiple items.
+        lv_byoToppings.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); //javadoc says to do this if we want multiple selections - ron
     }
 
     private void initPizzaStyleTG() {
@@ -51,9 +63,10 @@ public class BYOPizzaController {
     }
 
     private ArrayList<Topping> getSelectedToppings() {
-        ObservableList<Topping> selectedToppings = lv_toppingslist.getSelectionModel().getSelectedItems();
+        ObservableList<Topping> selectedToppings = lv_byoToppings.getSelectionModel().getSelectedItems();
         ArrayList<Topping> toppings = new ArrayList<>(selectedToppings);
-        return toppings;
+        if (toppings.size() <= 7) return toppings;
+        return null;
     }
 
     /*
@@ -64,13 +77,26 @@ public class BYOPizzaController {
      */
     @FXML
     protected void onAddPizzaClick() {
-        ArrayList<Topping> selectedToppings = getSelectedToppings();
+        ArrayList<Topping> selectedToppings;
+        selectedToppings = getSelectedToppings();
 
+        if (selectedToppings == null) {
+            //print error message like "too many toppings selected"
+            System.out.println("Please select 7 toppings at most."); // move to area visible to user
+            return;
+        }
         if (rb_chicago.isSelected()) {
             //create chicago pizza with specified toppings + size
             PizzaFactory chicagoStyle = new ChicagoPizza();
             Pizza pizza = chicagoStyle.createBuildYourOwn();
             if (pizza != null) {
+                if (pizzaSize.getSelectedToggle() == null) {
+                    //print error message like "please select a size"
+                    System.out.println("Please select size"); //move this to a visible area for user
+                    return;
+                }
+
+                pizza.setToppings(selectedToppings);
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
                 pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
                 CreateOrderController.addPizza(pizza);
@@ -84,6 +110,13 @@ public class BYOPizzaController {
             PizzaFactory nyStyle = new NYPizza();
             Pizza pizza = nyStyle.createBuildYourOwn();
             if (pizza != null) {
+                if (pizzaSize.getSelectedToggle() == null) {
+                    //print error message like "please select a size"
+                    System.out.println("Please select size"); //move this to a visible area for user
+                    return;
+                }
+
+                pizza.setToppings(selectedToppings);
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
                 pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
                 CreateOrderController.addPizza(pizza);

@@ -36,4 +36,12 @@ public class BBQChicken extends Pizza{
             return -1; // no price
         }
     }
+
+    @Override
+    public String toString(){
+        return String.format("[BBQ Chicken, %s, %s, %s]",
+                this.getSize(),
+                toppings,
+                crust);
+    }
 }

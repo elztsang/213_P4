@@ -22,9 +22,6 @@
                         <RadioButton fx:id="rb_smallPizza" contentDisplay="CENTER" mnemonicParsing="false" text="Small" />
                         <RadioButton fx:id="rb_mediumPizza" mnemonicParsing="false" text="Medium" />
                         <RadioButton fx:id="rb_largePizza" mnemonicParsing="false" text="Large" />
-                        <RadioButton fx:id="rb_bbqchicken" mnemonicParsing="false" text="bbqChicken" />
-                        <RadioButton fx:id="rb_deluxe" mnemonicParsing="false" text="deluxe" />
-                        <RadioButton fx:id="rb_meatzza" mnemonicParsing="false" text="meatzza" />
                     </children>
                 </VBox>
                 <HBox prefHeight="100.0" prefWidth="200.0">

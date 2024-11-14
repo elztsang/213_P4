@@ -1,6 +1,7 @@
 package pizzaria;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BuildYourOwn extends Pizza{
     private final static double SMALL = 8.99;
@@ -37,5 +38,20 @@ public class BuildYourOwn extends Pizza{
         } else {
             return -1; // no price
         }
+    }
+
+    public void setToppings(ArrayList<Topping> toppingsList) {
+        if (toppings == null) {
+            toppings = new ArrayList<>(); //allowed? causes error otherwise
+        }
+        toppings.addAll(toppingsList);
+    }
+
+    @Override
+    public String toString(){
+        return String.format("[BYOP, %s, %s, %s]",
+                this.getSize(),
+                toppings,
+                crust);
     }
 }

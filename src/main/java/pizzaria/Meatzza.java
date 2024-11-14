@@ -37,4 +37,12 @@ public class Meatzza extends Pizza{
             return -1; // no price
         }
     }
+
+    @Override
+    public String toString(){
+        return String.format("[Meatzza, %s, %s, %s]",
+                this.getSize(),
+                toppings,
+                crust);
+    }
 }

@@ -16,7 +16,25 @@ public abstract class Pizza {
         return this.size;
     }
 
+    //not sure how to populate tableview
+//    public Crust getCrust() {
+//        return this.crust;
+//    }
+//
+//    public double getPrice() {
+//        return price();
+//    }
+//
+//    public String getStyle() {
+//        return "er";
+//    }
+//
+
+    //idk why i have to add this method to byop as well
     public void setToppings(ArrayList<Topping> toppingsList) {
+        if (toppings == null) {
+            toppings = new ArrayList<>(); //allowed? causes error otherwise
+        }
         toppings.addAll(toppingsList);
     }
 }

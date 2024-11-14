@@ -3,12 +3,15 @@ package com.example.ru_pizzaria;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
 import java.io.IOException;
 
 import pizzaria.*;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CreateOrderController {
@@ -20,15 +23,37 @@ public class CreateOrderController {
     private Button b_byoPizza;
     @FXML
     private Button b_addOrder;
-
+    @FXML
+    private static TableView tv_currentOrder;
+    @FXML
+    private TableColumn<String, Pizza> styleCol;
+    @FXML
+    private TableColumn<Crust, Pizza> crustCol;
+    @FXML
+    private TableColumn<ArrayList<Topping>, Pizza> toppingsCol;
+    @FXML
+    private TableColumn<Double, Pizza> subtotalCol;
 
     @FXML
     public void initialize(){
         if (pizzas == null) {
             pizzas = new ArrayList<>();
         }
+
+        createCurrentOrderTV();
     }
 
+    @FXML
+    protected void createCurrentOrderTV() {
+        if (tv_currentOrder == null) {
+            tv_currentOrder = new TableView<>();
+        }
+
+        styleCol.setCellValueFactory(new PropertyValueFactory<>("style"));
+        crustCol.setCellValueFactory(new PropertyValueFactory<>("crust"));
+        toppingsCol.setCellValueFactory(new PropertyValueFactory<>("toppings"));
+        subtotalCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+    }
     //i think this works? - scene navigation
     @FXML
     protected void onBYOPizzaClick() throws IOException {
@@ -60,10 +85,14 @@ public class CreateOrderController {
         }
 
         ManageOrdersController.addOrder(newOrder);
+        //we prob want to clear the currentOrder tableview upon clicking this.
     }
 
     public static void addPizza(Pizza pizza) {
         pizzas.add(pizza);
+        tv_currentOrder.refresh(); //todo: figure out why tableview isn't being populated
+
+        //debugging
         System.out.println("List of pizzas currently");
         System.out.println(pizzas);
     }

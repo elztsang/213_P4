@@ -37,4 +37,12 @@ public class Deluxe extends Pizza{
             return -1; // no price
         }
     }
+
+    @Override
+    public String toString(){
+        return String.format("[Deluxe, %s, %s, %s]",
+                this.getSize().toString(),
+                toppings.toString(),
+                crust.toString());
+    }
 }

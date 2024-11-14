@@ -7,10 +7,12 @@
    <children>
       <VBox layoutX="44.0" layoutY="28.0" prefHeight="344.0" prefWidth="511.0">
          <children>
-            <TableView prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="tv_currentOrder" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Type" />
-                <TableColumn prefWidth="75.0" text="Style" />
+                <TableColumn fx:id="styleCol" prefWidth="75.0" text="Style" />
+                  <TableColumn fx:id="crustCol" prefWidth="75.0" text="Crust" />
+                  <TableColumn fx:id="toppingsCol" prefWidth="75.0" text="Toppings" />
+                  <TableColumn fx:id="subtotalCol" prefWidth="75.0" text="Subtotal" />
               </columns>
             </TableView>
             <HBox prefHeight="63.0" prefWidth="511.0">

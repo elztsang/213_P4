@@ -86,6 +86,11 @@ public class PremadePizzaController {
             }
 
             if (pizza != null) {
+                if (pizzaSize.getSelectedToggle() == null) {
+                    //print error message like "please select a size"
+                    System.out.println("Please select size"); //move this to a visible area for user
+                    return;
+                }
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
                 pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
                 CreateOrderController.addPizza(pizza);
@@ -110,6 +115,11 @@ public class PremadePizzaController {
             }
 
             if (pizza != null) {
+                if (pizzaSize.getSelectedToggle() == null) {
+                    //print error message like "please select a size"
+                    System.out.println("Please select size"); //move this to a visible area for user
+                    return;
+                }
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
                 pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
                 CreateOrderController.addPizza(pizza);
