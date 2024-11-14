@@ -17,8 +17,9 @@ import pizzaria.*;
  * Lets you view all the orders and cancel an order.
  */
 public class ManageOrdersController {
-    private ArrayList<Order> pizzaOrders;
+    private static ArrayList<Order> pizzaOrders;
     private ObservableList<Order> pizzaOrderOptions;
+    private static int orderCounter = 0;
 
 
     @FXML
@@ -46,8 +47,8 @@ public class ManageOrdersController {
     @FXML
     protected void createOrderTableView() {
         orderNumberCol.setCellValueFactory(new PropertyValueFactory<>("OrderNumber"));
-        orderTotalCol.setCellValueFactory(new PropertyValueFactory<>("OrderTotal"));
         pizzaCol.setCellValueFactory(new PropertyValueFactory<>("Pizzas"));
+        orderTotalCol.setCellValueFactory(new PropertyValueFactory<>("OrderTotal"));
     }
 
     @FXML
@@ -71,15 +72,19 @@ public class ManageOrdersController {
     }
 
     @FXML
-    protected void cancelOrder(Order order) {
-        if (pizzaOrders.contains(order)) {
-            pizzaOrders.remove(order);
+    protected void onRemoveOrderClick() {
+        Order selectedOrder = (Order) tv_allOrders.getSelectionModel().getSelectedItem(); //pls work
+        if (pizzaOrders.contains(selectedOrder)) {
+            pizzaOrders.remove(selectedOrder);
         } else {
             //print error message that order doesn't exist
+            System.out.println("No valid order selected"); //- move this somewhere visible
         }
     }
 
     public static void addOrder(Order order) {
-
+        pizzaOrders.add(order);
+        orderCounter++;
+        order.setOrderNumber(orderCounter); //should be good enough? - shouldn't repeat even if orders r removed
     }
 }

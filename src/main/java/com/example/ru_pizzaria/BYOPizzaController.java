@@ -1,5 +1,7 @@
 package com.example.ru_pizzaria;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -35,8 +37,19 @@ public class BYOPizzaController {
         initPizzaStyleTG();
         initPizzaSizeTG();
         initToppingsLV();
+        initSubtotalListener();
     }
 
+    private void initSubtotalListener() {
+        lv_byoToppings.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            //todo: figure out how to do this with sizes - we can just do a unrefined solution
+            //also this doesn't update sometimes for soem reason
+            //to replicate - try selecting 3 items, then unselect 1 item -> only updates when clicking(without alt click)
+            ObservableList<Topping> toppingsList = lv_byoToppings.getSelectionModel().getSelectedItems();
+            double subtotal = toppingsList.size() * 1.69;
+            System.out.println("Topping Subtotal: " + subtotal);
+        });
+    }
     private void initToppingsLV() {
         if (lv_byoToppings == null) {
             lv_byoToppings = new ListView<>();

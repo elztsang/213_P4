@@ -43,6 +43,7 @@ public class CreateOrderController {
         createCurrentOrderTV();
     }
 
+    //idk how to get tableview to be populated properly
     @FXML
     protected void createCurrentOrderTV() {
         if (tv_currentOrder == null) {
@@ -54,7 +55,7 @@ public class CreateOrderController {
         toppingsCol.setCellValueFactory(new PropertyValueFactory<>("toppings"));
         subtotalCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
-    //i think this works? - scene navigation
+
     @FXML
     protected void onBYOPizzaClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("byo-view.fxml"));
@@ -85,7 +86,14 @@ public class CreateOrderController {
         }
 
         ManageOrdersController.addOrder(newOrder);
-        //we prob want to clear the currentOrder tableview upon clicking this.
+        //we prob want to clear the currentOrder tableview upon adding order.
+        tv_currentOrder.refresh();
+    }
+
+    @FXML
+    protected void onRemovePizzaClick() {
+        Pizza selectedPizza  = (Pizza) tv_currentOrder.getSelectionModel().getSelectedItem(); //i hope this works
+        pizzas.remove(selectedPizza);
     }
 
     public static void addPizza(Pizza pizza) {

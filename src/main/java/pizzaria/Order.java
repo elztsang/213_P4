@@ -22,11 +22,8 @@ public class Order {
         return number;
     }
 
-    //todo: figure out how we want to generate this
-    //we probably want this to be generated when we create an order object(?) - ron
-    //ie Order order = new Order() - auto creates a unique order num.
-    public static int generateOrderNumber() {
-        return 0;
+    public int setOrderNumber(int number) {
+        return this.number = number;
     }
 
     //maybe unnecessary? not sure
@@ -42,10 +39,6 @@ public class Order {
 
     public void removeAllPizzas() {
         pizzas.clear();
-    }
-
-    //todo: move to controller and use PrintWriter - reference slides
-    public void exportOrder() {
     }
 
     public double getTotal() {
