@@ -11,8 +11,8 @@
               <columns>
                 <TableColumn fx:id="styleCol" prefWidth="75.0" text="Style" />
                   <TableColumn fx:id="crustCol" prefWidth="75.0" text="Crust" />
-                  <TableColumn fx:id="toppingsCol" prefWidth="75.0" text="Toppings" />
-                  <TableColumn fx:id="subtotalCol" prefWidth="75.0" text="Subtotal" />
+                  <TableColumn fx:id="toppingsCol" prefWidth="257.2000274658203" text="Toppings" />
+                  <TableColumn fx:id="subtotalCol" prefWidth="102.79998779296875" text="Subtotal" />
               </columns>
             </TableView>
             <HBox prefHeight="63.0" prefWidth="511.0">

@@ -4,15 +4,19 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Parent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 
 import pizzaria.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class BYOPizzaController {
 
+    private Order pizzaOrder;
     @FXML
     private ToggleGroup pizzaStyle;
     @FXML
@@ -38,6 +42,10 @@ public class BYOPizzaController {
         initPizzaSizeTG();
         initToppingsLV();
         initSubtotalListener();
+    }
+
+    public void setOrder(Order order) {
+        this.pizzaOrder = order;
     }
 
     private void initSubtotalListener() {
@@ -89,7 +97,7 @@ public class BYOPizzaController {
     - display 13 toppings
      */
     @FXML
-    protected void onAddPizzaClick() {
+    protected void onAddPizzaClick() throws IOException {
         ArrayList<Topping> selectedToppings;
         selectedToppings = getSelectedToppings();
 
@@ -112,7 +120,12 @@ public class BYOPizzaController {
                 pizza.setToppings(selectedToppings);
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
                 pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
-                CreateOrderController.addPizza(pizza);
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("createorder-view.fxml"));
+                Parent root = loader.load();
+                CreateOrderController createOrderController = loader.getController();
+
+                pizzaOrder.addPizza(pizza);
             } else {
                 System.out.println("Pizza null"); //change error message
             }
@@ -132,7 +145,12 @@ public class BYOPizzaController {
                 pizza.setToppings(selectedToppings);
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
                 pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
-                CreateOrderController.addPizza(pizza);
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("createorder-view.fxml"));
+                Parent root = loader.load();
+                CreateOrderController createOrderController = loader.getController();
+
+                pizzaOrder.addPizza(pizza);
             } else {
                 System.out.println("Pizza null"); //change error message
             }

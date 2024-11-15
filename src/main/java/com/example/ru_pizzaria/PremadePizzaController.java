@@ -1,13 +1,19 @@
 package com.example.ru_pizzaria;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.Parent;
 import pizzaria.*;
+
+import java.io.IOException;
 
 /**
  * Lets you view all the orders and cancel an order.
  */
 public class PremadePizzaController {
+    private Order pizzaOrder;
+
     @FXML
     private Button b_back;
 
@@ -47,6 +53,9 @@ public class PremadePizzaController {
         initPizzaSizeTG();
         //pizzatype
         initPizzaTypeTG();
+
+        if(pizzaOrder == null)
+            pizzaOrder = new Order();
     }
 
     private void initPizzaStyleTG() {
@@ -70,7 +79,7 @@ public class PremadePizzaController {
     }
 
     @FXML
-    protected void onAddPizzaClick() {
+    protected void onAddPizzaClick() throws IOException {
         if (rb_chicago.isSelected()) {
             //create chicago pizza with specified toppings + size
             PizzaFactory chicagoStyle = new ChicagoPizza();
@@ -93,7 +102,12 @@ public class PremadePizzaController {
                 }
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
                 pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
-                CreateOrderController.addPizza(pizza);
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("createorder-view.fxml"));
+                Parent root = loader.load();
+                CreateOrderController createOrderController = loader.getController();
+
+                pizzaOrder.addPizza(pizza);
             } else {
                 System.out.println("Please select pizza type");
                 //print error message to somewhere visible for customer/employee
@@ -122,7 +136,12 @@ public class PremadePizzaController {
                 }
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
                 pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
-                CreateOrderController.addPizza(pizza);
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("createorder-view.fxml"));
+                Parent root = loader.load();
+                CreateOrderController createOrderController = loader.getController();
+
+                pizzaOrder.addPizza(pizza);
             } else {
                 System.out.println("Please select pizza type");
                 //print error message to somewhere visible for customer/employee

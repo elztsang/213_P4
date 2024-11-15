@@ -12,13 +12,13 @@ public class Order {
      * pizzaria.Order default constructor.
      */
     public Order () {
-
+        pizzas = new ArrayList<>();
     }
 
     /**
      * Return order number.
      */
-    public int getOrderNumber() {
+    public Integer getOrderNumber() {
         return number;
     }
 

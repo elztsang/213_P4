@@ -1,7 +1,10 @@
 package com.example.ru_pizzaria;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -15,7 +18,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CreateOrderController {
-    private static ArrayList<Pizza> pizzas; //dunno if making this static messes with anything
+    private ArrayList<Pizza> pizzas; //dunno if making this static messes with anything
+    public Order pizzaOrder;
+    private ObservableList<Pizza> pizzaObservableList;
 
     @FXML
     private Button b_premadePizza;
@@ -24,31 +29,33 @@ public class CreateOrderController {
     @FXML
     private Button b_addOrder;
     @FXML
-    private static TableView tv_currentOrder;
+    private TableView tv_currentOrder;
     @FXML
-    private TableColumn<String, Pizza> styleCol;
+    private TableColumn<Pizza, String> styleCol;
     @FXML
-    private TableColumn<Crust, Pizza> crustCol;
+    private TableColumn<Pizza, Crust> crustCol;
     @FXML
-    private TableColumn<ArrayList<Topping>, Pizza> toppingsCol;
+    private TableColumn<Pizza, ArrayList<Topping>> toppingsCol;
     @FXML
-    private TableColumn<Double, Pizza> subtotalCol;
+    private TableColumn<Pizza, Double> subtotalCol;
 
     @FXML
     public void initialize(){
-        if (pizzas == null) {
-            pizzas = new ArrayList<>();
-        }
+
+        pizzas = new ArrayList<>();
 
         createCurrentOrderTV();
+//        pizzaObservableList = FXCollections.observableArrayList();
+//        if(tv_currentOrder != null)
+//            tv_currentOrder.setItems(pizzaObservableList);
     }
 
     //idk how to get tableview to be populated properly
     @FXML
     protected void createCurrentOrderTV() {
-        if (tv_currentOrder == null) {
-            tv_currentOrder = new TableView<>();
-        }
+//        if (tv_currentOrder == null) {
+//            tv_currentOrder = new TableView<>();
+//        }
 
         styleCol.setCellValueFactory(new PropertyValueFactory<>("style"));
         crustCol.setCellValueFactory(new PropertyValueFactory<>("crust"));
@@ -60,6 +67,9 @@ public class CreateOrderController {
     protected void onBYOPizzaClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("byo-view.fxml"));
 
+        Parent root = fxmlLoader.load();
+        BYOPizzaController byoPizzaController = fxmlLoader.getController();
+        byoPizzaController.setOrder(pizzaOrder);
         Stage stage = new Stage();
         stage.setScene(new Scene(fxmlLoader.load()));
         stage.setTitle("BYOPizza");
@@ -79,10 +89,11 @@ public class CreateOrderController {
     @FXML
     protected void onAddOrderClick() throws IOException {
         Order newOrder = new Order(); // note to self (ron) - this is what i specifically was talking abt in order class
-
+        ArrayList<Pizza> pizzas = new ArrayList<>(pizzaOrder.getPizzas());
         //we added the finalized list of pizzas
         for (Pizza pizza : pizzas) {
             newOrder.addPizza(pizza);
+//            pizzaObservableList.add(pizza);
         }
 
         ManageOrdersController.addOrder(newOrder);
@@ -94,14 +105,26 @@ public class CreateOrderController {
     protected void onRemovePizzaClick() {
         Pizza selectedPizza  = (Pizza) tv_currentOrder.getSelectionModel().getSelectedItem(); //i hope this works
         pizzas.remove(selectedPizza);
+        pizzaObservableList.remove(selectedPizza);
     }
 
-    public static void addPizza(Pizza pizza) {
+    public void addPizza(Pizza pizza) {
+        if(pizzaObservableList == null)
+            pizzaObservableList = FXCollections.observableArrayList();
+//        if(tv_currentOrder == null)
+//            tv_currentOrder = new TableView();
         pizzas.add(pizza);
+        pizzaObservableList.add(pizza);
+
+        tv_currentOrder.setItems(pizzaObservableList);
         tv_currentOrder.refresh(); //todo: figure out why tableview isn't being populated
 
         //debugging
         System.out.println("List of pizzas currently");
         System.out.println(pizzas);
+    }
+
+    public void setPizzaOrder(Order order){
+        this.pizzaOrder = order;
     }
 }
