@@ -65,6 +65,7 @@ public class BYOPizzaController {
             System.out.println("Topping Subtotal: " + subtotal);
         });
     }
+
     private void initToppingsLV() {
         if (lv_byoToppings == null) {
             lv_byoToppings = new ListView<>();
@@ -107,6 +108,7 @@ public class BYOPizzaController {
     protected void onAddPizzaClick() throws IOException {
         ArrayList<Topping> selectedToppings;
         selectedToppings = getSelectedToppings();
+        Pizza pizza = null;
 
         if (selectedToppings == null) {
             //print error message like "too many toppings selected"
@@ -116,45 +118,31 @@ public class BYOPizzaController {
         if (rb_chicago.isSelected()) {
             //create chicago pizza with specified toppings + size
             PizzaFactory chicagoStyle = new ChicagoPizza();
-            Pizza pizza = chicagoStyle.createBuildYourOwn();
-            if (pizza != null) {
-                if (pizzaSize.getSelectedToggle() == null) {
-                    //print error message like "please select a size"
-                    System.out.println("Please select size"); //move this to a visible area for user
-                    return;
-                }
-
-                pizza.setToppings(selectedToppings);
-                String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
-                pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
-
-                orderController.addPizza(pizza);
-            } else {
-                System.out.println("Pizza null"); //change error message
-            }
+            pizza = chicagoStyle.createBuildYourOwn();
         }
 
         if (rb_ny.isSelected()) {
             //create ny pizza with specified toppings + size
             PizzaFactory nyStyle = new NYPizza();
-            Pizza pizza = nyStyle.createBuildYourOwn();
-            if (pizza != null) {
-                if (pizzaSize.getSelectedToggle() == null) {
-                    //print error message like "please select a size"
-                    System.out.println("Please select size"); //move this to a visible area for user
-                    return;
-                }
+            pizza = nyStyle.createBuildYourOwn();
+        }
 
-                pizza.setToppings(selectedToppings);
-                String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
-                pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
-
-                orderController.addPizza(pizza);
-            } else {
-                System.out.println("Pizza null"); //change error message
+        if (pizza != null) {
+            if (pizzaSize.getSelectedToggle() == null) {
+                //print error message like "please select a size"
+                System.out.println("Please select size"); //move this to a visible area for user
+                return;
             }
+            pizza.setToppings(selectedToppings);
+            String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
+            pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
+
+            orderController.addPizza(pizza);
+        } else {
+            System.out.println("Pizza null"); //change error message
         }
     }
+
     @FXML
     /**
      * Navigate back to the main view.

@@ -23,7 +23,8 @@ public class PremadePizzaController {
 
     @FXML
     private Button b_back;
-
+    @FXML
+    private TextField tf_pizzaPriceOut;
     @FXML
     private ToggleGroup pizzaStyle;
     @FXML
@@ -50,6 +51,8 @@ public class PremadePizzaController {
     private RadioButton rb_deluxe;
     @FXML
     private RadioButton rb_meatzza;
+    @FXML
+    private ComboBox cb_pizzaType;
 
 
     @FXML
@@ -59,7 +62,9 @@ public class PremadePizzaController {
         //size
         initPizzaSizeTG();
         //pizzatype
-        initPizzaTypeTG();
+//        initPizzaTypeTG();
+
+        cb_pizzaType.getItems().addAll("Deluxe", "BBQ Chicken", "Meatzza");
 
         if(pizzaOrder == null)
             pizzaOrder = new Order();
@@ -82,80 +87,63 @@ public class PremadePizzaController {
         rb_largePizza.setToggleGroup(pizzaSize);
     }
 
-    private void initPizzaTypeTG() {
-        pizzaType = new ToggleGroup();
-        rb_bbqchicken.setToggleGroup(pizzaType);
-        rb_deluxe.setToggleGroup(pizzaType);
-        rb_meatzza.setToggleGroup(pizzaType);
+//    private void initPizzaTypeTG() {
+//        pizzaType = new ToggleGroup();
+//        rb_bbqchicken.setToggleGroup(pizzaType);
+//        rb_deluxe.setToggleGroup(pizzaType);
+//        rb_meatzza.setToggleGroup(pizzaType);
+//    }
+
+    @FXML
+    protected Pizza premadeChicagoTypeSelected(){
+        PizzaFactory chicagoStyle = new ChicagoPizza();
+        if (cb_pizzaType.getValue().equals("BBQ Chicken")) {
+            return chicagoStyle.createBBQChicken();
+        } else if (cb_pizzaType.getValue().equals("Deluxe")) {
+            return chicagoStyle.createDeluxe();
+        } else if (cb_pizzaType.getValue().equals("Meatzza")) {
+            return chicagoStyle.createMeatzza();
+        }
+        return null;
+    }
+
+    @FXML
+    protected Pizza premadeNYTypeSelected(){
+        PizzaFactory nyStyle = new NYPizza();
+        if (cb_pizzaType.getValue().equals("BBQ Chicken")) {
+            return nyStyle.createBBQChicken();
+        } else if (cb_pizzaType.getValue().equals("Deluxe")) {
+            return nyStyle.createDeluxe();
+        } else if (cb_pizzaType.getValue().equals("Meatzza")) {
+            return nyStyle.createMeatzza();
+        }
+        return null;
     }
 
     @FXML
     protected void onAddPizzaClick() throws IOException {
-        if (rb_chicago.isSelected()) {
-            //create chicago pizza with specified toppings + size
-            PizzaFactory chicagoStyle = new ChicagoPizza();
-            Pizza pizza;
-            if (rb_bbqchicken.isSelected()) {
-                pizza = chicagoStyle.createBBQChicken();
-            } else if (rb_deluxe.isSelected()) {
-                pizza = chicagoStyle.createDeluxe();
-            } else if (rb_meatzza.isSelected()) {
-                pizza = chicagoStyle.createMeatzza();
-            } else {
-                pizza = null;
-            }
+        Pizza pizza = null;
+        if (rb_chicago.isSelected())
+            pizza = premadeChicagoTypeSelected();
 
-            if (pizza != null) {
-                if (pizzaSize.getSelectedToggle() == null) {
-                    //print error message like "please select a size"
-                    System.out.println("Please select size"); //move this to a visible area for user
-                    return;
-                }
-                String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
-                pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
-
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("createorder-view.fxml"));
-//                Parent root = loader.load();
-//                CreateOrderController createOrderController = loader.getController();
-
-                orderController.addPizza(pizza);
-//                primaryStage.setScene(primaryScene);
-//                primaryStage.show();
-            } else {
-                System.out.println("Please select pizza type");
-                //print error message to somewhere visible for customer/employee
-            }
-        }
-
-        if (rb_ny.isSelected()) {
+        if (rb_ny.isSelected())
             //create ny pizza with specified toppings + size
-            PizzaFactory nyStyle = new NYPizza();
-            Pizza pizza;
-            if (rb_bbqchicken.isSelected()) {
-                pizza = nyStyle.createBBQChicken();
-            } else if (rb_deluxe.isSelected()) {
-                pizza = nyStyle.createDeluxe();
-            } else if (rb_meatzza.isSelected()) {
-                pizza = nyStyle.createMeatzza();
-            } else {
-                pizza = null;
-            }
+            pizza = premadeNYTypeSelected();
 
-            if (pizza != null) {
-                if (pizzaSize.getSelectedToggle() == null) {
-                    //print error message like "please select a size"
-                    System.out.println("Please select size"); //move this to a visible area for user
-                    return;
-                }
-                String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
-                pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
-                orderController.addPizza(pizza);
+        if (pizza != null) {
+            if (pizzaSize.getSelectedToggle() == null) {
+                //print error message like "please select a size"
+                System.out.println("Please select size"); //move this to a visible area for user
+                return;
+            }
+            String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
+            pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
+            orderController.addPizza(pizza);
 //                primaryStage.setScene(primaryScene);
 //                primaryStage.show();
-            } else {
-                System.out.println("Please select pizza type");
-                //print error message to somewhere visible for customer/employee
-            }
+        } else {
+            System.out.println("Please select pizza type");
+            //print error message to somewhere visible for customer/employee
         }
     }
 
