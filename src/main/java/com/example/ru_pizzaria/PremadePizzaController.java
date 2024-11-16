@@ -2,8 +2,10 @@ package com.example.ru_pizzaria;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.Parent;
+import javafx.stage.Stage;
 import pizzaria.*;
 
 import java.io.IOException;
@@ -13,6 +15,11 @@ import java.io.IOException;
  */
 public class PremadePizzaController {
     private Order pizzaOrder;
+    private CreateOrderController orderController;
+    private Stage stage;
+    private Scene primaryScene;
+    private Stage primaryStage;
+
 
     @FXML
     private Button b_back;
@@ -56,6 +63,15 @@ public class PremadePizzaController {
 
         if(pizzaOrder == null)
             pizzaOrder = new Order();
+    }
+
+    public void setOrderController(CreateOrderController controller, Stage stage,
+                                   Stage primaryStage,
+                                   Scene primaryScene) {
+        orderController = controller;
+        this.stage = stage;
+        this.primaryStage = primaryStage;
+        this.primaryScene = primaryScene;
     }
 
     private void initPizzaStyleTG() {
@@ -103,11 +119,13 @@ public class PremadePizzaController {
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
                 pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("createorder-view.fxml"));
-                Parent root = loader.load();
-                CreateOrderController createOrderController = loader.getController();
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("createorder-view.fxml"));
+//                Parent root = loader.load();
+//                CreateOrderController createOrderController = loader.getController();
 
-                pizzaOrder.addPizza(pizza);
+                orderController.addPizza(pizza);
+                primaryStage.setScene(primaryScene);
+                primaryStage.show();
             } else {
                 System.out.println("Please select pizza type");
                 //print error message to somewhere visible for customer/employee
@@ -136,16 +154,23 @@ public class PremadePizzaController {
                 }
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
                 pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("createorder-view.fxml"));
-                Parent root = loader.load();
-                CreateOrderController createOrderController = loader.getController();
-
-                pizzaOrder.addPizza(pizza);
+                orderController.addPizza(pizza);
+                primaryStage.setScene(primaryScene);
+                primaryStage.show();
             } else {
                 System.out.println("Please select pizza type");
                 //print error message to somewhere visible for customer/employee
             }
         }
+    }
+
+    @FXML
+    /**
+     * Navigate back to the main view.
+     */
+    public void displayMain() {
+        //stage.close(); //close the window.
+        primaryStage.setScene(primaryScene);
+        primaryStage.show();
     }
 }

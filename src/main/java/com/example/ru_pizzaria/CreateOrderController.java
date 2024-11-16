@@ -18,9 +18,12 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CreateOrderController {
+    //we could delete this and just add directly to order -elz
     private ArrayList<Pizza> pizzas; //dunno if making this static messes with anything
     public Order pizzaOrder;
     private ObservableList<Pizza> pizzaObservableList;
+    private Stage primaryStage; //the reference of the main window.
+    private Scene primaryScene; //the ref. of the scene set to the primaryStage
 
     @FXML
     private Button b_premadePizza;
@@ -39,13 +42,24 @@ public class CreateOrderController {
     @FXML
     private TableColumn<Pizza, Double> subtotalCol;
 
+    /**
+     * Set the reference of the stage and scene before show()
+     * @param stage the stage used to display the scene
+     * @param scene the scene set to the stage
+     */
+    public void setPrimaryStage(Stage stage, Scene scene) {
+        primaryStage = stage;
+        primaryScene = scene;
+    }
+
     @FXML
     public void initialize(){
 
         pizzas = new ArrayList<>();
 
+
         createCurrentOrderTV();
-//        pizzaObservableList = FXCollections.observableArrayList();
+        pizzaObservableList = FXCollections.observableArrayList();
 //        if(tv_currentOrder != null)
 //            tv_currentOrder.setItems(pizzaObservableList);
     }
@@ -53,10 +67,6 @@ public class CreateOrderController {
     //idk how to get tableview to be populated properly
     @FXML
     protected void createCurrentOrderTV() {
-//        if (tv_currentOrder == null) {
-//            tv_currentOrder = new TableView<>();
-//        }
-
         styleCol.setCellValueFactory(new PropertyValueFactory<>("style"));
         crustCol.setCellValueFactory(new PropertyValueFactory<>("crust"));
         toppingsCol.setCellValueFactory(new PropertyValueFactory<>("toppings"));
@@ -65,25 +75,31 @@ public class CreateOrderController {
 
     @FXML
     protected void onBYOPizzaClick() throws IOException {
+        if(pizzaOrder == null)
+            pizzaOrder = new Order();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("byo-view.fxml"));
 
-        Parent root = fxmlLoader.load();
         BYOPizzaController byoPizzaController = fxmlLoader.getController();
-        byoPizzaController.setOrder(pizzaOrder);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(fxmlLoader.load()));
-        stage.setTitle("BYOPizza");
-        stage.show();
+        Stage view1 = new Stage();
+        Scene scene = new Scene(fxmlLoader.load());
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("BYOPizza");
+        byoPizzaController.setOrderController(this, view1, primaryStage, primaryScene);
     }
 
     @FXML
     protected void onPremadePizzaClick() throws IOException {
+        if(pizzaOrder == null)
+            pizzaOrder = new Order();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("premade-view.fxml"));
 
-        Stage stage = new Stage();
-        stage.setScene(new Scene(fxmlLoader.load()));
-        stage.setTitle("Premade Pizzas");
-        stage.show();
+        Stage view1 = new Stage();
+        Scene scene = new Scene(fxmlLoader.load());
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Premade Pizzas");
+        PremadePizzaController premadePizzaController = fxmlLoader.getController();
+        premadePizzaController.setOrderController(this, view1, primaryStage, primaryScene);
+
     }
 
     @FXML
@@ -114,6 +130,7 @@ public class CreateOrderController {
 //        if(tv_currentOrder == null)
 //            tv_currentOrder = new TableView();
         pizzas.add(pizza);
+        pizzaOrder.addPizza(pizza);
         pizzaObservableList.add(pizza);
 
         tv_currentOrder.setItems(pizzaObservableList);

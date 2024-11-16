@@ -19,12 +19,23 @@
             <Button fx:id="b_addpizza" mnemonicParsing="false" onAction="#onAddPizzaClick" text="Add pizza" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <RadioButton fx:id="rb_smallPizza" contentDisplay="CENTER" mnemonicParsing="false" text="Small" />
                   <RadioButton fx:id="rb_mediumPizza" mnemonicParsing="false" text="Medium" />
                   <RadioButton fx:id="rb_largePizza" mnemonicParsing="false" text="Large" />
                    <RadioButton fx:id="rb_bbqchicken" mnemonicParsing="false" text="bbqChicken" />
                    <RadioButton fx:id="rb_deluxe" mnemonicParsing="false" text="deluxe" />
                    <RadioButton fx:id="rb_meatzza" mnemonicParsing="false" text="meatzza" />
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <RadioButton fx:id="rb_smallPizza" contentDisplay="CENTER" mnemonicParsing="false" text="Small" />
+                     </children>
+                  </GridPane>
                </children>
             </VBox>
             <HBox prefHeight="100.0" prefWidth="200.0">

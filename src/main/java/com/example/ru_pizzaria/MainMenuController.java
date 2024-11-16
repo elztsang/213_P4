@@ -31,10 +31,12 @@ public class MainMenuController {
     @FXML
     protected void onMakeOrderButtonClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("createorder-view.fxml"));
-
+        Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
-        stage.setScene(new Scene(fxmlLoader.load()));
+        CreateOrderController orderController = fxmlLoader.getController();
+        orderController.setPrimaryStage(stage, scene);
         stage.setTitle("Create an Order");
+        stage.setScene(scene);
         stage.show();
     }
 
