@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class BYOPizzaController {
 
-    private Order pizzaOrder;
     private CreateOrderController orderController;
     private Stage stage;
     private Scene primaryScene;
@@ -51,18 +50,10 @@ public class BYOPizzaController {
         initSubtotalListener();
     }
 
-    public void setOrderController(CreateOrderController controller, Stage stage,
-                                   Stage primaryStage,
-                                   Scene primaryScene) {
+    public void setOrderController(CreateOrderController controller) {
         orderController = controller;
-        this.stage = stage;
-        this.primaryStage = primaryStage;
-        this.primaryScene = primaryScene;
     }
 
-    public void setOrder(Order order) {
-        this.pizzaOrder = order;
-    }
 
     private void initSubtotalListener() {
         lv_byoToppings.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -137,10 +128,6 @@ public class BYOPizzaController {
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
                 pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
 
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("createorder-view.fxml"));
-//                Parent root = loader.load();
-//                CreateOrderController createOrderController = loader.getController();
-
                 orderController.addPizza(pizza);
             } else {
                 System.out.println("Pizza null"); //change error message
@@ -162,11 +149,6 @@ public class BYOPizzaController {
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
                 pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
 
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("createorder-view.fxml"));
-//                Parent root = loader.load();
-//                CreateOrderController createOrderController = loader.getController();
-//
-//                pizzaOrder.addPizza(pizza);
                 orderController.addPizza(pizza);
             } else {
                 System.out.println("Pizza null"); //change error message

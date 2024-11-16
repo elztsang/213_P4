@@ -1,5 +1,6 @@
 package pizzaria;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -18,6 +19,7 @@ public class BuildYourOwn extends Pizza{
 
     public BuildYourOwn(Crust crust) {
         this.crust = crust;
+        super.setCrust(crust);
         toppings = new ArrayList<>();
     }
 
@@ -45,13 +47,16 @@ public class BuildYourOwn extends Pizza{
             toppings = new ArrayList<>(); //allowed? causes error otherwise
         }
         toppings.addAll(toppingsList);
+        super.setToppings(toppings);
     }
 
-    @Override
-    public String toString(){
-        return String.format("[BYOP, %s, %s, %s]",
-                this.getSize(),
-                toppings,
-                crust);
-    }
+//    @Override
+//    public String toString(){
+//        DecimalFormat moneyFormat = new DecimalFormat("###,###.00");
+//        return String.format("[BYOP, %s, %s, %s]",
+//                this.getSize(),
+//                toppings,
+//                crust,
+//                moneyFormat.format(price()));
+//    }
 }

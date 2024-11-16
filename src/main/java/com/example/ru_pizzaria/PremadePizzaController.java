@@ -65,13 +65,8 @@ public class PremadePizzaController {
             pizzaOrder = new Order();
     }
 
-    public void setOrderController(CreateOrderController controller, Stage stage,
-                                   Stage primaryStage,
-                                   Scene primaryScene) {
+    public void setOrderController(CreateOrderController controller) {
         orderController = controller;
-        this.stage = stage;
-        this.primaryStage = primaryStage;
-        this.primaryScene = primaryScene;
     }
 
     private void initPizzaStyleTG() {
@@ -124,8 +119,8 @@ public class PremadePizzaController {
 //                CreateOrderController createOrderController = loader.getController();
 
                 orderController.addPizza(pizza);
-                primaryStage.setScene(primaryScene);
-                primaryStage.show();
+//                primaryStage.setScene(primaryScene);
+//                primaryStage.show();
             } else {
                 System.out.println("Please select pizza type");
                 //print error message to somewhere visible for customer/employee
@@ -155,8 +150,8 @@ public class PremadePizzaController {
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
                 pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
                 orderController.addPizza(pizza);
-                primaryStage.setScene(primaryScene);
-                primaryStage.show();
+//                primaryStage.setScene(primaryScene);
+//                primaryStage.show();
             } else {
                 System.out.println("Please select pizza type");
                 //print error message to somewhere visible for customer/employee

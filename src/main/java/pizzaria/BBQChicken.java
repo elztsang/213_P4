@@ -1,5 +1,6 @@
 package pizzaria;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -16,11 +17,13 @@ public class BBQChicken extends Pizza{
     }
 
     public BBQChicken(Crust crust){
+        super.setCrust(crust);
         this.crust = crust;
         toppings = new ArrayList<>(Arrays.asList(Topping.BBQCHICKEN,
                 Topping.GREENPEPPER,
                 Topping.PROVOLONE,
                 Topping.CHEDDAR));
+        super.setToppings(toppings);
     }
 
     @Override
@@ -37,11 +40,12 @@ public class BBQChicken extends Pizza{
         }
     }
 
-    @Override
-    public String toString(){
-        return String.format("[BBQ Chicken, %s, %s, %s]",
-                this.getSize(),
-                toppings,
-                crust);
-    }
+//    @Override
+//    public String toString(){
+//        DecimalFormat moneyFormat = new DecimalFormat("###,###.00");
+//        return String.format("[BBQ Chicken, %s, %s, %s] %s",
+//                this.getSize(),
+//                toppings,
+//                crust, moneyFormat.format(price()));
+//    }
 }
