@@ -1,5 +1,6 @@
 package com.example.ru_pizzaria;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,17 +10,19 @@ import javafx.stage.Stage;
 import pizzaria.*;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 /**
  * Lets you view all the orders and cancel an order.
  */
 public class PremadePizzaController {
     private Order pizzaOrder;
+    private Pizza currentPizza;
+
     private CreateOrderController orderController;
     private Stage stage;
     private Scene primaryScene;
     private Stage primaryStage;
-
 
     @FXML
     private Button b_back;
@@ -63,11 +66,21 @@ public class PremadePizzaController {
         initPizzaSizeTG();
         //pizzatype
 //        initPizzaTypeTG();
+//        pizzaSize.selectToggle(rb_mediumPizza); //have a default value for size+price+type
+//        pizzaStyle.selectToggle(rb_chicago);
+//        cb_pizzaType.getSelectionModel().selectFirst();
+        setPizzaInitPrice();
+        initPizzaDetailsListener();
 
         cb_pizzaType.getItems().addAll("Deluxe", "BBQ Chicken", "Meatzza");
 
         if(pizzaOrder == null)
             pizzaOrder = new Order();
+    }
+
+    private void setPizzaInitPrice() {
+        DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
+        tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(0)));
     }
 
     public void setOrderController(CreateOrderController controller) {
@@ -87,12 +100,67 @@ public class PremadePizzaController {
         rb_largePizza.setToggleGroup(pizzaSize);
     }
 
-//    private void initPizzaTypeTG() {
-//        pizzaType = new ToggleGroup();
-//        rb_bbqchicken.setToggleGroup(pizzaType);
-//        rb_deluxe.setToggleGroup(pizzaType);
-//        rb_meatzza.setToggleGroup(pizzaType);
-//    }
+    private void initPizzaDetailsListener() {
+        //listen for updates to pizza style, size, type - updates pizza and toppings list prob
+        pizzaStyle.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            updatePizza();
+            setPizzaSubtotal();
+        });
+
+        pizzaSize.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            updatePizza();
+            setPizzaSubtotal();
+        });
+
+        cb_pizzaType.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            updatePizza();
+            setPizzaSubtotal();
+        });
+    }
+
+    private void updatePizza() {
+        if (rb_chicago.isSelected())
+            currentPizza = premadeChicagoTypeSelected();
+        if (rb_ny.isSelected())
+            currentPizza = premadeNYTypeSelected();
+
+        if (currentPizza != null) {
+            if (pizzaSize.getSelectedToggle() != null) {
+                String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
+                currentPizza.setSize(Size.valueOf(size.toUpperCase()));
+            }
+        }
+    }
+
+    private void setPizzaSubtotal() {
+        if (currentPizza != null) {
+            DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
+            double orderTotal = currentPizza.price();
+            tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(orderTotal)));
+        }
+    }
+
+    private double getPizzaSizePrice() {
+        double price = 0.0;
+        Pizza pizza = null;
+        if (rb_chicago.isSelected()) {
+            PizzaFactory pizzaFactory = new ChicagoPizza();
+            pizza = pizzaFactory.createBuildYourOwn();
+        } else if (rb_ny.isSelected()) {
+            PizzaFactory pizzaFactory = new ChicagoPizza();
+            pizza = pizzaFactory.createBuildYourOwn();
+        }
+
+        if (pizza == null) {
+            return 0; //figure out way to return error? dunno
+        }
+
+        return price;
+    }
+
+    private ObservableList<Topping> getPizzaToppings() {
+        return null;
+    }
 
     @FXML
     protected Pizza premadeChicagoTypeSelected(){
@@ -124,25 +192,14 @@ public class PremadePizzaController {
 
     @FXML
     protected void onAddPizzaClick() throws IOException {
-        Pizza pizza = null;
-        if (rb_chicago.isSelected())
-            pizza = premadeChicagoTypeSelected();
-
-        if (rb_ny.isSelected())
-            //create ny pizza with specified toppings + size
-            pizza = premadeNYTypeSelected();
-
-        if (pizza != null) {
-            if (pizzaSize.getSelectedToggle() == null) {
+        if (currentPizza != null) {
+            if (pizzaSize.getSelectedToggle() == null) { // maybe replace with currentPizza.getSize()?
                 //print error message like "please select a size"
                 System.out.println("Please select size"); //move this to a visible area for user
                 return;
             }
-            String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
-            pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
-            orderController.addPizza(pizza);
-//                primaryStage.setScene(primaryScene);
-//                primaryStage.show();
+
+            orderController.addPizza(currentPizza);
         } else {
             System.out.println("Please select pizza type");
             //print error message to somewhere visible for customer/employee

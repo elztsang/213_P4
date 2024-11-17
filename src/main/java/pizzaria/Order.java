@@ -2,6 +2,7 @@ package pizzaria;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Order {
@@ -69,6 +70,10 @@ public class Order {
 
     @Override
     public String toString() {
-        return String.format("[#%s] [%s] [%s]", number, getOrderTotal(), pizzas);
+        DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
+        return String.format("[#%s] [%s] [%s]",
+                number,
+                String.format("$%s", moneyFormat.format(getOrderTotal())),
+                pizzas);
     }
 }
