@@ -133,9 +133,11 @@ public class PremadePizzaController {
     }
 
     private void setPizzaSubtotal() {
-        DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
-        double orderTotal = currentPizza.price();
-        tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(orderTotal)));
+        if (currentPizza != null) {
+            DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
+            double orderTotal = currentPizza.price();
+            tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(orderTotal)));
+        }
     }
 
     private double getPizzaSizePrice() {

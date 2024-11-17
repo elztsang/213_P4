@@ -25,7 +25,6 @@ public class CreateOrderController {
 
     public double total = 0.0;
     //we could delete this and just add directly to order -elz
-    private ArrayList<Pizza> pizzas; //dunno if making this static messes with anything
     private ArrayList<String> styles;
     public Order pizzaOrder;
     private ObservableList<Pizza> pizzaObservableList;
@@ -38,6 +37,8 @@ public class CreateOrderController {
     private Button b_byoPizza;
     @FXML
     private Button b_addOrder;
+    @FXML
+    private Button b_removePizza;
     @FXML
     private ListView lv_currentOrder;
     @FXML
@@ -59,21 +60,36 @@ public class CreateOrderController {
 
     @FXML
     public void initialize(){
-
         pizzaObservableList = FXCollections.observableArrayList();
-//        t_total = new Text();
-//        t_salestax = new Text();
-//        t_ordertotal = new Text();
 
+        updateTotal();
         updateSalesTax();
         updateOrderTotal();
-
+        initOrderDetailsListener();
     }
 
-    private void updateTotal(Pizza pizza) {
-        total += pizza.price();
+    private void initOrderDetailsListener() {
+//        b_removePizza.onActionProperty().addListener((observable, oldValue, newValue) -> {
+//            updateTotal();
+//            updateSalesTax();
+//            updateOrderTotal();
+//        });
+    }
+
+    private void updateTotal() {
+        if (pizzaOrder == null) {
+            pizzaOrder = new Order();
+        }
+
+        total = 0;
+
+        for (Pizza pizza : pizzaOrder.getPizzas()) {
+            total += pizza.price();
+        }
+
+        double curTotal = total;
         DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
-        tf_total.setText(String.format("$%s", moneyFormat.format(total))); //String.format("$ %1$,.2f", total)
+        tf_total.setText(String.format("$%s", moneyFormat.format(curTotal))); //String.format("$ %1$,.2f", total)
     }
 
     private void updateSalesTax() {
@@ -138,28 +154,38 @@ public class CreateOrderController {
     @FXML
     protected void onRemovePizzaClick() {
         Pizza selectedPizza  = (Pizza) lv_currentOrder.getSelectionModel().getSelectedItem(); //i hope this works
-        pizzas.remove(selectedPizza);
+        pizzaOrder.getPizzas().remove(selectedPizza);
         pizzaObservableList.remove(selectedPizza);
+
+        updateTotal();
+        updateSalesTax();
+        updateOrderTotal();
+
+        //todo: debugging
+        System.out.println("REMOVE: total: " + total);
+        System.out.println("REMOVE: List of pizzas currently");
+        System.out.println(pizzaOrder.getPizzas());
     }
 
     public void addPizza(Pizza pizza) {
         if(pizzaObservableList == null)
             pizzaObservableList = FXCollections.observableArrayList();
 
-        updateTotal(pizza);
-        updateSalesTax();
-        updateOrderTotal();
-
+        //pizzas.add(pizza);
         pizzaOrder.addPizza(pizza);
         pizzaObservableList.setAll(pizzaOrder.getPizzas());
 
         lv_currentOrder.setItems(pizzaObservableList);
         lv_currentOrder.refresh(); //todo: figure out why tableview isn't being populated
 
-        //debugging
-        System.out.println("total: " + total);
-        System.out.println("List of pizzas currently");
-        System.out.println(pizzas);
+        updateTotal();
+        updateSalesTax();
+        updateOrderTotal();
+
+        //todo: debugging
+        System.out.println("ADD: total: " + total);
+        System.out.println("ADD: List of pizzas currently");
+        System.out.println(pizzaOrder.getPizzas());
     }
 
     public void setPizzaOrder(Order order){
