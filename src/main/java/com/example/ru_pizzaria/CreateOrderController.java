@@ -78,8 +78,6 @@ public class CreateOrderController {
     private void updateTotal() {
         if (pizzaOrder == null) {
             pizzaOrder = new Order();
-            pizzaOrder.setOrderNumber(manageController.getOrderCounter());
-            tf_orderNumber.setText(String.valueOf(manageController.getOrderCounter()));
         }
 
         total = 0;
@@ -108,11 +106,11 @@ public class CreateOrderController {
 
     @FXML
     protected void onBYOPizzaClick() throws IOException {
-//        if(pizzaOrder.getOrderNumber() < 0) {
-////            pizzaOrder = new Order();
-//            pizzaOrder.setOrderNumber(manageController.getOrderCounter());
-//            tf_orderNumber.setText(String.valueOf(pizzaOrder.getOrderNumber()));
-//        }
+        if(pizzaOrder.getOrderNumber() < 0) {
+//            pizzaOrder = new Order();
+            pizzaOrder.setOrderNumber(manageController.getOrderCounter());
+            tf_orderNumber.setText(String.valueOf(manageController.getOrderCounter()));
+        }
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("byo-view.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(fxmlLoader.load());
@@ -126,10 +124,10 @@ public class CreateOrderController {
 
     @FXML
     protected void onPremadePizzaClick() throws IOException {
-//        if(pizzaOrder.getOrderNumber() < 0) {
-//            pizzaOrder.setOrderNumber(manageController.getOrderCounter());
-//            tf_orderNumber.setText(String.valueOf(pizzaOrder.getOrderNumber()));
-//        }
+        if(pizzaOrder.getOrderNumber() < 0) {
+            pizzaOrder.setOrderNumber(manageController.getOrderCounter());
+            tf_orderNumber.setText(String.valueOf(manageController.getOrderCounter()));
+        }
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("premade-view.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(fxmlLoader.load());
@@ -152,6 +150,7 @@ public class CreateOrderController {
             lv_currentOrder.refresh();
             pizzaOrder = new Order();
             pizzaOrder.setOrderNumber(manageController.getOrderCounter());
+            tf_orderNumber.setText(String.valueOf(manageController.getOrderCounter()));
             updateTotal();
             updateSalesTax();
             updateOrderTotal();
