@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
@@ -19,6 +20,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CreateOrderController {
+    private final double SALESTAX = 0.06625; //todo: double check if this is the right value
+
+    public double total;
     //we could delete this and just add directly to order -elz
     private ArrayList<Pizza> pizzas; //dunno if making this static messes with anything
     private ArrayList<String> styles;
@@ -35,6 +39,12 @@ public class CreateOrderController {
     private Button b_addOrder;
     @FXML
     private ListView lv_currentOrder;
+    @FXML
+    private TextField t_total;
+    @FXML
+    private TextField t_salestax;
+    @FXML
+    private TextField t_ordertotal;
 //    @FXML
 //    private TableColumn<Pizza, String> styleCol;
 //    @FXML
@@ -58,13 +68,23 @@ public class CreateOrderController {
     public void initialize(){
 
 //        pizzas = new ArrayList<>();
-
-
         createCurrentOrderLV();
         pizzaObservableList = FXCollections.observableArrayList();
 
-//        if(tv_currentOrder != null)
-//            tv_currentOrder.setItems(pizzaObservableList);
+
+    }
+
+    private void updateTotal(Pizza pizza) {
+        total += pizza.price();
+        t_total.setText(String.format("%"));
+    }
+
+    private void updateSalesTax() {
+        //total * 0.06625;
+    }
+
+    private void updateOrderTotal() {
+        //total + (total * .06625);
     }
 
     //idk how to get tableview to be populated properly
@@ -115,11 +135,11 @@ public class CreateOrderController {
         //we added the finalized list of pizzas
         for (Pizza pizza : pizzas) {
             newOrder.addPizza(pizza);
-//            pizzaObservableList.add(pizza);
         }
 
         ManageOrdersController.addOrder(newOrder);
         //we prob want to clear the currentOrder tableview upon adding order.
+        //total = 0; //reset total price after adding the order.
         lv_currentOrder.refresh();
     }
 
@@ -133,9 +153,11 @@ public class CreateOrderController {
     public void addPizza(Pizza pizza) {
         if(pizzaObservableList == null)
             pizzaObservableList = FXCollections.observableArrayList();
-//        if(tv_currentOrder == null)
-//            tv_currentOrder = new TableView();
-//        pizzas.add(pizza);
+
+        updateTotal(pizza);
+        updateSalesTax();
+        updateOrderTotal();
+
         pizzaOrder.addPizza(pizza);
         pizzaObservableList.setAll(pizzaOrder.getPizzas());
 

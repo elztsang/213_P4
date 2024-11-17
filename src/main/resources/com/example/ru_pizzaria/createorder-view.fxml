@@ -51,7 +51,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Subtotal:">
+                        <Text fx:id="t_total" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin></Text>
@@ -60,7 +60,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sales tax:">
+                        <Text fx:id="t_salestax" strokeType="OUTSIDE" strokeWidth="0.0" text="Sales tax:">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin></Text>
@@ -68,7 +68,7 @@
                      </children></HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Order total:">
+                        <Text fx:id="t_ordertotal" strokeType="OUTSIDE" strokeWidth="0.0" text="Order total:">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
