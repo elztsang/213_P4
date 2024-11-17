@@ -110,12 +110,14 @@ public class PremadePizzaController {
     @FXML
     protected Pizza premadeNYTypeSelected(){
         PizzaFactory nyStyle = new NYPizza();
-        if (cb_pizzaType.getValue().equals("BBQ Chicken")) {
-            return nyStyle.createBBQChicken();
-        } else if (cb_pizzaType.getValue().equals("Deluxe")) {
-            return nyStyle.createDeluxe();
-        } else if (cb_pizzaType.getValue().equals("Meatzza")) {
-            return nyStyle.createMeatzza();
+        if(!cb_pizzaType.getSelectionModel().isEmpty()) {
+            if (cb_pizzaType.getValue().equals("BBQ Chicken")) {
+                return nyStyle.createBBQChicken();
+            } else if (cb_pizzaType.getValue().equals("Deluxe")) {
+                return nyStyle.createDeluxe();
+            } else if (cb_pizzaType.getValue().equals("Meatzza")) {
+                return nyStyle.createMeatzza();
+            }
         }
         return null;
     }

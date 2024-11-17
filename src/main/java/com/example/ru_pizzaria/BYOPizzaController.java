@@ -66,6 +66,10 @@ public class BYOPizzaController {
         });
     }
 
+    private void initSizeListener(){
+        pizzaSize.getSelectedToggle().addListener()
+    }
+
     private void initToppingsLV() {
         if (lv_byoToppings == null) {
             lv_byoToppings = new ListView<>();
