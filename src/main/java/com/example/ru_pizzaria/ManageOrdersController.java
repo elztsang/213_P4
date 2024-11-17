@@ -75,7 +75,7 @@ public class ManageOrdersController {
 
     @FXML
     protected void onRemoveOrderClick() {
-        Order selectedOrder = (Order) tv_allOrders.getSelectionModel().getSelectedItem(); //pls work
+        Order selectedOrder = (Order) lv_allOrders.getSelectionModel().getSelectedItem(); //pls work
         if (pizzaOrders.contains(selectedOrder)) {
             pizzaOrders.remove(selectedOrder);
         } else {
