@@ -46,6 +46,8 @@ public class CreateOrderController {
     private TextField tf_salestax;
     @FXML
     private TextField tf_ordertotal;
+    @FXML
+    private TextField tf_orderNumber;
 
     /**
      * Set the reference of the stage and scene before show()

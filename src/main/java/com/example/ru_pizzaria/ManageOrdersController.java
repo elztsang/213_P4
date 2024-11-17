@@ -23,33 +23,35 @@ public class ManageOrdersController {
 
 
     @FXML
-    private TableView tv_allOrders;
+    private ListView lv_allOrders;
     @FXML
-    private TableColumn<Order, Integer> orderNumberCol;
-    @FXML
-    private TableColumn<Order, Double> orderTotalCol;
-    @FXML
-    private TableColumn<Order, ArrayList<Pizza>> pizzaCol;
-    @FXML
-    private ComboBox cb_cancelOrder;
+    private ComboBox cb_orderNUmber;
+//    @FXML
+//    private TableColumn<Order, Integer> orderNumberCol;
+//    @FXML
+//    private TableColumn<Order, Double> orderTotalCol;
+//    @FXML
+//    private TableColumn<Order, ArrayList<Pizza>> pizzaCol;
+//    @FXML
+//    private ComboBox cb_cancelOrder;
 
     @FXML
     public void initialize(){
-        initTableView();
-        createOrderTableView();
+//        initTableView();
+//        createOrderTableView();
     }
 
-    private void initTableView() {
-        tv_allOrders = new TableView<>(); //temp
-        tv_allOrders.setFixedCellSize(0); // 0 for dynamically sized rows\
-    }
-
-    @FXML
-    protected void createOrderTableView() {
-        orderNumberCol.setCellValueFactory(new PropertyValueFactory<>("OrderNumber"));
-        pizzaCol.setCellValueFactory(new PropertyValueFactory<>("Pizzas"));
-        orderTotalCol.setCellValueFactory(new PropertyValueFactory<>("OrderTotal"));
-    }
+//    private void initTableView() {
+//        tv_allOrders = new TableView<>(); //temp
+//        tv_allOrders.setFixedCellSize(0); // 0 for dynamically sized rows\
+//    }
+//
+//    @FXML
+//    protected void createOrderTableView() {
+//        orderNumberCol.setCellValueFactory(new PropertyValueFactory<>("OrderNumber"));
+//        pizzaCol.setCellValueFactory(new PropertyValueFactory<>("Pizzas"));
+//        orderTotalCol.setCellValueFactory(new PropertyValueFactory<>("OrderTotal"));
+//    }
 
     @FXML
     protected void exportOrders() {
