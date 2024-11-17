@@ -1,5 +1,6 @@
 package com.example.ru_pizzaria;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -23,15 +24,29 @@ public class ManageOrdersController {
 
 
     @FXML
-    private ListView lv_allOrders;
+    private ListView lv_selectedOrder;
     @FXML
-    private ComboBox cb_orderNUmber;
+    private ComboBox cb_orderNumber;
 
     @FXML
     public void initialize(){
         pizzaOrders = new ArrayList<>();
+        pizzaOrderOptions = FXCollections.observableArrayList();
+        cb_orderNumber = new ComboBox<>();
+        initOrderSelectionListener();
 //        initTableView();
 //        createOrderTableView();
+    }
+
+    private void  initOrderSelectionListener() {
+        cb_orderNumber.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            //update the listview on selection
+            Order order = (Order) cb_orderNumber.getSelectionModel().getSelectedItem();
+
+            ObservableList<Pizza> orderPizzaList = FXCollections.observableArrayList(order.getPizzas());
+            lv_selectedOrder.setItems(orderPizzaList);
+            lv_selectedOrder.refresh();
+        });
     }
 
     @FXML
@@ -45,6 +60,8 @@ public class ManageOrdersController {
             }
             PrintWriter pw = new PrintWriter(output);
             for (Order order : pizzaOrders) {
+                //todo: debug
+                System.out.println("attempting to print: " + order);
                 pw.println(order);
             }
             pw.close();
@@ -56,7 +73,7 @@ public class ManageOrdersController {
 
     @FXML
     protected void onRemoveOrderClick() {
-        Order selectedOrder = (Order) lv_allOrders.getSelectionModel().getSelectedItem(); //pls work
+        Order selectedOrder = (Order) cb_orderNumber.getSelectionModel().getSelectedItem(); //todo: rework this
         if (pizzaOrders.contains(selectedOrder)) {
             pizzaOrders.remove(selectedOrder);
         } else {
@@ -70,8 +87,19 @@ public class ManageOrdersController {
     }
 
     public void addOrder(Order order) {
-//        order.setOrderNumber(orderCounter); //should be good enough? - shouldn't repeat even if orders r removed
+        if (pizzaOrderOptions == null)
+            pizzaOrderOptions = FXCollections.observableArrayList();
+
         pizzaOrders.add(order);
+        pizzaOrderOptions.add(order);
+
         orderCounter++;
+
+        cb_orderNumber.setItems(pizzaOrderOptions);
+
+        //todo: debug
+        System.out.println("ADD: OrderCounter: " + orderCounter);
+        System.out.println("ADD: Current Observable List\n" + pizzaOrderOptions);
+        System.out.println("ADD: Current List of Orders\n" + pizzaOrders);
     }
 }

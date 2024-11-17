@@ -121,9 +121,11 @@ public class PremadePizzaController {
     }
 
     private void updatePizza() {
-        if (rb_chicago.isSelected())
+        if (rb_chicago.isSelected() && cb_pizzaType.getValue() != null)
             currentPizza = premadeChicagoTypeSelected();
-        if (rb_ny.isSelected())
+
+
+        if (rb_ny.isSelected() && cb_pizzaType.getValue() != null)
             currentPizza = premadeNYTypeSelected();
 
         if (currentPizza != null) {
@@ -137,28 +139,12 @@ public class PremadePizzaController {
 
     private void setPizzaSubtotal() {
         if (currentPizza != null) {
-            DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
-            double orderTotal = currentPizza.price();
-            tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(orderTotal)));
+            if (pizzaSize.getSelectedToggle() != null) {
+                DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
+                double orderTotal = currentPizza.price();
+                tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(orderTotal)));
+                }
         }
-    }
-
-    private double getPizzaSizePrice() {
-        double price = 0.0;
-        Pizza pizza = null;
-        if (rb_chicago.isSelected()) {
-            PizzaFactory pizzaFactory = new ChicagoPizza();
-            pizza = pizzaFactory.createBuildYourOwn();
-        } else if (rb_ny.isSelected()) {
-            PizzaFactory pizzaFactory = new ChicagoPizza();
-            pizza = pizzaFactory.createBuildYourOwn();
-        }
-
-        if (pizza == null) {
-            return 0; //figure out way to return error? dunno
-        }
-
-        return price;
     }
 
     private ObservableList<Topping> getPizzaToppings() {
