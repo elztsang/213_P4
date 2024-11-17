@@ -47,6 +47,8 @@ public class BYOPizzaController {
     private Button b_addpizza;
     @FXML
     private ListView<Topping> lv_byoToppings;
+    @FXML
+    private TextArea ta_byoToppings;
 
     @FXML
     public void initialize() {
@@ -76,6 +78,7 @@ public class BYOPizzaController {
             double pizzaSubtotal = getPizzaSizePrice();
             double orderTotal = pizzaSubtotal + toppingSubtotal;
             tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(orderTotal)));
+            ta_byoToppings.setText(toppingsList.toString());
         });
 
         pizzaSize.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {

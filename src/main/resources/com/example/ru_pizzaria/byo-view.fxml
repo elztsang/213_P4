@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ru_pizzaria.BYOPizzaController">
+<AnchorPane prefHeight="400.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ru_pizzaria.BYOPizzaController">
     <children>
-        <GridPane layoutX="55.0" layoutY="35.0" prefHeight="329.0" prefWidth="490.0">
+        <GridPane layoutX="8.0" layoutY="8.0" prefHeight="383.0" prefWidth="585.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="239.39996337890625" minWidth="10.0" prefWidth="165.79998779296875" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="324.20001220703125" minWidth="10.0" prefWidth="324.20001220703125" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="206.4" minHeight="6.400003814697271" prefHeight="94.39998168945311" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="214.39999618530274" minHeight="1.8310546863631316E-5" prefHeight="150.40001831054687" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="215.99998168945314" minHeight="10.0" prefHeight="139.1999938964844" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="246.0" spacing="5.0" GridPane.rowIndex="1">
                     <children>
                         <RadioButton fx:id="rb_smallPizza" contentDisplay="CENTER" mnemonicParsing="false" text="Small" />
                         <RadioButton fx:id="rb_mediumPizza" mnemonicParsing="false" text="Medium" />
                         <RadioButton fx:id="rb_largePizza" mnemonicParsing="false" text="Large" />
                     </children>
                 </VBox>
-                <HBox prefHeight="100.0" prefWidth="200.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="118.0" prefWidth="240.0" spacing="10.0">
                     <children>
                         <RadioButton fx:id="rb_chicago" mnemonicParsing="false" text="Chicago" />
                         <RadioButton fx:id="rb_ny" mnemonicParsing="false" text="New York" />
@@ -33,16 +43,22 @@
             <ListView fx:id="lv_byoToppings" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
             <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                      <Button fx:id="b_addpizza" mnemonicParsing="false" onAction="#onAddPizzaClick" text="Add pizza" />
-               </children>
-            </HBox>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pizza price:" />
-                  <TextField fx:id="tf_pizzaPriceOut" editable="false" prefHeight="25.0" prefWidth="89.0" />
+                  <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="325.0">
+                     <children>
+                        <TextArea fx:id="ta_byoToppings" editable="false" maxWidth="-Infinity" prefHeight="38.0" prefWidth="303.0" />
+                        <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="246.0" spacing="5.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pizza price:" />
+                              <TextField fx:id="tf_pizzaPriceOut" editable="false" prefHeight="25.0" prefWidth="89.0" />
+                           </children>
+                        </HBox>
+                            <Button fx:id="b_addpizza" mnemonicParsing="false" onAction="#onAddPizzaClick" text="Add pizza" />
+                     </children>
+                  </VBox>
                </children>
             </HBox>
             </children>
         </GridPane>
+      <ImageView fitHeight="201.0" fitWidth="287.0" layoutX="312.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>

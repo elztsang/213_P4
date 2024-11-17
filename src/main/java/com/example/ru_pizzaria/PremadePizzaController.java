@@ -56,6 +56,8 @@ public class PremadePizzaController {
     private RadioButton rb_meatzza;
     @FXML
     private ComboBox cb_pizzaType;
+    @FXML
+    private TextArea ta_premadeToppings;
 
 
     @FXML
@@ -128,6 +130,7 @@ public class PremadePizzaController {
             if (pizzaSize.getSelectedToggle() != null) {
                 String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
                 currentPizza.setSize(Size.valueOf(size.toUpperCase()));
+                ta_premadeToppings.setText(currentPizza.getToppings().toString());
             }
         }
     }

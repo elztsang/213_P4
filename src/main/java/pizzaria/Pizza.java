@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public abstract class Pizza {
+
     private ArrayList<Topping> toppings; //pizzaria.Topping is a Enum class
     private Crust crust; //pizzaria.Crust is a Enum class
     private Size size; //pizzaria.Size is a Enum class
@@ -27,6 +28,10 @@ public abstract class Pizza {
 
     public void setCrust(Crust crust){
         this.crust = crust;
+    }
+
+    public ArrayList<Topping> getToppings() {
+        return toppings;
     }
 
     @Override
