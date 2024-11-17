@@ -36,7 +36,7 @@
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin></Text>
-                  <TextField prefHeight="26.0" prefWidth="87.0" />
+                  <TextField fx:id="tf_pizzaPriceOut" prefHeight="26.0" prefWidth="87.0" />
                </children>
             </HBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">

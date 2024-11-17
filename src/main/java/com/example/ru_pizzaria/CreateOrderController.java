@@ -72,20 +72,20 @@ public class CreateOrderController {
 
     private void updateTotal(Pizza pizza) {
         total += pizza.price();
-        DecimalFormat moneyFormat = new DecimalFormat("###,###.00");
+        DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
         tf_total.setText(String.format("$%s", moneyFormat.format(total))); //String.format("$ %1$,.2f", total)
     }
 
     private void updateSalesTax() {
         double salesTax = total * 0.06625;
-        DecimalFormat moneyFormat = new DecimalFormat("###,###.00");
+        DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
 
         tf_salestax.setText(String.format("$%s", moneyFormat.format(salesTax))); //String.format("$ %1$,.2f", salesTax)
     }
 
     private void updateOrderTotal() {
         double orderTotal = total + (total * .06625);
-        DecimalFormat moneyFormat = new DecimalFormat("###,###.00");
+        DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
         tf_ordertotal.setText(String.format("$%s", moneyFormat.format(orderTotal))); //String.format("$ %1$,.2f", orderTotal)
     }
 
