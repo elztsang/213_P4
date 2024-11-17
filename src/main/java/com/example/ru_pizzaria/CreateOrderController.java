@@ -17,6 +17,7 @@ import java.io.IOException;
 import pizzaria.*;
 
 import java.lang.reflect.Array;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CreateOrderController {
@@ -40,19 +41,11 @@ public class CreateOrderController {
     @FXML
     private ListView lv_currentOrder;
     @FXML
-    private Text t_total;
+    private TextField tf_total;
     @FXML
-    private Text t_salestax;
+    private TextField tf_salestax;
     @FXML
-    private Text t_ordertotal;
-//    @FXML
-//    private TableColumn<Pizza, String> styleCol;
-//    @FXML
-//    private TableColumn<Pizza, Crust> crustCol;
-//    @FXML
-//    private TableColumn<Pizza, ArrayList<Topping>> toppingsCol;
-//    @FXML
-//    private TableColumn<Pizza, Double> subtotalCol;
+    private TextField tf_ordertotal;
 
     /**
      * Set the reference of the stage and scene before show()
@@ -67,12 +60,10 @@ public class CreateOrderController {
     @FXML
     public void initialize(){
 
-//        pizzas = new ArrayList<>();
-        createCurrentOrderLV();
         pizzaObservableList = FXCollections.observableArrayList();
-        t_total = new Text();
-        t_salestax = new Text();
-        t_ordertotal = new Text();
+//        t_total = new Text();
+//        t_salestax = new Text();
+//        t_ordertotal = new Text();
 
         updateSalesTax();
         updateOrderTotal();
@@ -81,27 +72,21 @@ public class CreateOrderController {
 
     private void updateTotal(Pizza pizza) {
         total += pizza.price();
-        t_total.setText("Total"); //String.format("$ %1$,.2f", total)
+        DecimalFormat moneyFormat = new DecimalFormat("###,###.00");
+        tf_total.setText(String.format("$%s", moneyFormat.format(total))); //String.format("$ %1$,.2f", total)
     }
 
     private void updateSalesTax() {
         double salesTax = total * 0.06625;
-        t_salestax.setText("Sale Tax"); //String.format("$ %1$,.2f", salesTax)
+        DecimalFormat moneyFormat = new DecimalFormat("###,###.00");
+
+        tf_salestax.setText(String.format("$%s", moneyFormat.format(salesTax))); //String.format("$ %1$,.2f", salesTax)
     }
 
     private void updateOrderTotal() {
         double orderTotal = total + (total * .06625);
-        t_ordertotal.setText("Order Total"); //String.format("$ %1$,.2f", orderTotal)
-    }
-
-    //idk how to get tableview to be populated properly
-    @FXML
-    protected void createCurrentOrderLV() {
-//        styleCol.setCellValueFactory(cellData ->
-//                new SimpleStringProperty(cellData.getValue().getClass().getSimpleName()));
-//        crustCol.setCellValueFactory(new PropertyValueFactory<>("crust"));
-//        toppingsCol.setCellValueFactory(new PropertyValueFactory<>("toppings"));
-//        subtotalCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        DecimalFormat moneyFormat = new DecimalFormat("###,###.00");
+        tf_ordertotal.setText(String.format("$%s", moneyFormat.format(orderTotal))); //String.format("$ %1$,.2f", orderTotal)
     }
 
     @FXML
