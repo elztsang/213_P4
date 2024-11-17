@@ -78,6 +78,8 @@ public class CreateOrderController {
     private void updateTotal() {
         if (pizzaOrder == null) {
             pizzaOrder = new Order();
+            pizzaOrder.setOrderNumber(manageController.getOrderCounter());
+            tf_orderNumber.setText(String.valueOf(manageController.getOrderCounter()));
         }
 
         total = 0;
@@ -106,11 +108,11 @@ public class CreateOrderController {
 
     @FXML
     protected void onBYOPizzaClick() throws IOException {
-        if(pizzaOrder.getOrderNumber() < 0) {
-//            pizzaOrder = new Order();
-            pizzaOrder.setOrderNumber(manageController.getOrderCounter());
-            tf_orderNumber.setText(String.valueOf(pizzaOrder.getOrderNumber()));
-        }
+//        if(pizzaOrder.getOrderNumber() < 0) {
+////            pizzaOrder = new Order();
+//            pizzaOrder.setOrderNumber(manageController.getOrderCounter());
+//            tf_orderNumber.setText(String.valueOf(pizzaOrder.getOrderNumber()));
+//        }
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("byo-view.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(fxmlLoader.load());
@@ -124,10 +126,10 @@ public class CreateOrderController {
 
     @FXML
     protected void onPremadePizzaClick() throws IOException {
-        if(pizzaOrder.getOrderNumber() < 0) {
-            pizzaOrder.setOrderNumber(manageController.getOrderCounter());
-            tf_orderNumber.setText(String.valueOf(pizzaOrder.getOrderNumber()));
-        }
+//        if(pizzaOrder.getOrderNumber() < 0) {
+//            pizzaOrder.setOrderNumber(manageController.getOrderCounter());
+//            tf_orderNumber.setText(String.valueOf(pizzaOrder.getOrderNumber()));
+//        }
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("premade-view.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(fxmlLoader.load());
@@ -141,18 +143,22 @@ public class CreateOrderController {
     }
 
     @FXML
-    protected void onAddOrderClick() throws IOException {
-        Order newOrder = new Order(); // note to self (ron) - this is what i specifically was talking abt in order class
-        ArrayList<Pizza> pizzas = new ArrayList<>(pizzaOrder.getPizzas());
-        //we added the finalized list of pizzas
-        for (Pizza pizza : pizzas) {
-            newOrder.addPizza(pizza);
+    protected void onAddOrderClick() {
+        if (pizzaOrder.getOrderNumber() >= 0 || !pizzaObservableList.isEmpty()) {
+            manageController.addOrder(pizzaOrder);
+            //clear order and reupdate values
+            pizzaObservableList.clear();
+            lv_currentOrder.setItems(pizzaObservableList);
+            lv_currentOrder.refresh();
+            pizzaOrder = new Order();
+            pizzaOrder.setOrderNumber(manageController.getOrderCounter());
+            updateTotal();
+            updateSalesTax();
+            updateOrderTotal();
+        } else {
+            //todo: print error message in textarea
+            System.out.println("Order is empty!");
         }
-
-        manageController.addOrder(newOrder);
-        //we prob want to clear the currentOrder tableview upon adding order.
-        lv_currentOrder.refresh();
-        pizzaOrder = new Order();
     }
 
     @FXML
