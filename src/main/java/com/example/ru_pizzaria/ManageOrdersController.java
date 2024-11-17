@@ -19,39 +19,20 @@ import pizzaria.*;
 public class ManageOrdersController {
     private static ArrayList<Order> pizzaOrders;
     private ObservableList<Order> pizzaOrderOptions;
-    private static int orderCounter = 0;
+    private int orderCounter = 0;
 
 
     @FXML
     private ListView lv_allOrders;
     @FXML
     private ComboBox cb_orderNUmber;
-//    @FXML
-//    private TableColumn<Order, Integer> orderNumberCol;
-//    @FXML
-//    private TableColumn<Order, Double> orderTotalCol;
-//    @FXML
-//    private TableColumn<Order, ArrayList<Pizza>> pizzaCol;
-//    @FXML
-//    private ComboBox cb_cancelOrder;
 
     @FXML
     public void initialize(){
+        pizzaOrders = new ArrayList<>();
 //        initTableView();
 //        createOrderTableView();
     }
-
-//    private void initTableView() {
-//        tv_allOrders = new TableView<>(); //temp
-//        tv_allOrders.setFixedCellSize(0); // 0 for dynamically sized rows\
-//    }
-//
-//    @FXML
-//    protected void createOrderTableView() {
-//        orderNumberCol.setCellValueFactory(new PropertyValueFactory<>("OrderNumber"));
-//        pizzaCol.setCellValueFactory(new PropertyValueFactory<>("Pizzas"));
-//        orderTotalCol.setCellValueFactory(new PropertyValueFactory<>("OrderTotal"));
-//    }
 
     @FXML
     protected void exportOrders() {
@@ -84,9 +65,13 @@ public class ManageOrdersController {
         }
     }
 
-    public static void addOrder(Order order) {
+    public int getOrderCounter(){
+        return orderCounter;
+    }
+
+    public void addOrder(Order order) {
+//        order.setOrderNumber(orderCounter); //should be good enough? - shouldn't repeat even if orders r removed
         pizzaOrders.add(order);
         orderCounter++;
-        order.setOrderNumber(orderCounter); //should be good enough? - shouldn't repeat even if orders r removed
     }
 }

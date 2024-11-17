@@ -18,7 +18,7 @@ public class Order {
     /**
      * Return order number.
      */
-    public Integer getOrderNumber() {
+    public int getOrderNumber() {
         return number;
     }
 
