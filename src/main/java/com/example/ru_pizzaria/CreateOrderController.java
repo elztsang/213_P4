@@ -24,13 +24,14 @@ public class CreateOrderController {
     private final double SALESTAX = 0.06625; //todo: double check if this is the right value
 
     public double total = 0.0;
-    private MainMenuController mainController;
     //we could delete this and just add directly to order -elz
     private ArrayList<String> styles;
     private Order pizzaOrder;
     private ObservableList<Pizza> pizzaObservableList;
     private Stage primaryStage; //the reference of the main window.
     private Scene primaryScene; //the ref. of the scene set to the primaryStage
+
+    private ManageOrdersController manageController;
 
     @FXML
     private Button b_premadePizza;
@@ -48,6 +49,8 @@ public class CreateOrderController {
     private TextField tf_salestax;
     @FXML
     private TextField tf_ordertotal;
+    @FXML
+    private TextField tf_orderNumber;
 
     /**
      * Set the reference of the stage and scene before show()
@@ -59,8 +62,8 @@ public class CreateOrderController {
         primaryScene = scene;
     }
 
-    public void setMainController(MainMenuController controller) {
-        mainController = controller;
+    public void setManageController(ManageOrdersController controller) {
+        manageController = controller;
     }
 
     @FXML
@@ -103,8 +106,11 @@ public class CreateOrderController {
 
     @FXML
     protected void onBYOPizzaClick() throws IOException {
-        if(pizzaOrder == null)
+        if(pizzaOrder == null) {
             pizzaOrder = new Order();
+            pizzaOrder.setOrderNumber(manageController.getOrderCounter());
+            tf_orderNumber.setText(String.valueOf(pizzaOrder.getOrderNumber()));
+        }
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("byo-view.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(fxmlLoader.load());
@@ -118,8 +124,11 @@ public class CreateOrderController {
 
     @FXML
     protected void onPremadePizzaClick() throws IOException {
-        if(pizzaOrder == null)
+        if(pizzaOrder == null) {
             pizzaOrder = new Order();
+            pizzaOrder.setOrderNumber(manageController.getOrderCounter());
+            tf_orderNumber.setText(String.valueOf(pizzaOrder.getOrderNumber()));
+        }
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("premade-view.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(fxmlLoader.load());
@@ -141,9 +150,10 @@ public class CreateOrderController {
             newOrder.addPizza(pizza);
         }
 
-        mainController.addOrder(newOrder);
+        manageController.addOrder(newOrder);
         //we prob want to clear the currentOrder tableview upon adding order.
         lv_currentOrder.refresh();
+        pizzaOrder = null;
     }
 
     @FXML

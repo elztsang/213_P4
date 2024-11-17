@@ -19,7 +19,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Text>
-                  <TextField editable="false" prefHeight="26.0" prefWidth="39.0" />
+                  <TextField fx:id="tf_orderNumber" editable="false" prefHeight="26.0" prefWidth="39.0" />
                </children>
                <opaqueInsets>
                   <Insets />

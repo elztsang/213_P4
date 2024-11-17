@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="345.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ru_pizzaria.ManageOrdersController">
+<AnchorPane prefHeight="345.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ru_pizzaria.ManageOrdersController">
    <children>
       <VBox layoutX="20.0" layoutY="12.0" prefHeight="314.0" prefWidth="559.0">
          <children>
@@ -14,7 +14,7 @@
                   <ComboBox prefHeight="25.0" prefWidth="79.0" />
                </children>
             </HBox>
-            <ListView prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="lv_allOrders" prefHeight="200.0" prefWidth="200.0" />
             <HBox alignment="TOP_RIGHT" prefHeight="74.0" prefWidth="559.0" spacing="5.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total amount:" />
