@@ -69,7 +69,7 @@ public class CreateOrderController {
     @FXML
     public void initialize(){
         pizzaObservableList = FXCollections.observableArrayList();
-
+//        pizzaOrder = new Order();
         updateTotal();
         updateSalesTax();
         updateOrderTotal();
@@ -106,8 +106,8 @@ public class CreateOrderController {
 
     @FXML
     protected void onBYOPizzaClick() throws IOException {
-        if(pizzaOrder == null) {
-            pizzaOrder = new Order();
+        if(pizzaOrder.getOrderNumber() < 0) {
+//            pizzaOrder = new Order();
             pizzaOrder.setOrderNumber(manageController.getOrderCounter());
             tf_orderNumber.setText(String.valueOf(pizzaOrder.getOrderNumber()));
         }
@@ -124,8 +124,7 @@ public class CreateOrderController {
 
     @FXML
     protected void onPremadePizzaClick() throws IOException {
-        if(pizzaOrder == null) {
-            pizzaOrder = new Order();
+        if(pizzaOrder.getOrderNumber() < 0) {
             pizzaOrder.setOrderNumber(manageController.getOrderCounter());
             tf_orderNumber.setText(String.valueOf(pizzaOrder.getOrderNumber()));
         }
@@ -153,7 +152,7 @@ public class CreateOrderController {
         manageController.addOrder(newOrder);
         //we prob want to clear the currentOrder tableview upon adding order.
         lv_currentOrder.refresh();
-        pizzaOrder = null;
+        pizzaOrder = new Order();
     }
 
     @FXML
