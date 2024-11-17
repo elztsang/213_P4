@@ -19,23 +19,33 @@ import pizzaria.*;
  */
 public class ManageOrdersController {
     private static ArrayList<Order> pizzaOrders;
-    private ObservableList<Order> pizzaOrderOptions;
-    private int orderCounter = 0;
+    private static ObservableList<Order> pizzaOrderOptions;
+    private static int orderCounter;
 
 
     @FXML
     private ListView lv_selectedOrder;
     @FXML
-    private ComboBox cb_orderNumber;
+    private ComboBox<Order> cb_orderNumber;
 
     @FXML
     public void initialize(){
-        pizzaOrders = new ArrayList<>();
-        pizzaOrderOptions = FXCollections.observableArrayList();
-        cb_orderNumber = new ComboBox<>();
+        if (pizzaOrders == null)
+            pizzaOrders = new ArrayList<>();
+
+        if (pizzaOrderOptions == null) {
+            pizzaOrderOptions = FXCollections.observableArrayList();
+            // If we're creating pizzaOrderOptions for the first time and pizzaOrders has data,
+            // we need to sync them
+            if (!pizzaOrders.isEmpty()) {
+                pizzaOrderOptions.addAll(pizzaOrders);
+            }
+        }
+
+        cb_orderNumber.setItems(pizzaOrderOptions);
         initOrderSelectionListener();
-//        initTableView();
-//        createOrderTableView();
+
+        debugPrintCollections("initialize");
     }
 
     private void  initOrderSelectionListener() {
@@ -73,9 +83,10 @@ public class ManageOrdersController {
 
     @FXML
     protected void onRemoveOrderClick() {
-        Order selectedOrder = (Order) cb_orderNumber.getSelectionModel().getSelectedItem(); //todo: rework this
-        if (pizzaOrders.contains(selectedOrder)) {
+        Order selectedOrder = cb_orderNumber.getSelectionModel().getSelectedItem();
+        if (selectedOrder != null) {
             pizzaOrders.remove(selectedOrder);
+            pizzaOrderOptions.remove(selectedOrder);
         } else {
             //print error message that order doesn't exist
             System.out.println("No valid order selected"); //- move this somewhere visible
@@ -87,19 +98,23 @@ public class ManageOrdersController {
     }
 
     public void addOrder(Order order) {
-        if (pizzaOrderOptions == null)
+        if (pizzaOrders == null) {
+            pizzaOrders = new ArrayList<>();
+        }
+        if (pizzaOrderOptions == null) {
             pizzaOrderOptions = FXCollections.observableArrayList();
+        }
 
         pizzaOrders.add(order);
         pizzaOrderOptions.add(order);
+        orderCounter += 1;
+    }
 
-        orderCounter++;
-
-        cb_orderNumber.setItems(pizzaOrderOptions);
-
-        //todo: debug
-        System.out.println("ADD: OrderCounter: " + orderCounter);
-        System.out.println("ADD: Current Observable List\n" + pizzaOrderOptions);
-        System.out.println("ADD: Current List of Orders\n" + pizzaOrders);
+    private void debugPrintCollections(String location) {
+        System.out.println("DEBUG " + location);
+        System.out.println("pizzaOrders: " + (pizzaOrders == null ? "null" : pizzaOrders));
+        System.out.println("pizzaOrderOptions: " + (pizzaOrderOptions == null ? "null" : pizzaOrderOptions));
+        System.out.println("ComboBox items: " + cb_orderNumber.getItems());
+        System.out.println("-------------------");
     }
 }
