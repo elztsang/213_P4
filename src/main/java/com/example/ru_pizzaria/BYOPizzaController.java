@@ -14,9 +14,13 @@ import javafx.stage.Stage;
 import pizzaria.*;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class BYOPizzaController {
+    private final static double SMALL_PRICE = 8.99; //todo: check if these r the right prices
+    private final static double MEDIUM_PRICE = 10.99;
+    private final static double LARGE_PRICE = 12.99;
 
     private CreateOrderController orderController;
     private Stage stage;
@@ -27,6 +31,8 @@ public class BYOPizzaController {
     private ToggleGroup pizzaStyle;
     @FXML
     private ToggleGroup pizzaSize;
+    @FXML
+    private TextField tf_pizzaPriceOut;
     @FXML
     private RadioButton rb_smallPizza;
     @FXML
@@ -46,6 +52,9 @@ public class BYOPizzaController {
     public void initialize() {
         initPizzaStyleTG();
         initPizzaSizeTG();
+        pizzaSize.selectToggle(rb_mediumPizza); //have a default value for size+price
+        pizzaStyle.selectToggle(rb_chicago);
+        setPizzaInitPrice();
         initToppingsLV();
         initSubtotalListener();
     }
@@ -60,14 +69,44 @@ public class BYOPizzaController {
             //todo: figure out how to do this with sizes - we can just do a unrefined solution
             //also this doesn't update sometimes for soem reason
             //to replicate - try selecting 3 items, then unselect 1 item -> only updates when clicking(without alt click)
+
             ObservableList<Topping> toppingsList = lv_byoToppings.getSelectionModel().getSelectedItems();
-            double subtotal = toppingsList.size() * 1.69;
-            System.out.println("Topping Subtotal: " + subtotal);
+            double toppingSubtotal = toppingsList.size() * 1.69;
+            DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
+
+            double pizzaSubtotal = getPizzaSizePrice();
+
+            double orderTotal = pizzaSubtotal + toppingSubtotal;
+            tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(orderTotal)));
+            //System.out.println("Topping Subtotal: " + toppingSubtotal);
+        });
+
+        pizzaSize.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            ObservableList<Topping> toppingsList = lv_byoToppings.getSelectionModel().getSelectedItems();
+            double toppingSubtotal = toppingsList.size() * 1.69;
+            DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
+
+            double pizzaSubtotal = getPizzaSizePrice();
+
+            double orderTotal = pizzaSubtotal + toppingSubtotal;
+            tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(orderTotal)));
         });
     }
 
-    private void initSizeListener(){
-        //pizzaSize.getSelectedToggle().addListener();
+    private double getPizzaSizePrice(){
+        if (rb_smallPizza.isSelected()) {
+            return SMALL_PRICE;
+        } else if (rb_mediumPizza.isSelected()) {
+            return MEDIUM_PRICE;
+        } else if (rb_largePizza.isSelected()) {
+            return LARGE_PRICE;
+        }
+
+        return 0.0;
+    }
+
+    private void setPizzaInitPrice() {
+        tf_pizzaPriceOut.setText(String.format("$%s", MEDIUM_PRICE));
     }
 
     private void initToppingsLV() {

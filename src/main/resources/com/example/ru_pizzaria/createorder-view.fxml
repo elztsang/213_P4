@@ -51,7 +51,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
+                        <Text fx:id="t_total" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin></Text>
