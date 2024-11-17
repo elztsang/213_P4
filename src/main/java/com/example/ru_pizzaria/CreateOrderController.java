@@ -65,15 +65,6 @@ public class CreateOrderController {
         updateTotal();
         updateSalesTax();
         updateOrderTotal();
-        initOrderDetailsListener();
-    }
-
-    private void initOrderDetailsListener() {
-//        b_removePizza.onActionProperty().addListener((observable, oldValue, newValue) -> {
-//            updateTotal();
-//            updateSalesTax();
-//            updateOrderTotal();
-//        });
     }
 
     private void updateTotal() {

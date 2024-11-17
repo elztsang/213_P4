@@ -78,7 +78,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <Button fx:id="b_removePizza" mnemonicParsing="false" onAction="#onRemovePizzaClick" text="Remove pizza" />
+                        <Button mnemonicParsing="false" onAction="#onRemovePizzaClick" text="Remove pizza" />
                      </children>
                   </HBox>
                   <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
