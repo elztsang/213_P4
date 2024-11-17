@@ -24,9 +24,10 @@ public class CreateOrderController {
     private final double SALESTAX = 0.06625; //todo: double check if this is the right value
 
     public double total = 0.0;
+    private MainMenuController mainController;
     //we could delete this and just add directly to order -elz
     private ArrayList<String> styles;
-    public Order pizzaOrder;
+    private Order pizzaOrder;
     private ObservableList<Pizza> pizzaObservableList;
     private Stage primaryStage; //the reference of the main window.
     private Scene primaryScene; //the ref. of the scene set to the primaryStage
@@ -56,6 +57,10 @@ public class CreateOrderController {
     public void setPrimaryStage(Stage stage, Scene scene) {
         primaryStage = stage;
         primaryScene = scene;
+    }
+
+    public void setMainController(MainMenuController controller) {
+        mainController = controller;
     }
 
     @FXML
@@ -136,9 +141,8 @@ public class CreateOrderController {
             newOrder.addPizza(pizza);
         }
 
-        ManageOrdersController.addOrder(newOrder);
+        mainController.addOrder(newOrder);
         //we prob want to clear the currentOrder tableview upon adding order.
-        //total = 0; //reset total price after adding the order.
         lv_currentOrder.refresh();
     }
 
@@ -153,9 +157,9 @@ public class CreateOrderController {
         updateOrderTotal();
 
         //todo: debugging
-        System.out.println("REMOVE: total: " + total);
-        System.out.println("REMOVE: List of pizzas currently");
-        System.out.println(pizzaOrder.getPizzas());
+//        System.out.println("REMOVE: total: " + total);
+//        System.out.println("REMOVE: List of pizzas currently");
+//        System.out.println(pizzaOrder.getPizzas());
     }
 
     public void addPizza(Pizza pizza) {
@@ -174,9 +178,9 @@ public class CreateOrderController {
         updateOrderTotal();
 
         //todo: debugging
-        System.out.println("ADD: total: " + total);
-        System.out.println("ADD: List of pizzas currently");
-        System.out.println(pizzaOrder.getPizzas());
+//        System.out.println("ADD: total: " + total);
+//        System.out.println("ADD: List of pizzas currently");
+//        System.out.println(pizzaOrder.getPizzas());
     }
 
     public void setPizzaOrder(Order order){
