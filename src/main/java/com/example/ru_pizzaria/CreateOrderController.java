@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class CreateOrderController {
     private final double SALESTAX = 0.06625; //todo: double check if this is the right value
 
-    public double total;
+    public double total = 0.0;
     //we could delete this and just add directly to order -elz
     private ArrayList<Pizza> pizzas; //dunno if making this static messes with anything
     private ArrayList<String> styles;
@@ -40,11 +40,11 @@ public class CreateOrderController {
     @FXML
     private ListView lv_currentOrder;
     @FXML
-    private TextField t_total;
+    private Text t_total;
     @FXML
-    private TextField t_salestax;
+    private Text t_salestax;
     @FXML
-    private TextField t_ordertotal;
+    private Text t_ordertotal;
 //    @FXML
 //    private TableColumn<Pizza, String> styleCol;
 //    @FXML
@@ -70,21 +70,28 @@ public class CreateOrderController {
 //        pizzas = new ArrayList<>();
         createCurrentOrderLV();
         pizzaObservableList = FXCollections.observableArrayList();
+        t_total = new Text();
+        t_salestax = new Text();
+        t_ordertotal = new Text();
 
+        updateSalesTax();
+        updateOrderTotal();
 
     }
 
     private void updateTotal(Pizza pizza) {
         total += pizza.price();
-        t_total.setText(String.format("%"));
+        t_total.setText("Total"); //String.format("$ %1$,.2f", total)
     }
 
     private void updateSalesTax() {
-        //total * 0.06625;
+        double salesTax = total * 0.06625;
+        t_salestax.setText("Sale Tax"); //String.format("$ %1$,.2f", salesTax)
     }
 
     private void updateOrderTotal() {
-        //total + (total * .06625);
+        double orderTotal = total + (total * .06625);
+        t_ordertotal.setText("Order Total"); //String.format("$ %1$,.2f", orderTotal)
     }
 
     //idk how to get tableview to be populated properly
@@ -165,6 +172,7 @@ public class CreateOrderController {
         lv_currentOrder.refresh(); //todo: figure out why tableview isn't being populated
 
         //debugging
+        System.out.println("total: " + total);
         System.out.println("List of pizzas currently");
         System.out.println(pizzas);
     }
