@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ru_pizzaria.ManageOrdersController">
+<AnchorPane prefHeight="345.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ru_pizzaria.ManageOrdersController">
    <children>
-      <VBox layoutX="20.0" layoutY="74.0" prefHeight="252.0" prefWidth="559.0">
+      <VBox layoutX="20.0" layoutY="12.0" prefHeight="314.0" prefWidth="559.0">
          <children>
-            <TableView prefHeight="200.0" prefWidth="200.0">
-              <columns>
-                <TableColumn fx:id="orderNumberCol" prefWidth="57.19997978210449" text="Order #" />
-                <TableColumn fx:id="pizzaCol" prefWidth="415.6000061035156" text="Pizzas" />
-                  <TableColumn fx:id="orderTotalCol" prefWidth="87.5999755859375" text="Total" />
-              </columns>
-            </TableView>
-            <Button alignment="CENTER" mnemonicParsing="false" text="Remove Selected Order">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin></Button>
+            <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="559.0" spacing="10.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display pizzas for order number:" />
+                  <ComboBox prefHeight="25.0" prefWidth="79.0" />
+               </children>
+            </HBox>
+            <ListView prefHeight="200.0" prefWidth="200.0" />
+            <HBox alignment="TOP_RIGHT" prefHeight="74.0" prefWidth="559.0" spacing="5.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total amount:" />
+                  <TextField prefHeight="25.0" prefWidth="60.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="41.0" prefWidth="559.0" spacing="325.0">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#onRemoveOrderClick" text="Remove Selected Order" />
+                  <Button mnemonicParsing="false" onAction="#exportOrders" text="Export Orders" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>
