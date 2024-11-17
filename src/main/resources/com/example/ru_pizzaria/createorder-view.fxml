@@ -51,29 +51,29 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Text fx:id="t_total" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin></Text>
-                        <TextField editable="false" prefHeight="26.0" prefWidth="122.0" />
+                        <TextField fx:id="tf_total" editable="false" prefHeight="26.0" prefWidth="122.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <Text fx:id="t_salestax" strokeType="OUTSIDE" strokeWidth="0.0" text="Sales tax:">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sales tax:">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin></Text>
-                        <TextField editable="false" prefHeight="26.0" prefWidth="121.0" />
+                        <TextField fx:id="tf_salestax" editable="false" prefHeight="26.0" prefWidth="121.0" />
                      </children></HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                      <children>
-                        <Text fx:id="t_ordertotal" strokeType="OUTSIDE" strokeWidth="0.0" text="Order total:">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Order total:">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Text>
-                        <TextField editable="false" prefHeight="26.0" prefWidth="109.0" />
+                        <TextField fx:id="tf_ordertotal" editable="false" prefHeight="26.0" prefWidth="109.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
