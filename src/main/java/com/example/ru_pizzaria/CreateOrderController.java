@@ -69,7 +69,7 @@ public class CreateOrderController {
     @FXML
     public void initialize(){
         pizzaObservableList = FXCollections.observableArrayList();
-
+//        pizzaOrder = new Order();
         updateTotal();
         updateSalesTax();
         updateOrderTotal();
@@ -106,10 +106,10 @@ public class CreateOrderController {
 
     @FXML
     protected void onBYOPizzaClick() throws IOException {
-        if(pizzaOrder == null) {
-            pizzaOrder = new Order();
+        if(pizzaOrder.getOrderNumber() < 0) {
+//            pizzaOrder = new Order();
             pizzaOrder.setOrderNumber(manageController.getOrderCounter());
-            tf_orderNumber.setText(String.valueOf(pizzaOrder.getOrderNumber()));
+            tf_orderNumber.setText(String.valueOf(manageController.getOrderCounter()));
         }
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("byo-view.fxml"));
         Stage stage = new Stage();
@@ -124,10 +124,9 @@ public class CreateOrderController {
 
     @FXML
     protected void onPremadePizzaClick() throws IOException {
-        if(pizzaOrder == null) {
-            pizzaOrder = new Order();
+        if(pizzaOrder.getOrderNumber() < 0) {
             pizzaOrder.setOrderNumber(manageController.getOrderCounter());
-            tf_orderNumber.setText(String.valueOf(pizzaOrder.getOrderNumber()));
+            tf_orderNumber.setText(String.valueOf(manageController.getOrderCounter()));
         }
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("premade-view.fxml"));
         Stage stage = new Stage();
@@ -143,19 +142,21 @@ public class CreateOrderController {
 
     @FXML
     protected void onAddOrderClick() {
-        if (pizzaOrder != null) {
+        if (pizzaOrder.getOrderNumber() >= 0 || !pizzaObservableList.isEmpty()) {
             manageController.addOrder(pizzaOrder);
             //clear order and reupdate values
             pizzaObservableList.clear();
             lv_currentOrder.setItems(pizzaObservableList);
             lv_currentOrder.refresh();
-            pizzaOrder = null;
+            pizzaOrder = new Order();
+            pizzaOrder.setOrderNumber(manageController.getOrderCounter());
+            tf_orderNumber.setText(String.valueOf(manageController.getOrderCounter()));
             updateTotal();
             updateSalesTax();
             updateOrderTotal();
         } else {
             //todo: print error message in textarea
-            System.out.println("Order is null!");
+            System.out.println("Order is empty!");
         }
     }
 

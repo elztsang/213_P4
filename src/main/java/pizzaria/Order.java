@@ -14,6 +14,7 @@ public class Order {
      */
     public Order () {
         pizzas = new ArrayList<>();
+        number = -1;
     }
 
     /**
