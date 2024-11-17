@@ -142,18 +142,21 @@ public class CreateOrderController {
     }
 
     @FXML
-    protected void onAddOrderClick() throws IOException {
-        Order newOrder = new Order(); // note to self (ron) - this is what i specifically was talking abt in order class
-        ArrayList<Pizza> pizzas = new ArrayList<>(pizzaOrder.getPizzas());
-        //we added the finalized list of pizzas
-        for (Pizza pizza : pizzas) {
-            newOrder.addPizza(pizza);
+    protected void onAddOrderClick() {
+        if (pizzaOrder != null) {
+            manageController.addOrder(pizzaOrder);
+            //clear order and reupdate values
+            pizzaObservableList.clear();
+            lv_currentOrder.setItems(pizzaObservableList);
+            lv_currentOrder.refresh();
+            pizzaOrder = null;
+            updateTotal();
+            updateSalesTax();
+            updateOrderTotal();
+        } else {
+            //todo: print error message in textarea
+            System.out.println("Order is null!");
         }
-
-        manageController.addOrder(newOrder);
-        //we prob want to clear the currentOrder tableview upon adding order.
-        lv_currentOrder.refresh();
-        pizzaOrder = null;
     }
 
     @FXML
