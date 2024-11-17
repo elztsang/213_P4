@@ -67,7 +67,7 @@ public class BYOPizzaController {
     }
 
     private void initSizeListener(){
-        pizzaSize.getSelectedToggle().addListener()
+        //pizzaSize.getSelectedToggle().addListener();
     }
 
     private void initToppingsLV() {
