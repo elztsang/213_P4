@@ -18,7 +18,7 @@
             <HBox alignment="TOP_RIGHT" prefHeight="74.0" prefWidth="559.0" spacing="5.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total amount:" />
-                  <TextField prefHeight="25.0" prefWidth="60.0" />
+                  <TextField fx:id="tf_orderTotal" prefHeight="25.0" prefWidth="60.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="41.0" prefWidth="559.0" spacing="325.0">

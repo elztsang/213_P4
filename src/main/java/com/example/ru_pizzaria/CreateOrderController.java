@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class CreateOrderController {
     private final double SALESTAX = 0.06625; //todo: double check if this is the right value
 
-    public double total = 0.0;
+    private double total = 0.0;
     //we could delete this and just add directly to order -elz
     private ArrayList<String> styles;
     private Order pizzaOrder;
@@ -80,28 +80,20 @@ public class CreateOrderController {
             pizzaOrder = new Order();
         }
 
-        total = 0;
-
-        for (Pizza pizza : pizzaOrder.getPizzas()) {
-            total += pizza.price();
-        }
-
-        double curTotal = total;
         DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
-        tf_total.setText(String.format("$%s", moneyFormat.format(curTotal))); //String.format("$ %1$,.2f", total)
+        tf_total.setText(String.format("$%s", moneyFormat.format(pizzaOrder.getTotal()))); //String.format("$ %1$,.2f", total)
     }
 
     private void updateSalesTax() {
-        double salesTax = total * 0.06625;
         DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
 
-        tf_salestax.setText(String.format("$%s", moneyFormat.format(salesTax))); //String.format("$ %1$,.2f", salesTax)
+        tf_salestax.setText(String.format("$%s", moneyFormat.format(pizzaOrder.getSalesTax()))); //String.format("$ %1$,.2f", salesTax)
     }
 
     private void updateOrderTotal() {
         double orderTotal = total + (total * .06625);
         DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
-        tf_ordertotal.setText(String.format("$%s", moneyFormat.format(orderTotal))); //String.format("$ %1$,.2f", orderTotal)
+        tf_ordertotal.setText(String.format("$%s", moneyFormat.format(pizzaOrder.getOrderTotal()))); //String.format("$ %1$,.2f", orderTotal)
     }
 
     @FXML

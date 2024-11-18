@@ -21,6 +21,7 @@ public class BYOPizzaController {
     private final static double SMALL_PRICE = 8.99; //todo: check if these r the right prices
     private final static double MEDIUM_PRICE = 10.99;
     private final static double LARGE_PRICE = 12.99;
+    private final static double TOPPING_PRICE = 1.69;
 
     private CreateOrderController orderController;
     private Stage stage;
@@ -70,7 +71,7 @@ public class BYOPizzaController {
             ObservableList<Topping> toppingsList = lv_byoToppings.getSelectionModel().getSelectedItems();
             DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
 
-            double toppingSubtotal = toppingsList.size() * 1.69;
+            double toppingSubtotal = toppingsList.size() * TOPPING_PRICE;
             double pizzaSubtotal = getPizzaSizePrice();
             double orderTotal = pizzaSubtotal + toppingSubtotal;
             tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(orderTotal)));
