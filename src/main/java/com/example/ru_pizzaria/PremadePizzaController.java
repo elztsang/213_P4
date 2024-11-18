@@ -6,11 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import pizzaria.*;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.Objects;
 
 /**
  * Lets you view all the orders and cancel an order.
@@ -58,6 +61,20 @@ public class PremadePizzaController {
     private ComboBox cb_pizzaType;
     @FXML
     private TextArea ta_premadeToppings;
+    @FXML
+    private ImageView iv_premadeImage;
+    @FXML
+    private Image chicagoBBQChicken;
+    @FXML
+    private Image chicagoMeatzza;
+    @FXML
+    private Image chicagoDeluxe;
+    @FXML
+    private Image nyBBQChicken;
+    @FXML
+    private Image nyMeatzza;
+    @FXML
+    private Image nyDeluxe;
 
 
     @FXML
@@ -78,6 +95,14 @@ public class PremadePizzaController {
 
         if(pizzaOrder == null)
             pizzaOrder = new Order();
+        chicagoBBQChicken = new Image(getClass().getResourceAsStream("/images/chicagoBBQChicken.jpg"));
+        chicagoMeatzza = new Image(getClass().getResourceAsStream("/images/chicagoMeatzza.jpg"));
+        chicagoDeluxe = new Image(getClass().getResourceAsStream("/images/chicagoDeluxe.jpg"));
+        nyBBQChicken = new Image(getClass().getResourceAsStream("/images/nyBBQChicken.jpg"));
+        nyMeatzza = new Image(getClass().getResourceAsStream("/images/nyMeatzza.jpg"));
+        nyDeluxe = new Image(getClass().getResourceAsStream("/images/nyDeluxe.jpg"));
+
+
     }
 
     private void setPizzaInitPrice() {
@@ -124,7 +149,6 @@ public class PremadePizzaController {
         if (rb_chicago.isSelected() && cb_pizzaType.getValue() != null)
             currentPizza = premadeChicagoTypeSelected();
 
-
         if (rb_ny.isSelected() && cb_pizzaType.getValue() != null)
             currentPizza = premadeNYTypeSelected();
 
@@ -155,10 +179,13 @@ public class PremadePizzaController {
     protected Pizza premadeChicagoTypeSelected(){
         PizzaFactory chicagoStyle = new ChicagoPizza();
         if (cb_pizzaType.getValue().equals("BBQ Chicken")) {
+            iv_premadeImage.setImage(chicagoBBQChicken);
             return chicagoStyle.createBBQChicken();
         } else if (cb_pizzaType.getValue().equals("Deluxe")) {
+            iv_premadeImage.setImage(chicagoDeluxe);
             return chicagoStyle.createDeluxe();
         } else if (cb_pizzaType.getValue().equals("Meatzza")) {
+            iv_premadeImage.setImage(chicagoMeatzza);
             return chicagoStyle.createMeatzza();
         }
         return null;
@@ -169,10 +196,13 @@ public class PremadePizzaController {
         PizzaFactory nyStyle = new NYPizza();
         if(!cb_pizzaType.getSelectionModel().isEmpty()) {
             if (cb_pizzaType.getValue().equals("BBQ Chicken")) {
+                iv_premadeImage.setImage(nyBBQChicken);
                 return nyStyle.createBBQChicken();
             } else if (cb_pizzaType.getValue().equals("Deluxe")) {
+                iv_premadeImage.setImage(nyDeluxe);
                 return nyStyle.createDeluxe();
             } else if (cb_pizzaType.getValue().equals("Meatzza")) {
+                iv_premadeImage.setImage(nyMeatzza);
                 return nyStyle.createMeatzza();
             }
         }
