@@ -57,6 +57,6 @@
             </children>
         </GridPane>
       <ImageView fx:id="iv_byoImage" fitHeight="201.0" fitWidth="287.0" layoutX="312.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
-      <TextArea fx:id="ta_errorLog" layoutX="63.0" layoutY="402.0" prefHeight="38.0" prefWidth="478.0" />
+      <TextArea fx:id="ta_errorLog" editable="false" layoutX="63.0" layoutY="402.0" prefHeight="38.0" prefWidth="478.0" />
     </children>
 </AnchorPane>

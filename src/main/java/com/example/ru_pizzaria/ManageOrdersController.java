@@ -26,6 +26,10 @@ public class ManageOrdersController {
     @FXML
     private ListView lv_selectedOrder;
     @FXML
+    private Button b_removeOrder;
+    @FXML
+    private Button b_exportOrder;
+    @FXML
     private ComboBox<Integer> cb_orderNumber;
     @FXML
     private TextField tf_orderTotal;
@@ -47,6 +51,9 @@ public class ManageOrdersController {
                 }
             }
         }
+
+        b_removeOrder.setDisable(cb_orderNumber.getSelectionModel().isEmpty());
+        b_exportOrder.setDisable(pizzaOrders.isEmpty());
         cb_orderNumber.setItems(pizzaOrderOptions);
         initOrderSelectionListener();
     }
@@ -54,6 +61,7 @@ public class ManageOrdersController {
     private void initOrderSelectionListener() {
         //need to listen for when order is selected and when order is removed -latter done in onremoveorderclick or whatever
         cb_orderNumber.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            b_removeOrder.setDisable(cb_orderNumber.getSelectionModel().isEmpty());
             //update the listview on selection
             if (lv_selectedOrder == null)
                 lv_selectedOrder = new ListView<>();
@@ -105,16 +113,17 @@ public class ManageOrdersController {
         Order selectedOrder = findOrderNumber(selectedOrderNumber);
         if (selectedOrder != null) {
             pizzaOrders.remove(selectedOrder);
-            pizzaOrderOptions.remove(selectedOrder);
+            pizzaOrderOptions.remove(selectedOrderNumber);
         } else {
-            //print error message that order doesn't exist
-            ta_errorLog.setText("Unable to remove order -- no valid order selected."); //- move this somewhere visible
+            ta_errorLog.setText("Unable to remove order -- no valid order selected.");
         }
 
         DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
         tf_orderTotal.setText(String.format("$%s", moneyFormat.format(0)));
         lv_selectedOrder.getItems().clear();
         lv_selectedOrder.refresh();
+        b_removeOrder.setDisable(cb_orderNumber.getSelectionModel().isEmpty()); // always true
+        b_exportOrder.setDisable(pizzaOrders.isEmpty());
     }
 
     public int getOrderCounter() {

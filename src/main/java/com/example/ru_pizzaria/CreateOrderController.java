@@ -28,6 +28,8 @@ public class CreateOrderController {
     @FXML
     private ListView lv_currentOrder;
     @FXML
+    private Button b_addOrder;
+    @FXML
     private TextField tf_total;
     @FXML
     private TextField tf_salestax;
@@ -45,10 +47,11 @@ public class CreateOrderController {
     @FXML
     public void initialize() {
         pizzaObservableList = FXCollections.observableArrayList();
-//        pizzaOrder = new Order();
         updateTotal();
         updateSalesTax();
         updateOrderTotal();
+
+        b_addOrder.setDisable(pizzaObservableList.isEmpty());
     }
 
     private void updateTotal() {
@@ -124,6 +127,8 @@ public class CreateOrderController {
         } else {
             ta_errorLog.setText("Order is empty!");
         }
+
+        b_addOrder.setDisable(pizzaObservableList.isEmpty());
     }
 
     @FXML
@@ -135,31 +140,22 @@ public class CreateOrderController {
         updateTotal();
         updateSalesTax();
         updateOrderTotal();
-
-        //todo: debugging
-//        System.out.println("REMOVE: total: " + total);
-//        System.out.println("REMOVE: List of pizzas currently");
-//        System.out.println(pizzaOrder.getPizzas());
+        b_addOrder.setDisable(pizzaObservableList.isEmpty());
     }
 
     public void addPizza(Pizza pizza) {
         if (pizzaObservableList == null)
             pizzaObservableList = FXCollections.observableArrayList();
 
-        //pizzas.add(pizza);
         pizzaOrder.addPizza(pizza);
         pizzaObservableList.setAll(pizzaOrder.getPizzas());
 
         lv_currentOrder.setItems(pizzaObservableList);
-        lv_currentOrder.refresh(); //todo: figure out why tableview isn't being populated
+        lv_currentOrder.refresh();
 
         updateTotal();
         updateSalesTax();
         updateOrderTotal();
-
-        //todo: debugging
-//        System.out.println("ADD: total: " + total);
-//        System.out.println("ADD: List of pizzas currently");
-//        System.out.println(pizzaOrder.getPizzas());
+        b_addOrder.setDisable(false);
     }
 }

@@ -83,13 +83,13 @@
                   </HBox>
                   <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onAddOrderClick" text="Place order" />
+                        <Button fx:id="b_addOrder" mnemonicParsing="false" onAction="#onAddOrderClick" text="Place order" />
                      </children>
                   </HBox>
                </children>
             </GridPane>
          </children>
       </VBox>
-      <TextArea fx:id="ta_errorLog" layoutX="44.0" layoutY="378.0" prefHeight="37.0" prefWidth="511.0" />
+      <TextArea fx:id="ta_errorLog" editable="false" layoutX="44.0" layoutY="378.0" prefHeight="37.0" prefWidth="511.0" />
    </children>
 </AnchorPane>

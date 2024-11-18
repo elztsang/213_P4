@@ -23,12 +23,12 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="41.0" prefWidth="559.0" spacing="325.0">
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#onRemoveOrderClick" text="Remove Selected Order" />
-                  <Button mnemonicParsing="false" onAction="#exportOrders" text="Export Orders" />
+                  <Button fx:id="b_removeOrder" alignment="CENTER" mnemonicParsing="false" onAction="#onRemoveOrderClick" text="Remove Selected Order" />
+                  <Button fx:id="b_exportOrder" mnemonicParsing="false" onAction="#exportOrders" text="Export Orders" />
                </children>
             </HBox>
          </children>
       </VBox>
-      <TextArea fx:id="ta_errorLog" layoutX="74.0" layoutY="332.0" prefHeight="25.0" prefWidth="453.0" />
+      <TextArea fx:id="ta_errorLog" editable="false" layoutX="74.0" layoutY="332.0" prefHeight="25.0" prefWidth="453.0" />
    </children>
 </AnchorPane>
