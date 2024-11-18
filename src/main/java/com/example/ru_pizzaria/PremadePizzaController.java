@@ -75,10 +75,12 @@ public class PremadePizzaController {
     private Image nyMeatzza;
     @FXML
     private Image nyDeluxe;
+    @FXML
+    private TextField tf_crustStyle;
 
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         //style
         initPizzaStyleTG();
         //size
@@ -93,7 +95,7 @@ public class PremadePizzaController {
 
         cb_pizzaType.getItems().addAll("Deluxe", "BBQ Chicken", "Meatzza");
 
-        if(pizzaOrder == null)
+        if (pizzaOrder == null)
             pizzaOrder = new Order();
         chicagoBBQChicken = new Image(getClass().getResourceAsStream("/images/chicagoBBQChicken.jpg"));
         chicagoMeatzza = new Image(getClass().getResourceAsStream("/images/chicagoMeatzza.jpg"));
@@ -146,11 +148,14 @@ public class PremadePizzaController {
     }
 
     private void updatePizza() {
-        if (rb_chicago.isSelected() && cb_pizzaType.getValue() != null)
+        if (rb_chicago.isSelected() && cb_pizzaType.getValue() != null) {
             currentPizza = premadeChicagoTypeSelected();
-
-        if (rb_ny.isSelected() && cb_pizzaType.getValue() != null)
+            tf_crustStyle.setText(currentPizza.getCrust().toString());
+        }
+        if (rb_ny.isSelected() && cb_pizzaType.getValue() != null) {
             currentPizza = premadeNYTypeSelected();
+            tf_crustStyle.setText(currentPizza.getCrust().toString());
+        }
 
         if (currentPizza != null) {
             if (pizzaSize.getSelectedToggle() != null) {
@@ -167,7 +172,7 @@ public class PremadePizzaController {
                 DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
                 double orderTotal = currentPizza.price();
                 tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(orderTotal)));
-                }
+            }
         }
     }
 
@@ -176,7 +181,7 @@ public class PremadePizzaController {
     }
 
     @FXML
-    protected Pizza premadeChicagoTypeSelected(){
+    protected Pizza premadeChicagoTypeSelected() {
         PizzaFactory chicagoStyle = new ChicagoPizza();
         if (cb_pizzaType.getValue().equals("BBQ Chicken")) {
             iv_premadeImage.setImage(chicagoBBQChicken);
@@ -192,9 +197,9 @@ public class PremadePizzaController {
     }
 
     @FXML
-    protected Pizza premadeNYTypeSelected(){
+    protected Pizza premadeNYTypeSelected() {
         PizzaFactory nyStyle = new NYPizza();
-        if(!cb_pizzaType.getSelectionModel().isEmpty()) {
+        if (!cb_pizzaType.getSelectionModel().isEmpty()) {
             if (cb_pizzaType.getValue().equals("BBQ Chicken")) {
                 iv_premadeImage.setImage(nyBBQChicken);
                 return nyStyle.createBBQChicken();
