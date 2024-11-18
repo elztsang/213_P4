@@ -3,23 +3,21 @@ package pizzaria;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/** BBQChicken is a subclass of the Pizza class.
+/**
+ * BBQChicken is a subclass of the Pizza class.
  * Defines a pizza type with BBQChicken, Green Pepper, Provolone, and Cheddar as toppings.
  *
  * @author Elizabeth Tsang, Ron Chrysler Amistad
  */
-public class BBQChicken extends Pizza{
+public class BBQChicken extends Pizza {
     private final static double SMALL = 14.99;
     private final static double MEDIUM = 16.99;
     private final static double LARGE = 19.99;
 
-    private Crust crust;
-    private ArrayList<Topping> toppings;
-
     /**
      * Default constructor for BBQChicken.
      */
-    public BBQChicken(){
+    public BBQChicken() {
 
     }
 
@@ -29,14 +27,12 @@ public class BBQChicken extends Pizza{
      *
      * @param crust crust type
      */
-    public BBQChicken(Crust crust){
+    public BBQChicken(Crust crust) {
         super.setCrust(crust);
-        this.crust = crust;
-        toppings = new ArrayList<>(Arrays.asList(Topping.BBQCHICKEN,
+        super.setToppings(new ArrayList<>(Arrays.asList(Topping.BBQCHICKEN,
                 Topping.GREENPEPPER,
                 Topping.PROVOLONE,
-                Topping.CHEDDAR));
-        super.setToppings(toppings);
+                Topping.CHEDDAR)));
     }
 
     /**
@@ -46,7 +42,7 @@ public class BBQChicken extends Pizza{
      */
     @Override
     public double price() {
-        if (this.getSize().equals(Size.SMALL))  {
+        if (this.getSize().equals(Size.SMALL)) {
             return SMALL;
         } else if (this.getSize().equals(Size.MEDIUM)) {
             return MEDIUM;
