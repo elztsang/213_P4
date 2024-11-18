@@ -103,7 +103,6 @@ public class ManageOrdersController {
         tf_orderTotal.setText(String.format("$%s", moneyFormat.format(0)));
         lv_selectedOrder.getItems().clear();
         lv_selectedOrder.refresh();
-        //todo: clear the listview and update combobox if it doesnt do so already
     }
 
     public int getOrderCounter(){
