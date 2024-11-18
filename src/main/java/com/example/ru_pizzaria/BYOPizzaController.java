@@ -67,10 +67,6 @@ public class BYOPizzaController {
 
     private void initSubtotalListener() {
         lv_byoToppings.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            //todo: figure out how to fix the issue below, or leave it cause it likely is an issue of how listview updates values
-            //also this doesn't update sometimes for soem reason
-            //to replicate - try selecting 3 items, then unselect 1 item -> only updates when clicking(without alt click)
-
             ObservableList<Topping> toppingsList = lv_byoToppings.getSelectionModel().getSelectedItems();
             DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
 
@@ -89,6 +85,7 @@ public class BYOPizzaController {
             double pizzaSubtotal = getPizzaSizePrice();
             double orderTotal = pizzaSubtotal + toppingSubtotal;
             tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(orderTotal)));
+            ta_byoToppings.setText(toppingsList.toString());
         });
     }
 

@@ -25,10 +25,14 @@ public class BuildYourOwn extends Pizza{
 
     @Override
     public double price() {
-        double toppingPrice = 0.;
+        double toppingPrice = 0.0;
 
         for (int i = 0; i < toppings.size(); i++) {
             toppingPrice += TOPPINGPRICE;
+        }
+
+        if (this.getSize() == null) {
+            return -1;
         }
 
         if (this.getSize().equals(Size.SMALL))  {
@@ -46,6 +50,7 @@ public class BuildYourOwn extends Pizza{
         if (toppings == null) {
             toppings = new ArrayList<>(); //allowed? causes error otherwise
         }
+        toppings.clear();
         toppings.addAll(toppingsList);
         super.setToppings(toppings);
     }
