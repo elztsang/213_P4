@@ -16,10 +16,19 @@ public class BBQChicken extends Pizza{
     private Crust crust;
     private ArrayList<Topping> toppings;
 
+    /**
+     * Default constructor for BBQChicken.
+     */
     public BBQChicken(){
 
     }
 
+    /**
+     * Parametrized constructor for BBQChicken.
+     * Makes a BBQChicken Pizza with the specified crust.
+     *
+     * @param crust crust type
+     */
     public BBQChicken(Crust crust){
         super.setCrust(crust);
         this.crust = crust;
@@ -30,6 +39,11 @@ public class BBQChicken extends Pizza{
         super.setToppings(toppings);
     }
 
+    /**
+     * Return the price of the pizza.
+     *
+     * @return price
+     */
     @Override
     public double price() {
         if (this.getSize().equals(Size.SMALL))  {

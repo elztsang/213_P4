@@ -16,10 +16,19 @@ public class Deluxe extends Pizza{
     private Crust crust;
     private ArrayList<Topping> toppings;
 
+    /**
+     * Default constructor for Deluxe.
+     */
     public Deluxe() {
 
     }
 
+    /**
+     * Parametrized constructor for Deluxe.
+     * Makes a Deluxe Pizza with the specified crust.
+     *
+     * @param crust crust type
+     */
     public Deluxe(Crust crust) {
         this.crust = crust;
         super.setCrust(crust);
@@ -31,6 +40,12 @@ public class Deluxe extends Pizza{
         super.setToppings(toppings);
     }
 
+    /**
+     * Return the price of the pizza.
+     * BYO also increases the price of the pizza based on amount of toppings.
+     *
+     * @return price
+     */
     @Override
     public double price() {
         if (this.getSize().equals(Size.SMALL))  {

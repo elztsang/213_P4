@@ -51,6 +51,22 @@ public class Order {
     }
 
     /**
+     * Removes a pizza from the list of pizzas in the order.
+     *
+     * @param pizza - pizza to be removed
+     */
+    public void removePizza(Pizza pizza) {
+        pizzas.remove(pizza);
+    }
+
+    /**
+     * Removes all pizzas in the list of pizzas.
+     */
+    public void removeAllPizzas() {
+        pizzas.clear();
+    }
+
+    /**
      * Calculate the total of the order.
      * This total is calculated by adding the subtotals of all pizzas in the list.
      *

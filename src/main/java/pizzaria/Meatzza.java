@@ -16,10 +16,19 @@ public class Meatzza extends Pizza{
     private Crust crust;
     private ArrayList<Topping> toppings;
 
+    /**
+     * Default constructor for Meatzza.
+     */
     public Meatzza() {
         toppings = new ArrayList<>();
     }
 
+    /**
+     * Parametrized constructor for Meatzza.
+     * Makes a Meatzza Pizza with the specified crust.
+     *
+     * @param crust crust type
+     */
     public Meatzza(Crust crust) {
         super.setCrust(crust);
         this.toppings = new ArrayList<>(Arrays.asList(Topping.SAUSAGE,
@@ -30,6 +39,12 @@ public class Meatzza extends Pizza{
         this.crust = crust;
     }
 
+    /**
+     * Return the price of the pizza.
+     * BYO also increases the price of the pizza based on amount of toppings.
+     *
+     * @return price
+     */
     @Override
     public double price() {
         if (this.getSize().equals(Size.SMALL))  {

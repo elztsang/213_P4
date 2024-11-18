@@ -20,12 +20,25 @@ public class BuildYourOwn extends Pizza{
 
     }
 
+
+    /**
+     * Parametrized constructor for BYO.
+     * Makes a BYO Pizza with the specified crust.
+     *
+     * @param crust crust type
+     */
     public BuildYourOwn(Crust crust) {
         this.crust = crust;
         super.setCrust(crust);
         toppings = new ArrayList<>();
     }
 
+    /**
+     * Return the price of the pizza.
+     * BYO also increases the price of the pizza based on amount of toppings.
+     *
+     * @return price
+     */
     @Override
     public double price() {
         double toppingPrice = 0.0;
@@ -49,6 +62,11 @@ public class BuildYourOwn extends Pizza{
         }
     }
 
+    /**
+     * Sets the list of toppings for the BYO pizza.
+     *
+     * @param toppingsList list of toppings
+     */
     public void setToppings(ArrayList<Topping> toppingsList) {
         if (toppings == null) {
             toppings = new ArrayList<>();
