@@ -59,13 +59,15 @@ public class ManageOrdersController {
     }
 
     private void initOrderSelectionListener() {
-        //need to listen for when order is selected and when order is removed -latter done in onremoveorderclick or whatever
         cb_orderNumber.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             b_removeOrder.setDisable(cb_orderNumber.getSelectionModel().isEmpty());
             //update the listview on selection
             if (lv_selectedOrder == null)
                 lv_selectedOrder = new ListView<>();
 
+            if (cb_orderNumber.getSelectionModel().getSelectedItem() == null) {
+                return;
+            }
             int selectedOrderNumber = cb_orderNumber.getSelectionModel().getSelectedItem();
             Order order = findOrderNumber(selectedOrderNumber);
             if (order == null) {
@@ -111,9 +113,10 @@ public class ManageOrdersController {
     protected void onRemoveOrderClick() {
         int selectedOrderNumber = cb_orderNumber.getSelectionModel().getSelectedItem();
         Order selectedOrder = findOrderNumber(selectedOrderNumber);
+
         if (selectedOrder != null) {
             pizzaOrders.remove(selectedOrder);
-            pizzaOrderOptions.remove(selectedOrderNumber);
+            pizzaOrderOptions.remove(Integer.valueOf(selectedOrder.getOrderNumber())   );
         } else {
             ta_errorLog.setText("Unable to remove order -- no valid order selected.");
         }
@@ -122,8 +125,17 @@ public class ManageOrdersController {
         tf_orderTotal.setText(String.format("$%s", moneyFormat.format(0)));
         lv_selectedOrder.getItems().clear();
         lv_selectedOrder.refresh();
+
         b_removeOrder.setDisable(cb_orderNumber.getSelectionModel().isEmpty()); // always true
         b_exportOrder.setDisable(pizzaOrders.isEmpty());
+
+        if (cb_orderNumber.getSelectionModel().getSelectedItem() != null) {
+            cb_orderNumber.getSelectionModel().clearSelection();
+        }
+
+        if (pizzaOrders.isEmpty()) {
+            cb_orderNumber.getSelectionModel().clearSelection();
+        }
     }
 
     public int getOrderCounter() {
