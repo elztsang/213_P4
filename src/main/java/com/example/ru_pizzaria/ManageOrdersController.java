@@ -19,14 +19,14 @@ import pizzaria.*;
  */
 public class ManageOrdersController {
     private static ArrayList<Order> pizzaOrders;
-    private static ObservableList<Order> pizzaOrderOptions;
+    private static ObservableList<Integer> pizzaOrderOptions;
     private static int orderCounter;
 
 
     @FXML
     private ListView lv_selectedOrder;
     @FXML
-    private ComboBox<Order> cb_orderNumber;
+    private ComboBox<Integer> cb_orderNumber;
     @FXML
     private TextField tf_orderTotal;
     @FXML
@@ -42,7 +42,9 @@ public class ManageOrdersController {
             // If we're creating pizzaOrderOptions for the first time and pizzaOrders has data,
             // we need to sync them
             if (!pizzaOrders.isEmpty()) {
-                pizzaOrderOptions.addAll(pizzaOrders);
+                for (Order order : pizzaOrders) {
+                    pizzaOrderOptions.add(order.getOrderNumber());
+                }
             }
         }
         cb_orderNumber.setItems(pizzaOrderOptions);
@@ -56,7 +58,8 @@ public class ManageOrdersController {
             if (lv_selectedOrder == null)
                 lv_selectedOrder = new ListView<>();
 
-            Order order = cb_orderNumber.getSelectionModel().getSelectedItem();
+            int selectedOrderNumber = cb_orderNumber.getSelectionModel().getSelectedItem();
+            Order order = findOrderNumber(selectedOrderNumber);
             if (order == null) {
                 return;
             }
@@ -86,9 +89,20 @@ public class ManageOrdersController {
         }
     }
 
+    private Order findOrderNumber(int orderNumber) {
+        for (Order order : pizzaOrders) {
+            if (order.getOrderNumber() == orderNumber) {
+                return order;
+            }
+        }
+
+        return null;
+    }
+
     @FXML
     protected void onRemoveOrderClick() {
-        Order selectedOrder = cb_orderNumber.getSelectionModel().getSelectedItem();
+        int selectedOrderNumber = cb_orderNumber.getSelectionModel().getSelectedItem();
+        Order selectedOrder = findOrderNumber(selectedOrderNumber);
         if (selectedOrder != null) {
             pizzaOrders.remove(selectedOrder);
             pizzaOrderOptions.remove(selectedOrder);
@@ -116,7 +130,7 @@ public class ManageOrdersController {
         }
 
         pizzaOrders.add(order);
-        pizzaOrderOptions.add(order);
+        pizzaOrderOptions.add(order.getOrderNumber());
         orderCounter += 1;
     }
 }
