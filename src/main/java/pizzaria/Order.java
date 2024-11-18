@@ -1,7 +1,5 @@
 package pizzaria;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -32,16 +30,6 @@ public class Order {
     //maybe unnecessary? not sure
     public void addPizza(Pizza pizza) {
         pizzas.add(pizza);
-    }
-
-    //todo: figure out how we want to do this
-    // few options depending on how we implement the gui
-    public void removePizza(Pizza pizza) {
-        pizzas.remove(pizza);
-    }
-
-    public void removeAllPizzas() {
-        pizzas.clear();
     }
 
     public double getTotal() {

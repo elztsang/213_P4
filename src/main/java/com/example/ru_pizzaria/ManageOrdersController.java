@@ -8,12 +8,10 @@ import javafx.scene.control.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import javafx.scene.control.cell.PropertyValueFactory;
 import pizzaria.*;
 
 /**
@@ -58,7 +56,7 @@ public class ManageOrdersController {
             if (lv_selectedOrder == null)
                 lv_selectedOrder = new ListView<>();
 
-            Order order = (Order) cb_orderNumber.getSelectionModel().getSelectedItem();
+            Order order = cb_orderNumber.getSelectionModel().getSelectedItem();
             if (order == null) {
                 return;
             }

@@ -4,15 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class MainMenuController {
-    @FXML
-    private Button b_manageOrders;
-    private Button b_makeOrder;
 
     @FXML
     public void initialize() {
@@ -43,15 +39,9 @@ public class MainMenuController {
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
-        orderController.setPrimaryStage(stage, scene);
 
         stage.setTitle("Create an Order");
         stage.setScene(scene);
         stage.show();
     }
-
-//    @FXML
-//    protected void setSize() {
-//
-//    }
 }

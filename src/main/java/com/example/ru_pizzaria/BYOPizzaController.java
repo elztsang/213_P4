@@ -3,12 +3,10 @@ package com.example.ru_pizzaria;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import pizzaria.*;
 
 import java.io.IOException;
@@ -22,9 +20,6 @@ public class BYOPizzaController {
     private final static double TOPPING_PRICE = 1.69;
 
     private CreateOrderController orderController;
-    private Stage stage;
-    private Scene primaryScene;
-    private Stage primaryStage;
 
     @FXML
     private ToggleGroup pizzaStyle;
@@ -175,8 +170,7 @@ public class BYOPizzaController {
         Pizza pizza = null;
 
         if (selectedToppings == null) {
-            //print error message like "too many toppings selected"
-            ta_errorLog.setText("Please select 7 toppings at most."); // move to area visible to user
+            ta_errorLog.setText("Please select 7 toppings at most.");
             return;
         }
         if (rb_chicago.isSelected()) {
@@ -193,8 +187,7 @@ public class BYOPizzaController {
 
         if (pizza != null) {
             if (pizzaSize.getSelectedToggle() == null) {
-                //print error message like "please select a size"
-                ta_errorLog.setText("Please select a pizza size."); //move this to a visible area for user
+                ta_errorLog.setText("Please select a pizza size.");
                 return;
             }
             pizza.setToppings(selectedToppings);
@@ -205,15 +198,5 @@ public class BYOPizzaController {
         } else {
             ta_errorLog.setText("Please fill out all pizza details."); //change error message
         }
-    }
-
-    @FXML
-    /**
-     * Navigate back to the main view.
-     */
-    public void displayMain() {
-        //stage.close(); //close the window.
-        primaryStage.setScene(primaryScene);
-        primaryStage.show();
     }
 }

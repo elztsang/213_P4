@@ -1,6 +1,5 @@
 package pizzaria;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -40,13 +39,4 @@ public class Meatzza extends Pizza{
             return -1; // no price
         }
     }
-
-//    @Override
-//    public String toString(){
-//        DecimalFormat moneyFormat = new DecimalFormat("###,###.00");
-//        return String.format("[Meatzza, %s, %s, %s] %s",
-//                this.getSize(),
-//                toppings,
-//                crust, moneyFormat.format(price()));
-//    }
 }

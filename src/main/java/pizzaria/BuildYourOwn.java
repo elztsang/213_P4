@@ -1,8 +1,6 @@
 package pizzaria;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class BuildYourOwn extends Pizza{
     private final static double SMALL = 8.99;
@@ -54,14 +52,4 @@ public class BuildYourOwn extends Pizza{
         toppings.addAll(toppingsList);
         super.setToppings(toppings);
     }
-
-//    @Override
-//    public String toString(){
-//        DecimalFormat moneyFormat = new DecimalFormat("###,###.00");
-//        return String.format("[BYOP, %s, %s, %s]",
-//                this.getSize(),
-//                toppings,
-//                crust,
-//                moneyFormat.format(price()));
-//    }
 }

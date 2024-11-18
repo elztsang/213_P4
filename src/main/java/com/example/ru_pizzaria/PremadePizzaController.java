@@ -1,19 +1,13 @@
 package com.example.ru_pizzaria;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import pizzaria.*;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.Objects;
 
 /**
  * Lets you view all the orders and cancel an order.
@@ -23,12 +17,7 @@ public class PremadePizzaController {
     private Pizza currentPizza;
 
     private CreateOrderController orderController;
-    private Stage stage;
-    private Scene primaryScene;
-    private Stage primaryStage;
 
-    @FXML
-    private Button b_back;
     @FXML
     private TextField tf_pizzaPriceOut;
     @FXML
@@ -37,8 +26,7 @@ public class PremadePizzaController {
     private RadioButton rb_chicago;
     @FXML
     private RadioButton rb_ny;
-    @FXML
-    private Button b_addpizza;
+
     @FXML
     private ToggleGroup pizzaSize;
     @FXML
@@ -48,15 +36,6 @@ public class PremadePizzaController {
     @FXML
     private RadioButton rb_largePizza;
 
-    //made assumptions about what we would be using for this - change in the future if necessary
-    @FXML
-    private ToggleGroup pizzaType;
-    @FXML
-    private RadioButton rb_bbqchicken;
-    @FXML
-    private RadioButton rb_deluxe;
-    @FXML
-    private RadioButton rb_meatzza;
     @FXML
     private ComboBox cb_pizzaType;
     @FXML
@@ -87,11 +66,7 @@ public class PremadePizzaController {
         initPizzaStyleTG();
         //size
         initPizzaSizeTG();
-        //pizzatype
-//        initPizzaTypeTG();
-//        pizzaSize.selectToggle(rb_mediumPizza); //have a default value for size+price+type
-//        pizzaStyle.selectToggle(rb_chicago);
-//        cb_pizzaType.getSelectionModel().selectFirst();
+
         setPizzaInitPrice();
         initPizzaDetailsListener();
 
@@ -105,8 +80,6 @@ public class PremadePizzaController {
         nyBBQChicken = new Image(getClass().getResourceAsStream("/images/nyBBQChicken.jpg"));
         nyMeatzza = new Image(getClass().getResourceAsStream("/images/nyMeatzza.jpg"));
         nyDeluxe = new Image(getClass().getResourceAsStream("/images/nyDeluxe.jpg"));
-
-
     }
 
     private void setPizzaInitPrice() {
@@ -178,10 +151,6 @@ public class PremadePizzaController {
         }
     }
 
-    private ObservableList<Topping> getPizzaToppings() {
-        return null;
-    }
-
     @FXML
     protected Pizza premadeChicagoTypeSelected() {
         PizzaFactory chicagoStyle = new ChicagoPizza();
@@ -223,20 +192,9 @@ public class PremadePizzaController {
                 ta_errorLog.setText("Please select a pizza size.");
                 return;
             }
-
             orderController.addPizza(currentPizza);
         } else {
             ta_errorLog.setText("Please select a pizza type.");
         }
-    }
-
-    @FXML
-    /**
-     * Navigate back to the main view.
-     */
-    public void displayMain() {
-        //stage.close(); //close the window.
-        primaryStage.setScene(primaryScene);
-        primaryStage.show();
     }
 }
