@@ -45,14 +45,17 @@ public class ManageOrdersController {
         cb_orderNumber.setItems(pizzaOrderOptions);
         initOrderSelectionListener();
 
-        debugPrintCollections("initialize");
+        //debugPrintCollections("initialize");
     }
 
     private void  initOrderSelectionListener() {
+        //need to listen for when order is selected and when order is removed -latter done in onremoveorderclick or whatever
         cb_orderNumber.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             //update the listview on selection
-            Order order = (Order) cb_orderNumber.getSelectionModel().getSelectedItem();
+            if (lv_selectedOrder == null)
+                lv_selectedOrder = new ListView<>();
 
+            Order order = (Order) cb_orderNumber.getSelectionModel().getSelectedItem();
             ObservableList<Pizza> orderPizzaList = FXCollections.observableArrayList(order.getPizzas());
             lv_selectedOrder.setItems(orderPizzaList);
             lv_selectedOrder.refresh();
@@ -63,17 +66,12 @@ public class ManageOrdersController {
     protected void exportOrders() {
         try {
             File output = new File("exported_orders.txt");
-            //taken from example code
-            if (output.exists()) {
-                //System.out.println("file already exists"); // unnecessary
-                System.exit(1);
-            }
-            PrintWriter pw = new PrintWriter(output);
+            PrintWriter pw = new PrintWriter(output);  // This will automatically overwrite the file
+
             for (Order order : pizzaOrders) {
-                //todo: debug
-                System.out.println("attempting to print: " + order);
                 pw.println(order);
             }
+
             pw.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -91,6 +89,10 @@ public class ManageOrdersController {
             //print error message that order doesn't exist
             System.out.println("No valid order selected"); //- move this somewhere visible
         }
+
+        lv_selectedOrder.getItems().clear();
+        lv_selectedOrder.refresh();
+        //todo: clear the listview and update combobox if it doesnt do so already
     }
 
     public int getOrderCounter(){
@@ -108,13 +110,5 @@ public class ManageOrdersController {
         pizzaOrders.add(order);
         pizzaOrderOptions.add(order);
         orderCounter += 1;
-    }
-
-    private void debugPrintCollections(String location) {
-        System.out.println("DEBUG " + location);
-        System.out.println("pizzaOrders: " + (pizzaOrders == null ? "null" : pizzaOrders));
-        System.out.println("pizzaOrderOptions: " + (pizzaOrderOptions == null ? "null" : pizzaOrderOptions));
-        System.out.println("ComboBox items: " + cb_orderNumber.getItems());
-        System.out.println("-------------------");
     }
 }
