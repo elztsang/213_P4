@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import pizzaria.*;
 
@@ -49,6 +51,14 @@ public class BYOPizzaController {
     private ListView<Topping> lv_byoToppings;
     @FXML
     private TextArea ta_byoToppings;
+    @FXML
+    private ImageView iv_byoImage;
+    @FXML
+    private Image chicagoBYO;
+    @FXML
+    private Image nyBYO;
+    @FXML
+    private TextField tf_crustType;
 
     @FXML
     public void initialize() {
@@ -59,6 +69,8 @@ public class BYOPizzaController {
         setPizzaInitPrice();
         initToppingsLV();
         initSubtotalListener();
+        chicagoBYO = new Image(getClass().getResourceAsStream("/images/chicagoBYO.jpg"));
+        nyBYO = new Image(getClass().getResourceAsStream("/images/nyBYO.jpg"));
     }
 
     public void setOrderController(CreateOrderController controller) {
@@ -87,9 +99,23 @@ public class BYOPizzaController {
             tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(orderTotal)));
             ta_byoToppings.setText(toppingsList.toString());
         });
+
+        pizzaStyle.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (rb_chicago.isSelected()) {
+                //create chicago pizza with specified toppings + size
+                iv_byoImage.setImage(chicagoBYO);
+                tf_crustType.setText(Crust.PAN.toString());
+            }
+
+            if (rb_ny.isSelected()) {
+                //create ny pizza with specified toppings + size
+                iv_byoImage.setImage(nyBYO);
+                tf_crustType.setText(Crust.HANDTOSSED.toString());
+            }
+        });
     }
 
-    private double getPizzaSizePrice(){
+    private double getPizzaSizePrice() {
         if (rb_smallPizza.isSelected()) {
             return SMALL_PRICE;
         } else if (rb_mediumPizza.isSelected()) {

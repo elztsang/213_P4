@@ -34,6 +34,10 @@ public abstract class Pizza {
         return toppings;
     }
 
+    public Crust getCrust() {
+        return crust;
+    }
+
     @Override
     public String toString(){
         DecimalFormat moneyFormat = new DecimalFormat("###,###.00");
