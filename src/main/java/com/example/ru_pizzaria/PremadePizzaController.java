@@ -77,6 +77,8 @@ public class PremadePizzaController {
     private Image nyDeluxe;
     @FXML
     private TextField tf_crustStyle;
+    @FXML
+    private TextArea ta_errorLog;
 
 
     @FXML
@@ -218,15 +220,13 @@ public class PremadePizzaController {
     protected void onAddPizzaClick() throws IOException {
         if (currentPizza != null) {
             if (pizzaSize.getSelectedToggle() == null) { // maybe replace with currentPizza.getSize()?
-                //print error message like "please select a size"
-                System.out.println("Please select size"); //move this to a visible area for user
+                ta_errorLog.setText("Please select a pizza size.");
                 return;
             }
 
             orderController.addPizza(currentPizza);
         } else {
-            System.out.println("Please select pizza type");
-            //print error message to somewhere visible for customer/employee
+            ta_errorLog.setText("Please select a pizza type.");
         }
     }
 

@@ -64,7 +64,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Text>
-                        <TextField fx:id="tf_pizzaPriceOut" prefHeight="26.0" prefWidth="87.0" />
+                        <TextField fx:id="tf_pizzaPriceOut" editable="false" prefHeight="26.0" prefWidth="87.0" />
                      </children>
                   </HBox>
                </children>
@@ -76,5 +76,6 @@
             </HBox>
          </children>
       </GridPane>
+      <TextArea fx:id="ta_errorLog" editable="false" layoutX="9.0" layoutY="373.0" prefHeight="35.0" prefWidth="578.0" />
    </children>
 </AnchorPane>

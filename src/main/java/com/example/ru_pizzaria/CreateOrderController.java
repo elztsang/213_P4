@@ -1,14 +1,10 @@
 package com.example.ru_pizzaria;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
@@ -34,14 +30,6 @@ public class CreateOrderController {
     private ManageOrdersController manageController;
 
     @FXML
-    private Button b_premadePizza;
-    @FXML
-    private Button b_byoPizza;
-    @FXML
-    private Button b_addOrder;
-    @FXML
-    private Button b_removePizza;
-    @FXML
     private ListView lv_currentOrder;
     @FXML
     private TextField tf_total;
@@ -51,6 +39,8 @@ public class CreateOrderController {
     private TextField tf_ordertotal;
     @FXML
     private TextField tf_orderNumber;
+    @FXML
+    private TextArea ta_errorLog;
 
     /**
      * Set the reference of the stage and scene before show()
@@ -147,8 +137,7 @@ public class CreateOrderController {
             updateSalesTax();
             updateOrderTotal();
         } else {
-            //todo: print error message in textarea
-            System.out.println("Order is empty!");
+            ta_errorLog.setText("Order is empty!");
         }
     }
 

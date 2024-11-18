@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import pizzaria.*;
+
 /**
  * Lets you view all the orders and cancel an order.
  */
@@ -30,9 +31,11 @@ public class ManageOrdersController {
     private ComboBox<Order> cb_orderNumber;
     @FXML
     private TextField tf_orderTotal;
+    @FXML
+    private TextArea ta_errorLog;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         if (pizzaOrders == null)
             pizzaOrders = new ArrayList<>();
 
@@ -44,14 +47,11 @@ public class ManageOrdersController {
                 pizzaOrderOptions.addAll(pizzaOrders);
             }
         }
-
         cb_orderNumber.setItems(pizzaOrderOptions);
         initOrderSelectionListener();
-
-        //debugPrintCollections("initialize");
     }
 
-    private void  initOrderSelectionListener() {
+    private void initOrderSelectionListener() {
         //need to listen for when order is selected and when order is removed -latter done in onremoveorderclick or whatever
         cb_orderNumber.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             //update the listview on selection
@@ -83,7 +83,7 @@ public class ManageOrdersController {
 
             pw.close();
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            ta_errorLog.setText("An error occurred when exporting the orders.");
             e.printStackTrace();
         }
     }
@@ -96,7 +96,7 @@ public class ManageOrdersController {
             pizzaOrderOptions.remove(selectedOrder);
         } else {
             //print error message that order doesn't exist
-            System.out.println("No valid order selected"); //- move this somewhere visible
+            ta_errorLog.setText("Unable to remove order -- no valid order selected."); //- move this somewhere visible
         }
 
         DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
@@ -106,7 +106,7 @@ public class ManageOrdersController {
         //todo: clear the listview and update combobox if it doesnt do so already
     }
 
-    public int getOrderCounter(){
+    public int getOrderCounter() {
         return orderCounter;
     }
 

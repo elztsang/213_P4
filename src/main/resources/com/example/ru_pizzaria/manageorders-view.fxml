@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="345.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ru_pizzaria.ManageOrdersController">
+<AnchorPane prefHeight="345.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ru_pizzaria.ManageOrdersController">
    <children>
       <VBox layoutX="20.0" layoutY="12.0" prefHeight="314.0" prefWidth="559.0">
          <children>
@@ -15,7 +15,7 @@
                </children>
             </HBox>
             <ListView fx:id="lv_selectedOrder" prefHeight="200.0" prefWidth="200.0" />
-            <HBox alignment="TOP_RIGHT" prefHeight="74.0" prefWidth="559.0" spacing="5.0">
+            <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="559.0" spacing="5.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total amount:" />
                   <TextField fx:id="tf_orderTotal" prefHeight="25.0" prefWidth="60.0" />
@@ -29,5 +29,6 @@
             </HBox>
          </children>
       </VBox>
+      <TextArea fx:id="ta_errorLog" layoutX="74.0" layoutY="332.0" prefHeight="25.0" prefWidth="453.0" />
    </children>
 </AnchorPane>
