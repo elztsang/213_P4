@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Order {
+    private final double NJSALESTAX = 0.06625;
     private int number; //order number
     private ArrayList<Pizza> pizzas; //can use List<E> instead of ArrayList<E>
 
@@ -54,15 +55,11 @@ public class Order {
     }
 
     public double getSalesTax() {
-        return getTotal() * 0.06625;
+        return getTotal() * NJSALESTAX;
     }
 
     public double getOrderTotal() {
-        return getTotal() *  1.06625;
-    }
-
-    public int getNumberPizzas(){
-        return pizzas.size();
+        return getTotal() + getSalesTax();
     }
 
     public ArrayList<Pizza> getPizzas() {

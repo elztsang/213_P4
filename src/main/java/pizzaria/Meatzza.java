@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Meatzza extends Pizza{
-    private final static double SMALL = 16.99;
+    private final static double SMALL = 17.99;
     private final static double MEDIUM = 19.99;
     private final static double LARGE = 21.99;
 

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -27,6 +28,8 @@ public class ManageOrdersController {
     private ListView lv_selectedOrder;
     @FXML
     private ComboBox<Order> cb_orderNumber;
+    @FXML
+    private TextField tf_orderTotal;
 
     @FXML
     public void initialize(){
@@ -56,7 +59,13 @@ public class ManageOrdersController {
                 lv_selectedOrder = new ListView<>();
 
             Order order = (Order) cb_orderNumber.getSelectionModel().getSelectedItem();
+            if (order == null) {
+                return;
+            }
             ObservableList<Pizza> orderPizzaList = FXCollections.observableArrayList(order.getPizzas());
+            DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
+            double orderTotal = order.getOrderTotal();
+            tf_orderTotal.setText(String.format("$%s", moneyFormat.format(orderTotal)));
             lv_selectedOrder.setItems(orderPizzaList);
             lv_selectedOrder.refresh();
         });
@@ -90,6 +99,8 @@ public class ManageOrdersController {
             System.out.println("No valid order selected"); //- move this somewhere visible
         }
 
+        DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
+        tf_orderTotal.setText(String.format("$%s", moneyFormat.format(0)));
         lv_selectedOrder.getItems().clear();
         lv_selectedOrder.refresh();
         //todo: clear the listview and update combobox if it doesnt do so already
