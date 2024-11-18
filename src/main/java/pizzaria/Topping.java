@@ -20,5 +20,4 @@ public enum Topping {
     PINEAPPLE,
     OLIVE,
     ANCHOVY
-
 }

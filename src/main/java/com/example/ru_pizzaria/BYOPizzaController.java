@@ -1,18 +1,12 @@
 package com.example.ru_pizzaria;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Parent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import pizzaria.*;
 
 import java.io.IOException;
@@ -26,9 +20,6 @@ public class BYOPizzaController {
     private final static double TOPPING_PRICE = 1.69;
 
     private CreateOrderController orderController;
-    private Stage stage;
-    private Scene primaryScene;
-    private Stage primaryStage;
 
     @FXML
     private ToggleGroup pizzaStyle;
@@ -47,8 +38,6 @@ public class BYOPizzaController {
     @FXML
     private RadioButton rb_ny;
     @FXML
-    private Button b_addpizza;
-    @FXML
     private ListView<Topping> lv_byoToppings;
     @FXML
     private TextArea ta_byoToppings;
@@ -60,22 +49,39 @@ public class BYOPizzaController {
     private Image nyBYO;
     @FXML
     private TextField tf_crustType;
+    @FXML
+    private TextArea ta_errorLog;
 
     @FXML
     public void initialize() {
         initPizzaStyleTG();
         initPizzaSizeTG();
-//        pizzaSize.selectToggle(rb_mediumPizza); //have a default value for size+price
-//        pizzaStyle.selectToggle(rb_chicago);
         setPizzaInitPrice();
         initToppingsLV();
         initSubtotalListener();
+        initPizzaStyleListener();
         chicagoBYO = new Image(getClass().getResourceAsStream("/images/chicagoBYO.jpg"));
         nyBYO = new Image(getClass().getResourceAsStream("/images/nyBYO.jpg"));
     }
 
     public void setOrderController(CreateOrderController controller) {
         orderController = controller;
+    }
+
+    private void initPizzaStyleListener(){
+        pizzaStyle.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (rb_chicago.isSelected()) {
+                //create chicago pizza with specified toppings + size
+                iv_byoImage.setImage(chicagoBYO);
+                tf_crustType.setText(Crust.PAN.toString());
+            }
+
+            if (rb_ny.isSelected()) {
+                //create ny pizza with specified toppings + size
+                iv_byoImage.setImage(nyBYO);
+                tf_crustType.setText(Crust.HANDTOSSED.toString());
+            }
+        });
     }
 
     private void initSubtotalListener() {
@@ -99,20 +105,6 @@ public class BYOPizzaController {
             double orderTotal = pizzaSubtotal + toppingSubtotal;
             tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(orderTotal)));
             ta_byoToppings.setText(toppingsList.toString());
-        });
-
-        pizzaStyle.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (rb_chicago.isSelected()) {
-                //create chicago pizza with specified toppings + size
-                iv_byoImage.setImage(chicagoBYO);
-                tf_crustType.setText(Crust.PAN.toString());
-            }
-
-            if (rb_ny.isSelected()) {
-                //create ny pizza with specified toppings + size
-                iv_byoImage.setImage(nyBYO);
-                tf_crustType.setText(Crust.HANDTOSSED.toString());
-            }
         });
     }
 
@@ -178,8 +170,7 @@ public class BYOPizzaController {
         Pizza pizza = null;
 
         if (selectedToppings == null) {
-            //print error message like "too many toppings selected"
-            System.out.println("Please select 7 toppings at most."); // move to area visible to user
+            ta_errorLog.setText("Please select 7 toppings at most.");
             return;
         }
         if (rb_chicago.isSelected()) {
@@ -196,8 +187,7 @@ public class BYOPizzaController {
 
         if (pizza != null) {
             if (pizzaSize.getSelectedToggle() == null) {
-                //print error message like "please select a size"
-                System.out.println("Please select size"); //move this to a visible area for user
+                ta_errorLog.setText("Please select a pizza size.");
                 return;
             }
             pizza.setToppings(selectedToppings);
@@ -206,17 +196,7 @@ public class BYOPizzaController {
 
             orderController.addPizza(pizza);
         } else {
-            System.out.println("Pizza null"); //change error message
+            ta_errorLog.setText("Please fill out all pizza details."); //change error message
         }
-    }
-
-    @FXML
-    /**
-     * Navigate back to the main view.
-     */
-    public void displayMain() {
-        //stage.close(); //close the window.
-        primaryStage.setScene(primaryScene);
-        primaryStage.show();
     }
 }
