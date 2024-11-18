@@ -3,8 +3,12 @@ package pizzaria;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/** Pizza is an abstract class that stores information about toppings, crust, and size.
+ * Also defines a price method, which determines the price of the pizza based on size and type.
+ *
+ * @author Elizabeth Tsang, Ron Chrysler Amistad
+ */
 public abstract class Pizza {
-
     private ArrayList<Topping> toppings; //pizzaria.Topping is a Enum class
     private Crust crust; //pizzaria.Crust is a Enum class
     private Size size; //pizzaria.Size is a Enum class
@@ -18,10 +22,9 @@ public abstract class Pizza {
         return this.size;
     }
 
-    //idk why i have to add this method to byop as well
     public void setToppings(ArrayList<Topping> toppingsList) {
         if (toppings == null) {
-            toppings = new ArrayList<>(); //allowed? causes error otherwise
+            toppings = new ArrayList<>();
         }
         toppings.addAll(toppingsList);
     }

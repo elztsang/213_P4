@@ -1,9 +1,12 @@
 package pizzaria;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 
+/** BuildYourOwn is a subclass of the Pizza class.
+ * Defines a pizza type where the user is able to choose what toppings they want.
+ *
+ * @author Elizabeth Tsang, Ron Chrysler Amistad
+ */
 public class BuildYourOwn extends Pizza{
     private final static double SMALL = 8.99;
     private final static double MEDIUM = 10.99;
@@ -48,20 +51,10 @@ public class BuildYourOwn extends Pizza{
 
     public void setToppings(ArrayList<Topping> toppingsList) {
         if (toppings == null) {
-            toppings = new ArrayList<>(); //allowed? causes error otherwise
+            toppings = new ArrayList<>();
         }
         toppings.clear();
         toppings.addAll(toppingsList);
         super.setToppings(toppings);
     }
-
-//    @Override
-//    public String toString(){
-//        DecimalFormat moneyFormat = new DecimalFormat("###,###.00");
-//        return String.format("[BYOP, %s, %s, %s]",
-//                this.getSize(),
-//                toppings,
-//                crust,
-//                moneyFormat.format(price()));
-//    }
 }

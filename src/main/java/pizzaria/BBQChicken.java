@@ -1,9 +1,13 @@
 package pizzaria;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/** BBQChicken is a subclass of the Pizza class.
+ * Defines a pizza type with BBQChicken, Green Pepper, Provolone, and Cheddar as toppings.
+ *
+ * @author Elizabeth Tsang, Ron Chrysler Amistad
+ */
 public class BBQChicken extends Pizza{
     private final static double SMALL = 14.99;
     private final static double MEDIUM = 16.99;
@@ -28,7 +32,6 @@ public class BBQChicken extends Pizza{
 
     @Override
     public double price() {
-        //check size, return price
         if (this.getSize().equals(Size.SMALL))  {
             return SMALL;
         } else if (this.getSize().equals(Size.MEDIUM)) {
@@ -39,13 +42,4 @@ public class BBQChicken extends Pizza{
             return -1; // no price
         }
     }
-
-//    @Override
-//    public String toString(){
-//        DecimalFormat moneyFormat = new DecimalFormat("###,###.00");
-//        return String.format("[BBQ Chicken, %s, %s, %s] %s",
-//                this.getSize(),
-//                toppings,
-//                crust, moneyFormat.format(price()));
-//    }
 }

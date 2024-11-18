@@ -1,5 +1,10 @@
 package pizzaria;
 
+/** ChicagoPizza is a Pizza Factory for Chicago-style pizzas.
+ * Creates various pizzas with Chicago-style crusts.
+ *
+ * @author Elizabeth Tsang, Ron Chrysler Amistad
+ */
 public class ChicagoPizza implements PizzaFactory{
     @Override
     public Pizza createDeluxe() {

@@ -1,5 +1,11 @@
 package pizzaria;
 
+/**
+ * Crust is an Enum class that stores information about available pizza crust types
+ * and which style of pizza it is associated with.
+ *
+ * @author Elizabeth Tsang, Ron Amistad
+ */
 public enum Crust {
     DEEPDISH("Chicago"),
     PAN ("Chicago"),
@@ -17,9 +23,4 @@ public enum Crust {
     public String getCrustType(){
         return crustType;
     }
-
-//    @Override
-//    public String toString(){
-//        return String.format("(%s - %s)", this.name(), Crust.valueOf(this.name()));
-//    }
 }

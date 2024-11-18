@@ -1,5 +1,10 @@
 package pizzaria;
 
+/**
+ * Topping is an Enum class that stores information about available pizza toppings.
+ *
+ * @author Elizabeth Tsang, Ron Chrysler Amistad
+ */
 public enum Topping {
     SAUSAGE,
     PEPPERONI,

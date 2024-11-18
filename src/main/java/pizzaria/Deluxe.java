@@ -1,9 +1,13 @@
 package pizzaria;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/** Deluxe is a subclass of the Pizza class.
+ * Defines a pizza type with Sausage, Pepperoni, Green Pepper, Onion, and Mushroom as toppings.
+ *
+ * @author Elizabeth Tsang, Ron Chrysler Amistad
+ */
 public class Deluxe extends Pizza{
     private final static double SMALL = 16.99;
     private final static double MEDIUM = 18.99;
@@ -29,7 +33,6 @@ public class Deluxe extends Pizza{
 
     @Override
     public double price() {
-        //check size, return price
         if (this.getSize().equals(Size.SMALL))  {
             return SMALL;
         } else if (this.getSize().equals(Size.MEDIUM)) {
@@ -40,14 +43,4 @@ public class Deluxe extends Pizza{
             return -1; // no price
         }
     }
-
-//    @Override
-//    public String toString(){
-//        DecimalFormat moneyFormat = new DecimalFormat("###,###.00");
-//        return String.format("[Deluxe, %s, %s, %s]",
-//                this.getSize().toString(),
-//                toppings.toString(),
-//                crust.toString(),
-//                moneyFormat.format(price()));
-//    }
 }

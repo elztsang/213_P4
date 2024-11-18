@@ -1,5 +1,10 @@
 package pizzaria;
 
+/** NYPizza is a Pizza Factory for NY-style pizzas.
+ * Creates various pizzas with NY-style crusts.
+ *
+ * @author Elizabeth Tsang, Ron Chrysler Amistad
+ */
 public class NYPizza implements PizzaFactory {
     @Override
     public Pizza createDeluxe() {
