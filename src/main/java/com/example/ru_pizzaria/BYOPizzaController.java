@@ -9,15 +9,19 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import pizzaria.*;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * The controller for the view to create a Build Your Own pizza.
+ * @author Elizabeth Tsang, Ron Chrysler Amistad
+ */
 public class BYOPizzaController {
     private final static double SMALL_PRICE = 8.99; //todo: check if these r the right prices
     private final static double MEDIUM_PRICE = 10.99;
     private final static double LARGE_PRICE = 12.99;
     private final static double TOPPING_PRICE = 1.69;
+    private final static int MAX_NUM_TOPPINGS = 7;
 
     private CreateOrderController orderController;
 
@@ -52,6 +56,9 @@ public class BYOPizzaController {
     @FXML
     private TextArea ta_errorLog;
 
+    /**
+     * Initializes the controller.
+     */
     @FXML
     public void initialize() {
         initPizzaStyleTG();
@@ -64,11 +71,19 @@ public class BYOPizzaController {
         nyBYO = new Image(getClass().getResourceAsStream("/images/nyBYO.jpg"));
     }
 
+    /**
+     * Get the reference to the CreateOrderController object.
+     * We can call any public method defined in the controller through the reference.
+     * @param controller the controller to assign a reference for.
+     */
     public void setOrderController(CreateOrderController controller) {
         orderController = controller;
     }
 
-    private void initPizzaStyleListener(){
+    /**
+     *  Initializes the event listener for the pizzaStyle toggle group.
+     */
+    private void initPizzaStyleListener() {
         pizzaStyle.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (rb_chicago.isSelected()) {
                 //create chicago pizza with specified toppings + size
@@ -84,6 +99,9 @@ public class BYOPizzaController {
         });
     }
 
+    /**
+     * Initializes the event listeners for processing a running subtotal for the pizza.
+     */
     private void initSubtotalListener() {
         lv_byoToppings.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             ObservableList<Topping> toppingsList = lv_byoToppings.getSelectionModel().getSelectedItems();
@@ -108,6 +126,10 @@ public class BYOPizzaController {
         });
     }
 
+    /**
+     *
+     * @return the price of the pizza determined by its size.
+     */
     private double getPizzaSizePrice() {
         if (rb_smallPizza.isSelected()) {
             return SMALL_PRICE;
@@ -120,11 +142,17 @@ public class BYOPizzaController {
         return 0.0;
     }
 
+    /**
+     * Sets the initial price of the pizza to a default value of 0.00.
+     */
     private void setPizzaInitPrice() {
         DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
         tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(0)));
     }
 
+    /**
+     * Initializes the data in the list view of toppings.
+     */
     private void initToppingsLV() {
         if (lv_byoToppings == null) {
             lv_byoToppings = new ListView<>();
@@ -137,12 +165,18 @@ public class BYOPizzaController {
         lv_byoToppings.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); //javadoc says to do this if we want multiple selections - ron
     }
 
+    /**
+     * Initializes the toggle group assignments for the pizza style radio buttons,
+     */
     private void initPizzaStyleTG() {
         pizzaStyle = new ToggleGroup();
         rb_chicago.setToggleGroup(pizzaStyle);
         rb_ny.setToggleGroup(pizzaStyle);
     }
 
+    /**
+     * Initializes the toggle group assignments for the pizza size radio buttons.
+     */
     private void initPizzaSizeTG() {
         pizzaSize = new ToggleGroup();
         rb_smallPizza.setToggleGroup(pizzaSize);
@@ -150,21 +184,24 @@ public class BYOPizzaController {
         rb_largePizza.setToggleGroup(pizzaSize);
     }
 
+    /**
+     *
+     * @return a list of the toppings selected from the list view if the number of toppings selected does not exceed MAX_NUM_TOPPINGS, null otherwise.
+     */
     private ArrayList<Topping> getSelectedToppings() {
         ObservableList<Topping> selectedToppings = lv_byoToppings.getSelectionModel().getSelectedItems();
         ArrayList<Topping> toppings = new ArrayList<>(selectedToppings);
-        if (toppings.size() <= 7) return toppings;
+        if (toppings.size() <= MAX_NUM_TOPPINGS) return toppings;
         return null;
     }
 
-    /*
-    some considerations to make later
-    - ensure there are >=7 toppings selected
-    - ensure size option is selected
-    - display 13 toppings
+    /**
+     * Method to process adding a pizza to the order.
+     * Checks if all the parameters required for a pizza are valid before adding.
+     * If there are any missing or invalid parameters, the method will specify the error in the output text in the GUI.
      */
     @FXML
-    protected void onAddPizzaClick() throws IOException {
+    protected void onAddPizzaClick(){
         ArrayList<Topping> selectedToppings;
         selectedToppings = getSelectedToppings();
         Pizza pizza = null;
@@ -196,7 +233,7 @@ public class BYOPizzaController {
 
             orderController.addPizza(pizza);
         } else {
-            ta_errorLog.setText("Please fill out all pizza details."); //change error message
+            ta_errorLog.setText("Please fill out all pizza details.");
         }
     }
 }

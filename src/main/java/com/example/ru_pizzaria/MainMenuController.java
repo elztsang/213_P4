@@ -8,13 +8,23 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ *
+ */
 public class MainMenuController {
 
+    /**
+     * Initializes the controller.
+     */
     @FXML
     public void initialize() {
 
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @FXML
     protected void onManageOrdersButtonClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("manageorders-view.fxml"));
