@@ -38,6 +38,9 @@ public class ManageOrdersController {
     @FXML
     private TextArea ta_errorLog;
 
+    /**
+     * Handles initial loading of the scene.
+     */
     @FXML
     public void initialize() {
         if (pizzaOrders == null)
@@ -60,8 +63,13 @@ public class ManageOrdersController {
         initOrderSelectionListener();
     }
 
+    /**
+     * Handles the export orders button click event.
+     * Prints the current list of orders to a new file called exported_orders.txt.
+     * This file is located in "../src/main/" directory
+     */
     @FXML
-    protected void exportOrders() {
+    protected void onExportOrdersClick() {
         try {
             File output = new File("src/main/exported_orders.txt");
             PrintWriter pw = new PrintWriter(output);  // This will automatically overwrite the file
@@ -77,6 +85,12 @@ public class ManageOrdersController {
         }
     }
 
+    /**
+     * Handles the remove order click event.
+     * On click, the order will be removed from the list of orders.
+     * Ensures that the order list is populated before allowing for order removal.
+     *
+     */
     @FXML
     protected void onRemoveOrderClick() {
         int selectedOrderNumber = cb_orderNumber.getSelectionModel().getSelectedItem();
