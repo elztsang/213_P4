@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import pizzaria.*;
 
 /**
- * Lets you view all the orders and cancel an order.
+ * Controller class that handles ability to view, export, and cancel orders.
+ *
+ * @author Elizabeth Tsang, Ron Chrysler Amistad
  */
 public class ManageOrdersController {
     private static ArrayList<Order> pizzaOrders;
@@ -36,6 +38,9 @@ public class ManageOrdersController {
     @FXML
     private TextArea ta_errorLog;
 
+    /**
+     * Handles initial loading of the scene.
+     */
     @FXML
     public void initialize() {
         if (pizzaOrders == null)
@@ -58,32 +63,13 @@ public class ManageOrdersController {
         initOrderSelectionListener();
     }
 
-    private void initOrderSelectionListener() {
-        cb_orderNumber.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            b_removeOrder.setDisable(cb_orderNumber.getSelectionModel().isEmpty());
-            //update the listview on selection
-            if (lv_selectedOrder == null)
-                lv_selectedOrder = new ListView<>();
-
-            if (cb_orderNumber.getSelectionModel().getSelectedItem() == null) {
-                return;
-            }
-            int selectedOrderNumber = cb_orderNumber.getSelectionModel().getSelectedItem();
-            Order order = findOrderNumber(selectedOrderNumber);
-            if (order == null) {
-                return;
-            }
-            ObservableList<Pizza> orderPizzaList = FXCollections.observableArrayList(order.getPizzas());
-            DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
-            double orderTotal = order.getOrderTotal();
-            tf_orderTotal.setText(String.format("$%s", moneyFormat.format(orderTotal)));
-            lv_selectedOrder.setItems(orderPizzaList);
-            lv_selectedOrder.refresh();
-        });
-    }
-
+    /**
+     * Handles the export orders button click event.
+     * Prints the current list of orders to a new file called exported_orders.txt.
+     * This file is located in "../src/main/" directory
+     */
     @FXML
-    protected void exportOrders() {
+    protected void onExportOrdersClick() {
         try {
             File output = new File("src/main/exported_orders.txt");
             PrintWriter pw = new PrintWriter(output);  // This will automatically overwrite the file
@@ -99,16 +85,12 @@ public class ManageOrdersController {
         }
     }
 
-    private Order findOrderNumber(int orderNumber) {
-        for (Order order : pizzaOrders) {
-            if (order.getOrderNumber() == orderNumber) {
-                return order;
-            }
-        }
-
-        return null;
-    }
-
+    /**
+     * Handles the remove order click event.
+     * On click, the order will be removed from the list of orders.
+     * Ensures that the order list is populated before allowing for order removal.
+     *
+     */
     @FXML
     protected void onRemoveOrderClick() {
         int selectedOrderNumber = cb_orderNumber.getSelectionModel().getSelectedItem();
@@ -138,10 +120,64 @@ public class ManageOrdersController {
         }
     }
 
+    /**
+     * Helper method to initialize event listener for the order combo box.
+     * Updates the list view and order total when a new order is selected.
+     */
+    private void initOrderSelectionListener() {
+        cb_orderNumber.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            b_removeOrder.setDisable(cb_orderNumber.getSelectionModel().isEmpty());
+            //update the listview on selection
+            if (lv_selectedOrder == null)
+                lv_selectedOrder = new ListView<>();
+
+            if (cb_orderNumber.getSelectionModel().getSelectedItem() == null) {
+                return;
+            }
+
+            int selectedOrderNumber = cb_orderNumber.getSelectionModel().getSelectedItem();
+            Order order = findOrderNumber(selectedOrderNumber);
+
+            if (order == null) {
+                return;
+            }
+
+            ObservableList<Pizza> orderPizzaList = FXCollections.observableArrayList(order.getPizzas());
+            DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
+            double orderTotal = order.getOrderTotal();
+            tf_orderTotal.setText(String.format("$%s", moneyFormat.format(orderTotal)));
+            lv_selectedOrder.setItems(orderPizzaList);
+            lv_selectedOrder.refresh();
+        });
+    }
+
+    /**
+     * Helper method to search for the order associated with order number in list of orders
+     * @param orderNumber order that we want to search for
+     * @return matching order, or null if not found
+     */
+    private Order findOrderNumber(int orderNumber) {
+        for (Order order : pizzaOrders) {
+            if (order.getOrderNumber() == orderNumber) {
+                return order;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the current order counter value.
+     * @return order counter
+     */
     public int getOrderCounter() {
         return orderCounter;
     }
 
+    /**
+     * Adds order to the list of orders.
+     * @param order order to be added
+     */
     public void addOrder(Order order) {
         if (pizzaOrders == null) {
             pizzaOrders = new ArrayList<>();

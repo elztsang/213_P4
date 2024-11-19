@@ -10,7 +10,8 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 
 /**
- * Lets you view all the orders and cancel an order.
+ * Controller class that handles the ability to create and add Premade Pizzas to the current order.
+ * @author Elizabeth Tsang, Ron Chrysler Amistad
  */
 public class PremadePizzaController {
     private Order pizzaOrder;
@@ -60,13 +61,13 @@ public class PremadePizzaController {
     private TextArea ta_errorLog;
 
 
+    /**
+     * Handles initial loading of the Premade Pizza view.
+     */
     @FXML
     public void initialize() {
-        //style
         initPizzaStyleTG();
-        //size
         initPizzaSizeTG();
-
         setPizzaInitPrice();
         initPizzaDetailsListener();
 
@@ -82,21 +83,92 @@ public class PremadePizzaController {
         nyDeluxe = new Image(getClass().getResourceAsStream("/images/nyDeluxe.jpg"));
     }
 
+    /**
+     * Handles the Chicago pizza type selection event.
+     * Updates the image to corresponding Chicago pizza and returns the matching Chicago pizza type.
+     *
+     * @return pizza
+     */
+    @FXML
+    protected Pizza premadeChicagoTypeSelected() {
+        PizzaFactory chicagoStyle = new ChicagoPizza();
+        if (cb_pizzaType.getValue().equals("BBQ Chicken")) {
+            iv_premadeImage.setImage(chicagoBBQChicken);
+            return chicagoStyle.createBBQChicken();
+        } else if (cb_pizzaType.getValue().equals("Deluxe")) {
+            iv_premadeImage.setImage(chicagoDeluxe);
+            return chicagoStyle.createDeluxe();
+        } else if (cb_pizzaType.getValue().equals("Meatzza")) {
+            iv_premadeImage.setImage(chicagoMeatzza);
+            return chicagoStyle.createMeatzza();
+        }
+        return null;
+    }
+
+    /**
+     * Handles the NY pizza type selection event.
+     * Updates the image to corresponding NY pizza and returns the matching NY pizza type.
+     *
+     * @return pizza
+     */
+    @FXML
+    protected Pizza premadeNYTypeSelected() {
+        PizzaFactory nyStyle = new NYPizza();
+        if (!cb_pizzaType.getSelectionModel().isEmpty()) {
+            if (cb_pizzaType.getValue().equals("BBQ Chicken")) {
+                iv_premadeImage.setImage(nyBBQChicken);
+                return nyStyle.createBBQChicken();
+            } else if (cb_pizzaType.getValue().equals("Deluxe")) {
+                iv_premadeImage.setImage(nyDeluxe);
+                return nyStyle.createDeluxe();
+            } else if (cb_pizzaType.getValue().equals("Meatzza")) {
+                iv_premadeImage.setImage(nyMeatzza);
+                return nyStyle.createMeatzza();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Handles the add pizza button click event.
+     * Adds the pizza to the current order's list of pizzas.
+     * Validates that all fields have been selected/chosen before allowing pizza to be added.
+     *
+     * @throws IOException IOException
+     */
+    @FXML
+    protected void onAddPizzaClick() throws IOException {
+        if (currentPizza != null) {
+            if (pizzaSize.getSelectedToggle() == null) { // maybe replace with currentPizza.getSize()?
+                ta_errorLog.setText("Please select a pizza size.");
+                return;
+            }
+            orderController.addPizza(currentPizza);
+        } else {
+            ta_errorLog.setText("Please select a pizza type.");
+        }
+    }
+
+    /**
+     * Helper method that sets the initial subtotal of the pizza to $0.00.
+     */
     private void setPizzaInitPrice() {
         DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
         tf_pizzaPriceOut.setText(String.format("$%s", moneyFormat.format(0)));
     }
 
-    public void setOrderController(CreateOrderController controller) {
-        orderController = controller;
-    }
-
+    /**
+     * Helper method to initialize the pizza style toggle group.
+     */
     private void initPizzaStyleTG() {
         pizzaStyle = new ToggleGroup();
         rb_chicago.setToggleGroup(pizzaStyle);
         rb_ny.setToggleGroup(pizzaStyle);
     }
 
+    /**
+     * Helper method to initialize the pizza size toggle group.
+     */
     private void initPizzaSizeTG() {
         pizzaSize = new ToggleGroup();
         rb_smallPizza.setToggleGroup(pizzaSize);
@@ -104,8 +176,11 @@ public class PremadePizzaController {
         rb_largePizza.setToggleGroup(pizzaSize);
     }
 
+    /**
+     * Helper method to initialize event listeners on the pizza style, size, and type values.
+     * Updates the pizza and subtotal whenever these values are changed.
+     */
     private void initPizzaDetailsListener() {
-        //listen for updates to pizza style, size, type - updates pizza and toppings list prob
         pizzaStyle.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             updatePizza();
             setPizzaSubtotal();
@@ -122,6 +197,9 @@ public class PremadePizzaController {
         });
     }
 
+    /**
+     * Helper method to update the pizza object with the selected options.
+     */
     private void updatePizza() {
         if (rb_chicago.isSelected() && cb_pizzaType.getValue() != null) {
             currentPizza = premadeChicagoTypeSelected();
@@ -141,6 +219,10 @@ public class PremadePizzaController {
         }
     }
 
+    /**
+     * Helper method to help update the pizza subtotal whenever called.
+     * First validates that a pizza exists and that a size is selected before allowing the price to update.
+     */
     private void setPizzaSubtotal() {
         if (currentPizza != null) {
             if (pizzaSize.getSelectedToggle() != null) {
@@ -151,50 +233,7 @@ public class PremadePizzaController {
         }
     }
 
-    @FXML
-    protected Pizza premadeChicagoTypeSelected() {
-        PizzaFactory chicagoStyle = new ChicagoPizza();
-        if (cb_pizzaType.getValue().equals("BBQ Chicken")) {
-            iv_premadeImage.setImage(chicagoBBQChicken);
-            return chicagoStyle.createBBQChicken();
-        } else if (cb_pizzaType.getValue().equals("Deluxe")) {
-            iv_premadeImage.setImage(chicagoDeluxe);
-            return chicagoStyle.createDeluxe();
-        } else if (cb_pizzaType.getValue().equals("Meatzza")) {
-            iv_premadeImage.setImage(chicagoMeatzza);
-            return chicagoStyle.createMeatzza();
-        }
-        return null;
-    }
-
-    @FXML
-    protected Pizza premadeNYTypeSelected() {
-        PizzaFactory nyStyle = new NYPizza();
-        if (!cb_pizzaType.getSelectionModel().isEmpty()) {
-            if (cb_pizzaType.getValue().equals("BBQ Chicken")) {
-                iv_premadeImage.setImage(nyBBQChicken);
-                return nyStyle.createBBQChicken();
-            } else if (cb_pizzaType.getValue().equals("Deluxe")) {
-                iv_premadeImage.setImage(nyDeluxe);
-                return nyStyle.createDeluxe();
-            } else if (cb_pizzaType.getValue().equals("Meatzza")) {
-                iv_premadeImage.setImage(nyMeatzza);
-                return nyStyle.createMeatzza();
-            }
-        }
-        return null;
-    }
-
-    @FXML
-    protected void onAddPizzaClick() throws IOException {
-        if (currentPizza != null) {
-            if (pizzaSize.getSelectedToggle() == null) { // maybe replace with currentPizza.getSize()?
-                ta_errorLog.setText("Please select a pizza size.");
-                return;
-            }
-            orderController.addPizza(currentPizza);
-        } else {
-            ta_errorLog.setText("Please select a pizza type.");
-        }
+    public void setOrderController(CreateOrderController controller) {
+        orderController = controller;
     }
 }
