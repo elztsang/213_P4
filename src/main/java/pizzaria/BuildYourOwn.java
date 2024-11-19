@@ -13,7 +13,6 @@ public class BuildYourOwn extends Pizza{
     private final static double LARGE = 12.99;
     private final static double TOPPINGPRICE = 1.69;
 
-    private Crust crust;
     private ArrayList<Topping> toppings;
 
     public BuildYourOwn() {
@@ -28,7 +27,6 @@ public class BuildYourOwn extends Pizza{
      * @param crust crust type
      */
     public BuildYourOwn(Crust crust) {
-        this.crust = crust;
         super.setCrust(crust);
         toppings = new ArrayList<>();
     }

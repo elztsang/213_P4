@@ -85,7 +85,7 @@ public class ManageOrdersController {
     @FXML
     protected void exportOrders() {
         try {
-            File output = new File("exported_orders.txt");
+            File output = new File("src/main/exported_orders.txt");
             PrintWriter pw = new PrintWriter(output);  // This will automatically overwrite the file
 
             for (Order order : pizzaOrders) {

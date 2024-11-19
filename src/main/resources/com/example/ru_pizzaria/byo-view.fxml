@@ -31,7 +31,6 @@
                         <RadioButton fx:id="rb_ny" mnemonicParsing="false" text="New York" />
                     </children>
                 </HBox>
-            <ListView fx:id="lv_byoToppings" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
             <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="325.0">
@@ -54,6 +53,12 @@
                   </VBox>
                </children>
             </HBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hold down cmd or ctrl to select multiple toppings" />
+                  <ListView fx:id="lv_byoToppings" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </VBox>
             </children>
         </GridPane>
       <ImageView fx:id="iv_byoImage" fitHeight="201.0" fitWidth="287.0" layoutX="312.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />

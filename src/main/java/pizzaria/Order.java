@@ -3,7 +3,8 @@ package pizzaria;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-/** Order is a class that stores information about the pizzas in an order and order number.
+/**
+ * Order is a class that stores information about the pizzas in an order and order number.
  * It also has methods to calculate the total, sales tax, and order total.
  *
  * @author Elizabeth Tsang, Ron Chrysler Amistad
@@ -17,7 +18,7 @@ public class Order {
      * pizzaria.Order default constructor.
      * Sets order number as -1 to indicate that it is a new order.
      */
-    public Order () {
+    public Order() {
         pizzas = new ArrayList<>();
         number = -1;
     }
