@@ -89,7 +89,6 @@ public class ManageOrdersController {
      * Handles the remove order click event.
      * On click, the order will be removed from the list of orders.
      * Ensures that the order list is populated before allowing for order removal.
-     *
      */
     @FXML
     protected void onRemoveOrderClick() {

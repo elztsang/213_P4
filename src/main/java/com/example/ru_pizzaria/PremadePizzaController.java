@@ -60,7 +60,6 @@ public class PremadePizzaController {
     @FXML
     private TextArea ta_errorLog;
 
-
     /**
      * Handles initial loading of the Premade Pizza view.
      */
@@ -87,7 +86,7 @@ public class PremadePizzaController {
      * Handles the Chicago pizza type selection event.
      * Updates the image to corresponding Chicago pizza and returns the matching Chicago pizza type.
      *
-     * @return pizza
+     * @return pizza if a pizza type is a selected, null otherwise.
      */
     @FXML
     protected Pizza premadeChicagoTypeSelected() {
@@ -109,7 +108,7 @@ public class PremadePizzaController {
      * Handles the NY pizza type selection event.
      * Updates the image to corresponding NY pizza and returns the matching NY pizza type.
      *
-     * @return pizza
+     * @return pizza if a pizza type is selected, null otherwise.
      */
     @FXML
     protected Pizza premadeNYTypeSelected() {
@@ -233,6 +232,11 @@ public class PremadePizzaController {
         }
     }
 
+    /**
+     * Get the reference to the CreateOrderController object.
+     * We can call any public method defined in the controller through the reference.
+     * @param controller the controller to assign a reference for.
+     */
     public void setOrderController(CreateOrderController controller) {
         orderController = controller;
     }

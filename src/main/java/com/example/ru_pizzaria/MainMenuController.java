@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- *
+ * The controller for the view for the main menu.
+ * @author Elizabeth Tsang, Ron Chrysler Amistad
  */
 public class MainMenuController {
 
@@ -22,7 +23,7 @@ public class MainMenuController {
     }
 
     /**
-     *
+     * Method that creates a new scene for managing the current pizza orders placed.
      * @throws IOException
      */
     @FXML
@@ -35,6 +36,10 @@ public class MainMenuController {
         stage.show();
     }
 
+    /**
+     * Method that creates a new scene for creating a pizza order.
+     * @throws IOException
+     */
     @FXML
     protected void onMakeOrderButtonClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("createorder-view.fxml"));

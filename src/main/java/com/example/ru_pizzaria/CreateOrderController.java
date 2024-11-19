@@ -14,6 +14,10 @@ import pizzaria.*;
 
 import java.text.DecimalFormat;
 
+/**
+ * The controller for the view to create a pizza order.
+ * @author Elizabeth Tsang, Ron Chrysler Amistad
+ */
 public class CreateOrderController {
     private final double SALESTAX = 0.06625; //todo: double check if this is the right value
 
@@ -49,45 +53,6 @@ public class CreateOrderController {
         updateOrderTotal();
 
         b_addOrder.setDisable(pizzaObservableList.isEmpty());
-    }
-
-    /**
-     * Get the reference to the ManageOrdersController object.
-     * We can call any public method defined in the controller through the reference.
-     * @param controller the controller to assign a reference for.
-     */
-    public void setManageController(ManageOrdersController controller) {
-        manageController = controller;
-    }
-
-    /**
-     * Helper method to update the total order price.
-     */
-    private void updateTotal() {
-        if (pizzaOrder == null) {
-            pizzaOrder = new Order();
-        }
-
-        DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
-        tf_total.setText(String.format("$%s", moneyFormat.format(pizzaOrder.getTotal()))); //String.format("$ %1$,.2f", total)
-    }
-
-    /**
-     * Helper method to update the sales tax.
-     */
-    private void updateSalesTax() {
-        DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
-
-        tf_salestax.setText(String.format("$%s", moneyFormat.format(pizzaOrder.getSalesTax()))); //String.format("$ %1$,.2f", salesTax)
-    }
-
-    /**
-     * Helper method to update the order total.
-     */
-    private void updateOrderTotal() {
-        double orderTotal = total + (total * .06625);
-        DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
-        tf_ordertotal.setText(String.format("$%s", moneyFormat.format(pizzaOrder.getOrderTotal()))); //String.format("$ %1$,.2f", orderTotal)
     }
 
     /**
@@ -169,6 +134,45 @@ public class CreateOrderController {
         updateSalesTax();
         updateOrderTotal();
         b_addOrder.setDisable(pizzaObservableList.isEmpty());
+    }
+
+    /**
+     * Helper method to update the total order price.
+     */
+    private void updateTotal() {
+        if (pizzaOrder == null) {
+            pizzaOrder = new Order();
+        }
+
+        DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
+        tf_total.setText(String.format("$%s", moneyFormat.format(pizzaOrder.getTotal()))); //String.format("$ %1$,.2f", total)
+    }
+
+    /**
+     * Helper method to update the sales tax.
+     */
+    private void updateSalesTax() {
+        DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
+
+        tf_salestax.setText(String.format("$%s", moneyFormat.format(pizzaOrder.getSalesTax()))); //String.format("$ %1$,.2f", salesTax)
+    }
+
+    /**
+     * Helper method to update the order total.
+     */
+    private void updateOrderTotal() {
+        double orderTotal = total + (total * .06625);
+        DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
+        tf_ordertotal.setText(String.format("$%s", moneyFormat.format(pizzaOrder.getOrderTotal()))); //String.format("$ %1$,.2f", orderTotal)
+    }
+
+    /**
+     * Get the reference to the ManageOrdersController object.
+     * We can call any public method defined in the controller through the reference.
+     * @param controller the controller to assign a reference for.
+     */
+    public void setManageController(ManageOrdersController controller) {
+        manageController = controller;
     }
 
     /**

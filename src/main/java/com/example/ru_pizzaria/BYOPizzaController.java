@@ -72,12 +72,45 @@ public class BYOPizzaController {
     }
 
     /**
-     * Get the reference to the CreateOrderController object.
-     * We can call any public method defined in the controller through the reference.
-     * @param controller the controller to assign a reference for.
+     * Method to process adding a pizza to the order.
+     * Checks if all the parameters required for a pizza are valid before adding.
+     * If there are any missing or invalid parameters, the method will specify the error in the output text in the GUI.
      */
-    public void setOrderController(CreateOrderController controller) {
-        orderController = controller;
+    @FXML
+    protected void onAddPizzaClick(){
+        ArrayList<Topping> selectedToppings;
+        selectedToppings = getSelectedToppings();
+        Pizza pizza = null;
+
+        if (selectedToppings == null) {
+            ta_errorLog.setText("Please select 7 toppings at most.");
+            return;
+        }
+        if (rb_chicago.isSelected()) {
+            //create chicago pizza with specified toppings + size
+            PizzaFactory chicagoStyle = new ChicagoPizza();
+            pizza = chicagoStyle.createBuildYourOwn();
+        }
+
+        if (rb_ny.isSelected()) {
+            //create ny pizza with specified toppings + size
+            PizzaFactory nyStyle = new NYPizza();
+            pizza = nyStyle.createBuildYourOwn();
+        }
+
+        if (pizza != null) {
+            if (pizzaSize.getSelectedToggle() == null) {
+                ta_errorLog.setText("Please select a pizza size.");
+                return;
+            }
+            pizza.setToppings(selectedToppings);
+            String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
+            pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
+
+            orderController.addPizza(pizza);
+        } else {
+            ta_errorLog.setText("Please fill out all pizza details.");
+        }
     }
 
     /**
@@ -196,44 +229,11 @@ public class BYOPizzaController {
     }
 
     /**
-     * Method to process adding a pizza to the order.
-     * Checks if all the parameters required for a pizza are valid before adding.
-     * If there are any missing or invalid parameters, the method will specify the error in the output text in the GUI.
+     * Get the reference to the CreateOrderController object.
+     * We can call any public method defined in the controller through the reference.
+     * @param controller the controller to assign a reference for.
      */
-    @FXML
-    protected void onAddPizzaClick(){
-        ArrayList<Topping> selectedToppings;
-        selectedToppings = getSelectedToppings();
-        Pizza pizza = null;
-
-        if (selectedToppings == null) {
-            ta_errorLog.setText("Please select 7 toppings at most.");
-            return;
-        }
-        if (rb_chicago.isSelected()) {
-            //create chicago pizza with specified toppings + size
-            PizzaFactory chicagoStyle = new ChicagoPizza();
-            pizza = chicagoStyle.createBuildYourOwn();
-        }
-
-        if (rb_ny.isSelected()) {
-            //create ny pizza with specified toppings + size
-            PizzaFactory nyStyle = new NYPizza();
-            pizza = nyStyle.createBuildYourOwn();
-        }
-
-        if (pizza != null) {
-            if (pizzaSize.getSelectedToggle() == null) {
-                ta_errorLog.setText("Please select a pizza size.");
-                return;
-            }
-            pizza.setToppings(selectedToppings);
-            String size = ((RadioButton) pizzaSize.getSelectedToggle()).getText();
-            pizza.setSize(Size.valueOf(size.toUpperCase())); //get selection
-
-            orderController.addPizza(pizza);
-        } else {
-            ta_errorLog.setText("Please fill out all pizza details.");
-        }
+    public void setOrderController(CreateOrderController controller) {
+        orderController = controller;
     }
 }
