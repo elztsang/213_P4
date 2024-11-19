@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import pizzaria.*;
 
 /**
- * Lets you view all the orders and cancel an order.
+ * Controller class that handles ability to view, export, and cancel orders.
+ *
+ * @author Elizabeth Tsang, Ron Chrysler Amistad
  */
 public class ManageOrdersController {
     private static ArrayList<Order> pizzaOrders;
@@ -58,30 +60,6 @@ public class ManageOrdersController {
         initOrderSelectionListener();
     }
 
-    private void initOrderSelectionListener() {
-        cb_orderNumber.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            b_removeOrder.setDisable(cb_orderNumber.getSelectionModel().isEmpty());
-            //update the listview on selection
-            if (lv_selectedOrder == null)
-                lv_selectedOrder = new ListView<>();
-
-            if (cb_orderNumber.getSelectionModel().getSelectedItem() == null) {
-                return;
-            }
-            int selectedOrderNumber = cb_orderNumber.getSelectionModel().getSelectedItem();
-            Order order = findOrderNumber(selectedOrderNumber);
-            if (order == null) {
-                return;
-            }
-            ObservableList<Pizza> orderPizzaList = FXCollections.observableArrayList(order.getPizzas());
-            DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
-            double orderTotal = order.getOrderTotal();
-            tf_orderTotal.setText(String.format("$%s", moneyFormat.format(orderTotal)));
-            lv_selectedOrder.setItems(orderPizzaList);
-            lv_selectedOrder.refresh();
-        });
-    }
-
     @FXML
     protected void exportOrders() {
         try {
@@ -97,16 +75,6 @@ public class ManageOrdersController {
             ta_errorLog.setText("An error occurred when exporting the orders.");
             e.printStackTrace();
         }
-    }
-
-    private Order findOrderNumber(int orderNumber) {
-        for (Order order : pizzaOrders) {
-            if (order.getOrderNumber() == orderNumber) {
-                return order;
-            }
-        }
-
-        return null;
     }
 
     @FXML
@@ -138,10 +106,64 @@ public class ManageOrdersController {
         }
     }
 
+    /**
+     * Helper method to initialize event listener for the order combo box.
+     * Updates the list view and order total when a new order is selected.
+     */
+    private void initOrderSelectionListener() {
+        cb_orderNumber.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            b_removeOrder.setDisable(cb_orderNumber.getSelectionModel().isEmpty());
+            //update the listview on selection
+            if (lv_selectedOrder == null)
+                lv_selectedOrder = new ListView<>();
+
+            if (cb_orderNumber.getSelectionModel().getSelectedItem() == null) {
+                return;
+            }
+
+            int selectedOrderNumber = cb_orderNumber.getSelectionModel().getSelectedItem();
+            Order order = findOrderNumber(selectedOrderNumber);
+
+            if (order == null) {
+                return;
+            }
+
+            ObservableList<Pizza> orderPizzaList = FXCollections.observableArrayList(order.getPizzas());
+            DecimalFormat moneyFormat = new DecimalFormat("###,##0.00");
+            double orderTotal = order.getOrderTotal();
+            tf_orderTotal.setText(String.format("$%s", moneyFormat.format(orderTotal)));
+            lv_selectedOrder.setItems(orderPizzaList);
+            lv_selectedOrder.refresh();
+        });
+    }
+
+    /**
+     * Helper method to search for the order associated with order number in list of orders
+     * @param orderNumber order that we want to search for
+     * @return matching order, or null if not found
+     */
+    private Order findOrderNumber(int orderNumber) {
+        for (Order order : pizzaOrders) {
+            if (order.getOrderNumber() == orderNumber) {
+                return order;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the current order counter value.
+     * @return order counter
+     */
     public int getOrderCounter() {
         return orderCounter;
     }
 
+    /**
+     * Adds order to the list of orders.
+     * @param order order to be added
+     */
     public void addOrder(Order order) {
         if (pizzaOrders == null) {
             pizzaOrders = new ArrayList<>();
